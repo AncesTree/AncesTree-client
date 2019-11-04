@@ -8,7 +8,7 @@ deploy:
 
 before_install:
 - openssl aes-256-cbc -K $encrypted_89b177cae7e4_key -iv $encrypted_89b177cae7e4_iv
-  -in deploy.key.enc -out deploy.key -d
+  -in .travis/deploy.key.enc -out .travis/deploy.key -d
 - chmod +x ./deploy.sh
 - eval "$(ssh-agent -s)"
 - chmod 600 .travis/deploy.key
