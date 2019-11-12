@@ -4,25 +4,15 @@
   left: 1px;
 }
 
-.App {
-  text-align: center;
+.iconNav {
+  color: #757575;
 }
 
-.App-logo {
-  height: 40vmin;
+.nav-link.active .iconNav{
+  color: #00adef;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+a .active>svg {
+  color: red;
 }
 
-.App-link {
-  color: #09d3ac;
-}
