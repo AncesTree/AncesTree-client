@@ -2,6 +2,10 @@
   font-family: Roboto;
 }
 
+.spacer {
+  height: 60px;
+}
+
 .add-button {
   position: absolute;
   top: 1px;

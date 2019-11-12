@@ -10,6 +10,7 @@ function App() {
       <div className="App">
         <button className="add-button">Add to home screen</button>
         <BrowserRouter>
+
             <div>
                 <Switch>
                     <Route exact path="/"/>
@@ -18,6 +19,9 @@ function App() {
         </BrowserRouter>
 
         <NavbarHeader/>
+          <div className="spacer"></div>
+
+          <div className="spacer"></div>
         <NavbarMobile/>
     </div>
   );
