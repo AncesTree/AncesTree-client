@@ -7,17 +7,17 @@ const navStyle = {
 };
 
 const NavbarMobile = () => (
-    <Navbar bg="dark" variant="pills" fixed="bottom" defaultActiveKey="#home">
+    <Navbar bg="dark" variant="pills" fixed="bottom">
 
-        <Nav style={navStyle} className="d-flex justify-content-around">
+        <Nav fill style={navStyle} className="d-flex justify-content-around">
             <Nav.Item>
-                <Nav.Link href="#home"><FaHome/></Nav.Link>
+                <Nav.Link href="#home"><FaHome size="1.5em" color="00adef"/></Nav.Link>
             </Nav.Item>
             <Nav.Item>
-                <Nav.Link href="#graph"><FaProjectDiagram/></Nav.Link>
+                <Nav.Link href="#graph"><FaProjectDiagram size="1.5em" color="00adef"/></Nav.Link>
             </Nav.Item>
             <Nav.Item>
-                <Nav.Link href="#message"><FaEnvelope/></Nav.Link>
+                <Nav.Link href="#message"><FaEnvelope size="1.5em" color="00adef"/></Nav.Link>
             </Nav.Item>
         </Nav>
     </Navbar>
