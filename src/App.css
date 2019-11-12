@@ -1,7 +1,15 @@
+* {
+  font-family: Roboto;
+}
+
 .add-button {
   position: absolute;
   top: 1px;
   left: 1px;
+}
+
+.navbar-brand {
+  color: white;
 }
 
 .iconNav {
@@ -16,3 +24,12 @@ a .active>svg {
   color: red;
 }
 
+#theMenu {
+  position: fixed;
+  left: 0;
+  top: 0;
+  transform: translate3d(-100vw, 0, 0);
+
+  width: 100vw;
+  height: 100vh;
+}
