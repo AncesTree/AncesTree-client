@@ -1,4 +1,4 @@
-import FOCUS_USER from '../actions/Tree'
+import { FETCH_LINEAGE_SUCESS, FETCH_LINEAGE_ERROR } from '../actions/Tree'
 
 const initialState = {
   userFocus: {},
@@ -7,12 +7,19 @@ const initialState = {
 };
 
 const tree = (state = initialState, action) => {
-    switch (action.type) {
-        case FOCUS_USER:
-            return Object.assign({}, state, {
+  switch (action.type) {
+    case FETCH_LINEAGE_SUCESS:
+      return Object.assign({}, state, {
+        seniors: action.senior,
+        juniors: action.junior
+      });
+    case FETCH_LINEAGE_ERROR:
+      return Object.assign({}, state, {
+      });
+    default:
+      return state;
 
-            });
-    }
+  }
 };
 
 export default tree;
