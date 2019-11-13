@@ -14,12 +14,7 @@ function App() {
   return (
       <div className="App">
           <NavbarHeader/>
-          <Switch>
-            <Route exact path="/home" component={TreeContainer} />
-            <Route exact path="/tree" component={TreeContainer} />
-            <Route exact path="/message" component={TreeContainer} />
-            <Route exact path="/" component={TreeContainer} />
-          </Switch>
+          <TreeContainer/>
 
           <NavbarMobile/>
     </div>

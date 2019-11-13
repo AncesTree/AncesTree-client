@@ -6,6 +6,7 @@ import withAuth from "./auth/withAuth";
 import history from "./common/history";
 import App from "../App";
 import Login from "./Login";
+import TreeContainer from "../Containers/TreeContainer";
 
 
 const Root = ({ store }) => (
@@ -13,6 +14,9 @@ const Root = ({ store }) => (
         <button className="add-button">Add to home screen</button>
         <Router history={history}>
             <Switch>
+                <Route exact path="/home" component={App} />
+                <Route exact path="/tree" component={App} />
+                <Route exact path="/message" component={App} />
                 <Route exact path="/login" component={Login} />
                 <Route path="/" component={App} />
             </Switch>
