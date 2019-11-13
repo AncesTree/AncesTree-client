@@ -1,18 +1,29 @@
 import React from 'react';
 import NavbarMobile from "./components/common/NavbarMobile";
 import NavbarHeader from "./components/common/NavbarHeader";
+
+import {
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import TreeContainer from './components/tree/Tree'
+import TreeContainer from "./Containers/TreeContainer";
 
 function App() {
   return (
       <div className="App">
-        <button className="add-button">Add to home screen</button>
           <NavbarHeader/>
           <TreeContainer/>
-          <NavbarMobile/>
 
+          <Switch>
+            <Route exact path="/home" component={TreeContainer} />
+            <Route exact path="/tree" component={TreeContainer} />
+            <Route exact path="/message" component={TreeContainer} />
+          </Switch>
+
+          <NavbarMobile/>
     </div>
   );
 }

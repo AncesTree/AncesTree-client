@@ -10,8 +10,8 @@ const tree = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_LINEAGE_SUCESS:
       return Object.assign({}, state, {
-        seniors: action.senior,
-        juniors: action.junior
+        seniors: action.results.senior,
+        juniors: action.results.junior
       });
     case FETCH_LINEAGE_ERROR:
       return Object.assign({}, state, {

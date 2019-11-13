@@ -3,10 +3,16 @@ import ReactDOM from 'react-dom'
 import './index.css'
 import Root from "./components/Root";
 import * as serviceWorker from './serviceWorker'
-import { createStore } from 'redux'
+import {applyMiddleware, compose, createStore} from 'redux'
 import rootReducer from './reducers'
+import thunk from 'redux-thunk';
 
-const store = createStore(rootReducer)
+const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const store = createStore(
+    rootReducer,
+    composeEnhancer(applyMiddleware(thunk)),
+);
 
 ReactDOM.render(<Root store={store}/>, document.getElementById('root'));
 

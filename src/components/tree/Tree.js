@@ -9,20 +9,39 @@ class Tree extends Component {
     };
 
     fetchData = () => {
-        console.log("fetchData")
-        const { fetchApiLineage } = this.props;
-        fetchApiLineage("9291b16a-fa11-4b0b-9c05-fbb3d0546b8c");
-    }
+        const { fetchLineage } = this.props;
+        fetchLineage("9291b16a-fa11-4b0b-9c05-fbb3d0546b8c");
+    };
 
     render() {
-    const {junior, senior, focusUser} = this.props
+    const {juniors, seniors, focusUser} = this.props;
+    let juniorsClean, seniorsClean;
+    if (juniors === undefined){
+        juniorsClean = []
+    } else {
+        juniorsClean = juniors
+    }
+
+    if (seniors === undefined){
+        seniorsClean = []
+    } else {
+        seniorsClean = seniors
+    }
+    console.log(juniorsClean)
+
     return (
     <React.Fragment>
         <button onClick={() => this.fetchData()}>Fetch</button>
-            <p>{junior}</p>
-            <p>{senior}</p>
+        <h1>juniors</h1>
+        <ul>
+
+        </ul>
+        <h1>Seniors</h1>
+        <ul>
+
+        </ul>
         </React.Fragment>
     )}
-    };
+    }
 
 export default Tree;
