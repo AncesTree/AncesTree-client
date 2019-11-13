@@ -2,6 +2,10 @@
   height: 60px;
 }
 
+.spacer {
+  height: 60px;
+}
+
 .add-button {
   position: absolute;
   top: 1px;
