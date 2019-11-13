@@ -27,8 +27,6 @@ class Tree extends Component {
     } else {
         seniorsClean = seniors
     }
-    console.log(juniorsClean)
-
     return (
     <React.Fragment>
         <button onClick={() => this.fetchData()}>Fetch</button>
