@@ -1,0 +1,1 @@
+export const CHECK_TOKEN_URL = 'https://ancestree-auth.igpolytech.fr/auth/CheckToken';
