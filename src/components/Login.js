@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 export default class Login extends Component {
     constructor(props) {
         super(props)
@@ -12,11 +13,12 @@ export default class Login extends Component {
         this.setState({
             [name]: value
         });
-    }
+    };
     onSubmit = (event) => {
         event.preventDefault();
-        alert('Authentication coming soon!');
-    }
+        const { login } = this.props;
+        login(this.state.email, this.state.password);
+    };
     render() {
         return (
             <form onSubmit={this.onSubmit}>
