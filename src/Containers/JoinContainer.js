@@ -9,4 +9,4 @@ const mapDispatchToProps = dispatch => ({
   const mapStateToProps = state => ({
   });
   
-  export default connect(null, mapDispatchToProps)(Join);
+  export default connect(mapStateToProps, mapDispatchToProps)(Join);
