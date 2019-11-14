@@ -49,7 +49,7 @@ export const login = (email, password) => {
             .then(res => res.json())
             .then(res => {
                 dispatch(fetchAuthenticateSuccess(res));
-                localStorage.setItem("Authorization", "Bearer " + res.token);
+                localStorage.setItem("Authorization", res.token);
                 history.push("/")
                 return res
             }).catch((error) => {
