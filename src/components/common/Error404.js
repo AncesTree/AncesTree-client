@@ -1,8 +1,14 @@
-import React from "react";
+import React, {Component} from "react";
 
 
-const Error404 = () => (
-    <h1>404</h1>
-);
+class Error404 extends Component {
+
+
+    render() {
+
+        return (
+            <img src="/assets/images/404castelltort.png" className="rotate"/>
+        )}
+}
 
 export default Error404;
