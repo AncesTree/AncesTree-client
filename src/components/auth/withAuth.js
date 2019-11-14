@@ -12,7 +12,7 @@ export default function withAuth(ComponentToProtect) {
             };
         }
         componentDidMount() {
-            fetch(CHECK_TOKEN_URL)
+            fetch(CHECK_TOKEN_URL.url)
                 .then(res => {
                     if (res.status === 200) {
                         this.setState({ loading: false });
