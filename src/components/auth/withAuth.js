@@ -12,7 +12,8 @@ export default function withAuth(ComponentToProtect) {
             };
         }
         componentDidMount() {
-            fetch(CHECK_TOKEN_URL.url)
+            fetch(CHECK_TOKEN_URL.url,
+                {headers: {'Authorization': localStorage.getItem("Authorization")},})
                 .then(res => {
                     if (res.status === 200) {
                         this.setState({ loading: false });
