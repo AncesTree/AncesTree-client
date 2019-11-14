@@ -11,6 +11,7 @@ import TreeContainer from "../Containers/TreeContainer";
 
 import LoginContainer from "../Containers/LoginContainer";
 import withAuth from "./auth/withAuth";
+import Join from './join/Join';
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
