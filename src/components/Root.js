@@ -11,6 +11,8 @@ import TreeContainer from "../Containers/TreeContainer";
 
 import LoginContainer from "../Containers/LoginContainer";
 import withAuth from "./auth/withAuth";
+import JoinContainer from "../Containers/JoinContainer";
+
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -24,6 +26,7 @@ const Root = () => (
         <button className="add-button">Add to home screen</button>
         <Router history={history}>
             <Switch>
+                <Route exact path="/join/:id" component={App(JoinContainer)}/>
                 <Route exact path="/login" component={LoginContainer} />
                 <Route exact path="/home" component={App(withAuth(Error404))} />
                 <Route exact path="/tree" component={App(withAuth(TreeContainer))} />
