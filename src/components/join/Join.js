@@ -9,7 +9,7 @@ class Join extends Component {
             email : '',
             password: '',
             confirmation: '',
-            id: this.props.location.pathname.split("/")[2]
+            id: history.location.pathname.split("/")[2]
         };
     }
 
@@ -23,8 +23,8 @@ class Join extends Component {
     onSubmit = (event) => {
         event.preventDefault();
         const { accountCreation } = this.props;
-        accountCreation(this.state.id,this.state.email,this.state.password)
         if(this.state.confirmation === this.state.password){
+            accountCreation(this.state.id,this.state.email,this.state.password)
         }
     }
 

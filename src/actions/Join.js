@@ -1,3 +1,5 @@
+import history from '../components/common/history'
+
 export const ACCOUNT_CREATION_SUCESS = 'ACCOUNT_CREATION_SUCESS';
 export const ACCOUNT_CREATION_ERROR = 'ACCOUNT_CREATION_ERROR';
 
@@ -27,6 +29,8 @@ export const accountCreation = (id, email, password) => {
         .then(res => res.json())
         .then(res => {
             dispatch(accountCreationSuccess(res));
+            localStorage.setItem("Token", res.token);
+            history.push("/")
             return res
         })
         .catch((error) => {
