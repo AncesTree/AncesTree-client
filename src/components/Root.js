@@ -8,8 +8,9 @@ import rootReducer from "../reducers";
 import thunk from "redux-thunk";
 import Error404 from "./common/Error404";
 import TreeContainer from "../Containers/TreeContainer";
-import withAuth from "./auth/withAuth";
+
 import LoginContainer from "../Containers/LoginContainer";
+import withAuth from "./auth/withAuth";
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -24,10 +25,10 @@ const Root = () => (
         <Router history={history}>
             <Switch>
                 <Route exact path="/login" component={LoginContainer} />
-                <Route exact path="/home" component={withAuth(App(Error404))} />
-                <Route exact path="/tree" component={withAuth(App(TreeContainer))} />
-                <Route exact path="/message" component={withAuth(App(Error404))} />
-                <Route exact path="/" component={withAuth(App(Error404))} />
+                <Route exact path="/home" component={App(withAuth(Error404))} />
+                <Route exact path="/tree" component={App(withAuth(TreeContainer))} />
+                <Route exact path="/message" component={App(withAuth(Error404))} />
+                <Route exact path="/" component={App(withAuth(Error404))} />
                 <Error404 />
             </Switch>
         </Router>
