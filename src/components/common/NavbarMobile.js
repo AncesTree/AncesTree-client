@@ -17,7 +17,7 @@ class NavbarMobile extends Component {
     };
 
     classNavLink = (nav) => {
-        if (this.state.activeNav == nav) {
+        if (this.state.activeNav === nav) {
             return "active"
         } else {
             return ""

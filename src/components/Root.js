@@ -6,17 +6,22 @@ import withAuth from "./auth/withAuth";
 import history from "./common/history";
 import App from "../App";
 import Login from "./Login";
-import TreeContainer from "../Containers/TreeContainer";
+import {applyMiddleware, compose, createStore} from "redux";
+import rootReducer from "../reducers";
+import thunk from "redux-thunk";
 
+const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const Root = ({ store }) => (
+const store = createStore(
+    rootReducer,
+    composeEnhancer(applyMiddleware(thunk)),
+);
+
+const Root = () => (
     <Provider store={store}>
         <button className="add-button">Add to home screen</button>
         <Router history={history}>
             <Switch>
-                <Route exact path="/home" component={App} />
-                <Route exact path="/tree" component={App} />
-                <Route exact path="/message" component={App} />
                 <Route exact path="/login" component={Login} />
                 <Route path="/" component={App} />
             </Switch>

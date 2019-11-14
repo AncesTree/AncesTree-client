@@ -1,11 +1,6 @@
 import React from 'react';
 import NavbarMobile from "./components/common/NavbarMobile";
 import NavbarHeader from "./components/common/NavbarHeader";
-
-import {
-  Switch,
-  Route
-} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import TreeContainer from "./Containers/TreeContainer";
