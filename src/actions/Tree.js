@@ -1,3 +1,4 @@
+import {GET_LINEAGE_BY_ID_URL} from "../conf/config";
 
 export const FETCH_LINEAGE_SUCESS = 'FETCH_LINEAGE_SUCESS';
 export const FETCH_LINEAGE_ERROR = 'FETCH_LINEAGE_ERROR';
@@ -14,11 +15,10 @@ export const fetchLineageFailure = error => ({
 
 export const fetchLineage = (id) => {
     return dispatch => {
-        let baseUrl = "https://ancestree-api-neo4j.igpolytech.fr/api/query/lineage/"
-        let completeUrl = baseUrl + id
+        let completeUrl = GET_LINEAGE_BY_ID_URL.url + id
 
         return fetch(completeUrl, {
-            method: "GET"
+            method: GET_LINEAGE_BY_ID_URL.method
         })
             .then(res => res.json())
             .then(res => {
