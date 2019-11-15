@@ -21,9 +21,9 @@ class Tree extends Component {
         
         const graph = {
             nodes : [
-                { id: 1, shape: "circularImage", image: "thibaut.png", label: "thibaut" },
-                { id: 2, shape: "circularImage", image: "julien.jpg", label: "julien"},
-                { id: 3, shape: "circularImage", image: "hugo.jpg", label: "Hugo" }
+                { id: 1, shape: "circularImage", image: "/assets/images/thibaut.png", label: "thibaut" },
+                { id: 2, shape: "circularImage", image: "/assets/images/julien.jpg", label: "julien"},
+                { id: 3, shape: "circularImage", image: "/assets/images/hugo.jpg", label: "Hugo" }
               ],
             
               edges : [{from: 1, to: 2 ,value: 2, color: { color: "lightgray" }},
@@ -75,8 +75,8 @@ class Tree extends Component {
         }
         return (
         <React.Fragment>
-            <button onClick={() => this.fetchData()}>Fetch</button>
-            {/* <h1>juniors</h1>
+            {/*<button onClick={() => this.fetchData()}>Fetch</button>
+             <h1>juniors</h1>
             <ul>
 
             </ul>
@@ -86,7 +86,7 @@ class Tree extends Component {
             </ul> */}
 
             <div className =" container text-center">
-                <h1>IGenealogy</h1>
+                <h1>IGEALOGY</h1>
                 <div className = "row">
                     <div className = "col-8 col-sm-8 col-md-8">
                         <div className="input-group ">
@@ -104,10 +104,33 @@ class Tree extends Component {
                         </div>
                     </div>
                     <div className = "col-4 col-sm-4 col-md-4">
-                        <button type="button" className="btn "><a src =".src/public/ancestree192.png"/></button>
+                        <button type="button" className="btn bg-dark rounded find-btn"><img src="/assets/images/recruitment.svg" className = "img-fluid" alt="" /></button>
                     </div>
                 </div>
-                <Graph graph={graph} options={options} events={events} style={{ height: "300px" }} />
+                
+                <Graph graph={graph} options={options} events={events} style={{ height: "300px", display: "flex" }} />
+                <div className = "row mt-2">
+                    <div className = "col-4 col-sm-4 col-md-4">
+                    <button type="button" className="btn bg-success rounded add-btn">
+                        
+                        <div className= "col"><img src="/assets/images/students.svg" className = "img-fluid" alt="" /> </div>
+
+                       
+                       
+                        
+                    </button>
+                    </div>
+                    
+                    <div className = "offset-4 col-4 col-sm-4 col-md-4">
+                        <button type="button" className="btn bg-success rounded add-btn">
+                        
+                            <img src="/assets/images/students.svg" className = "img-fluid" alt="" />
+                        </button>
+                    </div>
+
+                </div>
+
+               
             </div>
             </React.Fragment>
         )}

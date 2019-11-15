@@ -6,6 +6,14 @@
   display: block;
   max-width: 600px;
 }
+.find-btn {
+ width: 80px;
+ height: 80px;
+}
+.add-btn {
+  width:100px;
+  height: 50px
+ }
 
 @keyframes rotation {
   from {
@@ -23,7 +31,9 @@
 .spacer {
   height: 60px;
 }
-
+.plus {
+  font-size: 40px;
+}
 .add-button {
   position: absolute;
   top: 1px;
