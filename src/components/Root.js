@@ -10,6 +10,7 @@ import thunk from "redux-thunk";
 import Error404 from "./common/Error404";
 import TreeContainer from "../Containers/TreeContainer";
 import withAuth from "./auth/withAuth";
+import { Agora } from "./agora/Agora"
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -24,7 +25,7 @@ const Root = () => (
         <Router history={history}>
             <Switch>
                 <Route exact path="/login" component={Login} />
-                <Route exact path="/home" component={App(Error404)} />
+                <Route exact path="/home" component={App(Agora)} />
                 <Route exact path="/tree" component={App(TreeContainer)} />
                 <Route exact path="/message" component={withAuth(App(Error404))} />
                 <Route exact path="/" component={App(Error404)} />

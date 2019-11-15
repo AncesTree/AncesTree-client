@@ -3,8 +3,18 @@ import SearchConversation from "./SearchConversation";
 import ListConversation from "./ListConversation";
 import ListMessage from "./ListMessage";
 import "./css/Agora.css";
+import socketIOClient from "socket.io-client";
+var socket;
 
 class Agora extends Component {
+    constructor() {
+        super();
+        this.state = {
+            endpoint: "http://localhost:4001"
+        }
+        socket = socketIOClient(this.state.endpoint);
+    }
+
     render() {
         return (
             <div>
@@ -12,12 +22,11 @@ class Agora extends Component {
                 <div className="scrollable sidebar">
                     <ListConversation />
                 </div>
-                <div className="scrollable content">
-                    <ListMessage />
-                </div>
             </div>
         )
     }
 }
 
-export default Agora;
+export { Agora, socket };
+
+// https://chaewonkong.github.io/posts/socket-io.html
