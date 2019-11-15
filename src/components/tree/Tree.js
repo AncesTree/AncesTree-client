@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import Graph from "react-graph-vis";
 
 class Tree extends Component {
 
@@ -14,6 +15,50 @@ class Tree extends Component {
     };
 
     render() {
+        var DIR = "src/components/tree/img/users/";
+        
+        const graph = {
+            nodes : [
+                { id: 1, shape: "circularImage", image: DIR + "thibaut.png", label: "thibaut" },
+                { id: 2, shape: "circularImage", image: DIR + "julien.jpg", label: "julien"},
+                { id: 3, shape: "circularImage", image: DIR + "hugo.jpg", label: "Hugo" }
+              ],
+            
+              // create connections between people
+              // value corresponds with the amount of contact between two people
+              edges : [{from: 1, to: 2 ,value: 2, color: { color: "blue" }},
+              {from: 2, to: 3 ,value: 2, color: { color: "blue" }},
+              {from: 3, to: 1 ,value: 2, color: { color: "blue" }}]
+            
+              
+                
+              
+          };
+          
+          const options = {
+            nodes: {
+              borderWidth: 4,
+              size: 30,
+              color: {
+                border: "#222222",
+                background: "#666666"
+              },
+              font: { color: "black" }
+            },
+            edges: {
+              color: "lightgray"
+            }
+          };
+          
+          const events = {
+            select: function(event) {
+              var { nodes, edges } = event;
+              console.log("Selected nodes:");
+              console.log(nodes);
+              console.log("Selected edges:");
+              console.log(edges);
+            }
+          };
     const {juniors, seniors, focusUser} = this.props;
     let juniorsClean, seniorsClean;
     if (juniors === undefined){
@@ -38,6 +83,12 @@ class Tree extends Component {
         <ul>
 
         </ul>
+        <div className =" container text-center">
+            <h1>IGenealogy</h1>
+                        
+
+            <Graph graph={graph} options={options} events={events} style={{ height: "640px" }} />
+        </div>
         </React.Fragment>
     )}
     }
