@@ -15,24 +15,20 @@ class Tree extends Component {
     };
 
     render() {
-        var DIR = "src/components/tree/img/users/";
+
+       // HARD DATA TREE VIZ
+        
         
         const graph = {
             nodes : [
-                { id: 1, shape: "circularImage", image: DIR + "thibaut.png", label: "thibaut" },
-                { id: 2, shape: "circularImage", image: DIR + "julien.jpg", label: "julien"},
-                { id: 3, shape: "circularImage", image: DIR + "hugo.jpg", label: "Hugo" }
+                { id: 1, shape: "circularImage", image: "thibaut.png", label: "thibaut" },
+                { id: 2, shape: "circularImage", image: "julien.jpg", label: "julien"},
+                { id: 3, shape: "circularImage", image: "hugo.jpg", label: "Hugo" }
               ],
             
-              // create connections between people
-              // value corresponds with the amount of contact between two people
-              edges : [{from: 1, to: 2 ,value: 2, color: { color: "blue" }},
-              {from: 2, to: 3 ,value: 2, color: { color: "blue" }},
-              {from: 3, to: 1 ,value: 2, color: { color: "blue" }}]
-            
-              
-                
-              
+              edges : [{from: 1, to: 2 ,value: 2, color: { color: "lightgray" }},
+              {from: 2, to: 3 ,value: 2, color: { color: "lightgray" }},
+              {from: 3, to: 1 ,value: 2, color: { color: "lightgray" }}]                 
           };
           
           const options = {
@@ -46,12 +42,13 @@ class Tree extends Component {
               font: { color: "black" }
             },
             edges: {
-              color: "lightgray"
+              color: "blue"
             }
           };
           
           const events = {
             select: function(event) {
+                // TODO change this funtion to call API on the node clicked
               var { nodes, edges } = event;
               console.log("Selected nodes:");
               console.log(nodes);
@@ -59,38 +56,61 @@ class Tree extends Component {
               console.log(edges);
             }
           };
-    const {juniors, seniors, focusUser} = this.props;
-    let juniorsClean, seniorsClean;
-    if (juniors === undefined){
-        juniorsClean = []
-    } else {
-        juniorsClean = juniors
-    }
 
-    if (seniors === undefined){
-        seniorsClean = []
-    } else {
-        seniorsClean = seniors
-    }
-    return (
-    <React.Fragment>
-        <button onClick={() => this.fetchData()}>Fetch</button>
-        <h1>juniors</h1>
-        <ul>
+          // HARD DATA END
 
-        </ul>
-        <h1>Seniors</h1>
-        <ul>
 
-        </ul>
-        <div className =" container text-center">
-            <h1>IGenealogy</h1>
-                        
+        const {juniors, seniors, focusUser} = this.props;
+        let juniorsClean, seniorsClean;
+        if (juniors === undefined){
+            juniorsClean = []
+        } else {
+            juniorsClean = juniors
+        }
 
-            <Graph graph={graph} options={options} events={events} style={{ height: "640px" }} />
-        </div>
-        </React.Fragment>
-    )}
-    }
+        if (seniors === undefined){
+            seniorsClean = []
+        } else {
+            seniorsClean = seniors
+        }
+        return (
+        <React.Fragment>
+            <button onClick={() => this.fetchData()}>Fetch</button>
+            {/* <h1>juniors</h1>
+            <ul>
+
+            </ul>
+            <h1>Seniors</h1>
+            <ul>
+
+            </ul> */}
+
+            <div className =" container text-center">
+                <h1>IGenealogy</h1>
+                <div className = "row">
+                    <div className = "col-8 col-sm-8 col-md-8">
+                        <div className="input-group ">
+                            <div className="input-group-prepend">
+                                <span className="input-group-text" id="basic-addon1">Username </span>
+                            </div>
+                            <input type="text" className="form-control" placeholder="Arnaud Castelltort" aria-label="Username" aria-describedby="basic-addon1"></input>
+
+                        </div>
+                        <div className="input-group mb-3">
+                            <div className="input-group-prepend">
+                                    <span className="input-group-text" id="basic-addon1">Promotion</span>
+                                </div>
+                                <input type="text" className="form-control" placeholder="2020" aria-label="Username" aria-describedby="basic-addon1"></input>
+                        </div>
+                    </div>
+                    <div className = "col-4 col-sm-4 col-md-4">
+                        <button type="button" className="btn "><a src =".src/public/ancestree192.png"/></button>
+                    </div>
+                </div>
+                <Graph graph={graph} options={options} events={events} style={{ height: "300px" }} />
+            </div>
+            </React.Fragment>
+        )}
+        }
 
 export default Tree;
