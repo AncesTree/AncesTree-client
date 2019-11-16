@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import SearchConversation from "./SearchConversation";
 import ListConversation from "./ListConversation";
 import "./css/Agora.css";
-import CreateRoom from "./CreateRoom";
+import CreateConversation from "./CreateConversation";
 import axios from "axios";
 import { GET_CHAT_API } from "../../conf/config";
 
@@ -18,13 +18,13 @@ const Agora = () => {
             }
         })
         return () => isFetching = false
-    }, []);
+    });
 
     const renderAgora = () => {
         return (
             <div className='container'>
                 <SearchConversation />
-                <CreateRoom endpoint={GET_CHAT_API.url} userId={user_id} userRooms={rooms} />
+                <CreateConversation endpoint={GET_CHAT_API.url} userId={user_id} userRooms={rooms} />
                 <div className="scrollable sidebar">
                     <ListConversation rooms={rooms} />
                 </div>

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import useForm from "react-hook-form";
 import axios from "axios";
 
-const CreateRoom = ({ endpoint, userId, userRooms }) => {
+const CreateConversation = ({ endpoint, userId, userRooms }) => {
     const [showForm, setShowForm] = useState(false);
 
     const handleClick = () => {
@@ -35,4 +35,4 @@ const CreateRoom = ({ endpoint, userId, userRooms }) => {
         </>
     );
 }
-export default CreateRoom;
+export default CreateConversation;
