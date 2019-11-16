@@ -32,7 +32,7 @@ class NavbarMobile extends Component {
                             <Nav.Link className={this.classNavLink("/tree")} onClick={() => history.push('/tree')}><FaProjectDiagram className="iconNav" size="1.4em"/></Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link className={this.classNavLink("/message")} onClick={() => history.push('/message')}><FaEnvelope className="iconNav" size="1.4em"/></Nav.Link>
+                            <Nav.Link className={this.classNavLink("/agora")} onClick={() => history.push('/agora')}><FaEnvelope className="iconNav" size="1.4em"/></Nav.Link>
                         </Nav.Item>
                     </Nav>
                 </Navbar>

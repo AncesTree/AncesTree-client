@@ -17,3 +17,8 @@ export const GET_LINEAGE_BY_ID_URL = {
     method: 'GET',
     header: {'Authorization': localStorage.getItem("Authorization")}
 };
+
+// Chat
+export const GET_CHAT_API = {
+    url: 'http://localhost:4001'
+}
