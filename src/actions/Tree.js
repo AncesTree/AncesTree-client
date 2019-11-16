@@ -18,6 +18,7 @@ export const fetchLineage = (id) => {
         let completeUrl = GET_LINEAGE_BY_ID_URL.url + id
 
         return fetch(completeUrl, {
+            headers: GET_LINEAGE_BY_ID_URL.header,
             method: GET_LINEAGE_BY_ID_URL.method
         })
             .then(res => res.json())

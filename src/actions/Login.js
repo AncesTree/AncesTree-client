@@ -39,7 +39,7 @@ export const login = (email, password) => {
     return dispatch => {
         // dispatch login
         fetch(LOGIN_URL.url, {
-            headers: {'Content-Type': 'application/json'},
+            headers: LOGIN_URL.header,
             method: LOGIN_URL.method,
             body: JSON.stringify({
                 email: email,
@@ -50,7 +50,7 @@ export const login = (email, password) => {
             .then(res => {
                 dispatch(fetchAuthenticateSuccess(res));
                 localStorage.setItem("Authorization", res.token);
-                history.push("/")
+                history.push("/");
                 return res
             }).catch((error) => {
             dispatch(fetchAuthenticateFailure(error))
