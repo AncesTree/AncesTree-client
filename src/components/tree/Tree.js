@@ -85,7 +85,7 @@ class Tree extends Component {
 
             </ul> */}
 
-            <div className =" container text-center">
+            <div className =" container text-center tree-container">
                 <h1>IGEALOGY</h1>
                 <div className = "row">
                     <div className = "col-8 col-sm-8 col-md-8">
@@ -108,23 +108,30 @@ class Tree extends Component {
                     </div>
                 </div>
                 
-                <Graph graph={graph} options={options} events={events} style={{ height: "300px", display: "flex" }} />
+                <Graph graph={graph} options={options} events={events}  style={{ height: "100%", display: "flex" }} />
                 <div className = "row mt-2">
-                    <div className = "col-4 col-sm-4 col-md-4">
+                    <div className = " col-6 col-sm-6 col-md-6">
                     <button type="button" className="btn bg-success rounded add-btn">
-                        
-                        <div className= "col"><img src="/assets/images/students.svg" className = "img-fluid" alt="" /> </div>
+                        <div className = "row">
+                        <div className = "col-6 col-sm-6 col-md-6"><img src="/assets/images/add.svg" className = "img-fluid" alt="" /></div>
+                        <div className = "col"><img src="/assets/images/student.svg" className = "img-fluid" alt="" /></div>
 
-                       
-                       
+                        </div>
                         
-                    </button>
+                            
+                        </button>
                     </div>
                     
-                    <div className = "offset-4 col-4 col-sm-4 col-md-4">
+                    <div className = " col-6 col-sm-6 col-md-6">
+                       
                         <button type="button" className="btn bg-success rounded add-btn">
+                        <div className = "row">
+                        <div className = "col-6 col-sm-6 col-md-6"><img src="/assets/images/add.svg" className = "img-fluid" alt="" /></div>
+                        <div className = "col"><img src="/assets/images/relationship.svg" className = "img-fluid" alt="" /></div>
+
+                        </div>
                         
-                            <img src="/assets/images/students.svg" className = "img-fluid" alt="" />
+                            
                         </button>
                     </div>
 
