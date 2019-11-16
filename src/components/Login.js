@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Form, Button } from 'react-bootstrap'
+
 export default class Login extends Component {
     constructor(props) {
         super(props)
@@ -12,33 +14,31 @@ export default class Login extends Component {
         this.setState({
             [name]: value
         });
-    }
+    };
     onSubmit = (event) => {
         event.preventDefault();
-        alert('Authentication coming soon!');
-    }
+        const { login } = this.props;
+        login(this.state.email, this.state.password);
+    };
     render() {
         return (
-            <form onSubmit={this.onSubmit}>
-                <h1>Login Below!</h1>
-                <input
-                    type="email"
-                    name="email"
-                    placeholder="Enter email"
-                    value={this.state.email}
-                    onChange={this.handleInputChange}
-                    required
-                />
-                <input
-                    type="password"
-                    name="password"
-                    placeholder="Enter password"
-                    value={this.state.password}
-                    onChange={this.handleInputChange}
-                    required
-                />
-                <input type="submit" value="Submit"/>
-            </form>
+            <div className="loginBackground">
+                <Form className="loginForm" onSubmit={this.onSubmit}>
+                    <Form.Group controlId="formBasicEmail">
+                        <Form.Label>Email address</Form.Label>
+                        <Form.Control type="email"  name="email" placeholder="Enter email" value={this.state.email} onChange={this.handleInputChange} required />
+                    </Form.Group>
+
+                    <Form.Group controlId="formBasicPassword">
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.handleInputChange} required />
+                    </Form.Group>
+
+                    <Button className="loginButton" variant="primary" type="submit">
+                        Submit
+                    </Button>
+                </Form>
+            </div>
         );
     }
 }
