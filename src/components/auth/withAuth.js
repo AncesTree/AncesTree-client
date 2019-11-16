@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { CHECK_TOKEN_URL } from "../../conf/config";
 import {setUserId} from "../../actions/User";
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 
 export default function withAuth(ComponentToProtect) {
     class WithAuth extends Component {
