@@ -20,8 +20,9 @@
   height: 60px;
 }
 
-.spacer {
-  height: 60px;
+body {
+  padding-top: 60px;
+  padding-bottom: 60px;
 }
 
 .add-button {
@@ -81,4 +82,8 @@ a .active>svg {
   margin-left: auto;
   margin-right: auto;
   display: block;
+}
+
+.navbar-light .navbar-brand:hover, .navbar-light .navbar-brand{
+  color: #f5f5f5;
 }

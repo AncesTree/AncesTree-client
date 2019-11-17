@@ -21,7 +21,6 @@ class NavbarMobile extends Component {
     render() {
         const navStyle = this.navStyle;
         return (
-            <div className="spacer">
                 <Navbar bg="dark" variant="pills" fixed="bottom">
 
                     <Nav fill style={navStyle} className="d-flex justify-content-around">
@@ -36,7 +35,6 @@ class NavbarMobile extends Component {
                         </Nav.Item>
                     </Nav>
                 </Navbar>
-            </div>
         )}
 }
 
