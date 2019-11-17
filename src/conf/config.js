@@ -2,7 +2,9 @@
 export const CHECK_TOKEN_URL = {
     url:'https://ancestree-auth.igpolytech.fr/auth/checktoken',
     method: 'GET',
-    header: {'Authorization': localStorage.getItem("Authorization")}
+    header: () => {
+        return {'Authorization': localStorage.getItem("Authorization")}
+    }
 };
 
 export const LOGIN_URL = {
@@ -15,5 +17,7 @@ export const LOGIN_URL = {
 export const GET_LINEAGE_BY_ID_URL = {
     url: 'https://ancestree-api-neo4j.igpolytech.fr/api/query/lineage/',
     method: 'GET',
-    header: {'Authorization': localStorage.getItem("Authorization")}
+    header: () => {
+        return {'Authorization': localStorage.getItem("Authorization")}
+    }
 };
