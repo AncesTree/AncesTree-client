@@ -67,7 +67,7 @@ const Conversation = () => {
       <form onSubmit={e => handleSend(e)} >
       <InputGroup className="mb-3" >
         <FormControl
-          alue={input}
+          value={input}
           onChange={e => setInput(e.target.value.trim())}
           type="text"
           placeholder="Write your message .."
