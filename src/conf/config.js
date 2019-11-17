@@ -1,11 +1,15 @@
 // auth
+export const AUTH_API = {
+    url: 'https://ancestree-auth.igpolytech.fr',
+}
+
 export const CHECK_TOKEN_URL = {
-    url:'https://ancestree-auth.igpolytech.fr/auth/checktoken',
+    url: AUTH_API.url + '/auth/checktoken',
     method: 'GET'
 };
 
 export const LOGIN_URL = {
-    url: 'https://ancestree-auth.igpolytech.fr/auth/login',
+    url: AUTH_API.url + 'auth/login',
     method: 'POST'
 };
 
@@ -14,3 +18,7 @@ export const GET_LINEAGE_BY_ID_URL = {
     url: 'https://ancestree-api-neo4j.igpolytech.fr/api/query/lineage/',
     method: 'GET'
 };
+
+export const LINKEDIN_REGISTRATION_URL = {
+    url: AUTH_API.url + '/oauth/register/'
+}
