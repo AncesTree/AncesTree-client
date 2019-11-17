@@ -3,36 +3,50 @@ import history from "../../components/common/history";
 import { GET_CHAT_API } from "../../conf/config";
 import axios from "axios";
 import io from "socket.io-client";
-import Message from "./Message";
-import './css/InputMessage.css';
-import { Button, InputGroup, FormGroup, FormControl } from "react-bootstrap";
+import { makeStyles } from '@material-ui/core/styles';
+import { TextField } from '@material-ui/core';
+import SendIcon from '@material-ui/icons/Send';
+import Button from "@material-ui/core/Button";
+import SettingsIcon from '@material-ui/icons/Settings';
+import Fab from '@material-ui/core/Fab';
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
 
-const socket = io.connect("http://localhost:4001");
+const socket = io.connect(GET_CHAT_API.url);
+
+const useStyles = makeStyles(theme => ({
+  textField: {
+    left: theme.spacing(2),
+    width: "60%",
+  },
+  button: {
+    color: "#08103b",
+  },
+  fab: {
+  },
+}));
 
 const Conversation = () => {
   const [messages, setMessages] = useState([]);
-  const [users, setUsers] = useState([]);
   const [userId, setUserId] = useState("5dd015790a792e19ae646734")
   const [roomId, setRoomId] = useState(history.location.pathname.split("/")[3])
   const [input, setInput] = useState('');
-  const [showUsers, setShowUsers] = useState(false);
+  const classes = useStyles();
 
   useEffect(() => {
     let isFetching = true
     axios.get(GET_CHAT_API.url + "/rooms/messages/" + roomId).then(response => {
       if (isFetching) {
         setMessages(response.data.messages);
-        setUsers(response.data.users);
       }
     })
 
-    socket.on("message", message => setMessages(drafts => { drafts.push(message) }))
+    socket.on(roomId, message => setMessages(drafts => { drafts.push(message) }))
 
     return () => {
       isFetching = false;
-      socket.disconnect()
     }
-
   });
 
   const handleSend = e => {
@@ -44,38 +58,52 @@ const Conversation = () => {
     }
   }
 
-  const handleClick = () => {
-    setShowUsers(!showUsers);
+  const handleSettings = () => {
+    history.push("/agora/conversation/settings/" + roomId);
   }
 
   return (
     <div>
-      <Button variant="dark" onClick={handleClick}>Info</Button>
-      {
-        showUsers ?
-          users.map(user => (
-            <p> {user.name} </p>
+      <Fab aria-label="add" className={classes.fab} onClick={handleSettings}>
+        <SettingsIcon />
+      </Fab>
+      <div>
+        {
+          messages.map(message => (
+            <ListItem alignItems="flex-start" >
+              <ListItemText
+                primary={
+                  message.sender._id == userId ?
+                    "You"
+                    :
+                    message.sender.name
+                }
+                secondary={
+                  <React.Fragment>
+                    {message.message}
+                  </React.Fragment>
+                }
+              />
+            </ListItem>
           ))
-          :
-          ''
-      }
-      {
-        messages.map(message => (
-          <Message data={message.message} isMine={true} startsSequence={true} endsSequence={false} showTimestamp={false} />
-        ))
-      }
-      <form onSubmit={e => handleSend(e)} >
-      <InputGroup className="mb-3" >
-        <FormControl
+        }
+      </div>
+      <form onSubmit={e => handleSend(e)}>
+        <TextField
           value={input}
           onChange={e => setInput(e.target.value.trim())}
-          type="text"
-          placeholder="Write your message .."
+          id="outlined-basic"
+          className={classes.textField}
+          label="Message"
+          margin="normal"
+          variant="outlined"
         />
-        <InputGroup.Append>
-          <Button variant="dark" type="submit">Send</Button>
-        </InputGroup.Append>
-      </InputGroup>
+        <Button
+          variant="contained"
+          className={classes.button}
+          endIcon={<SendIcon> Send </SendIcon>}
+          type="submit"
+        > Send </Button>
       </form>
     </div>
   );

@@ -13,6 +13,7 @@ import withAuth from "./auth/withAuth";
 import JoinContainer from "../Containers/JoinContainer";
 import Agora from './agora/Agora';
 import Conversation from './agora/Conversation'
+import ConversationSettings from './agora/ConversationSettings';
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -32,7 +33,7 @@ const Root = () => (
                 <Route exact path="/tree" component={App(withAuth(TreeContainer))} />
                 <Route exact path="/agora" component={App(withAuth(Agora))} />
                 <Route exact path="/agora/conversation/:id" component={App(withAuth(Conversation))} />
-                <Route exact path="/" component={App(withAuth(Error404))} />
+                <Route exact path="/agora/conversation/settings/:id" component={App(withAuth(ConversationSettings))} />
                 <Error404 />
             </Switch>
         </Router>

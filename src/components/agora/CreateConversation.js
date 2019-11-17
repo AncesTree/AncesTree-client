@@ -8,7 +8,6 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
 
-
 const useStyles = makeStyles(theme => ({
     container: {
         display: 'flex',
@@ -43,8 +42,8 @@ const CreateConversation = ({ endpoint, userId, userRooms }) => {
     const { register, handleSubmit, errors } = useForm();
 
     const onSubmit = data => {
-        if (input != '') {
-            const room = { name: data.name, users: [userId], messages: [] }
+        if (input !== '') {
+            const room = { name: input, users: [userId], messages: [] }
             axios.post(endpoint + "/rooms", room).then(
                 response => {
                     axios.patch(endpoint + "/users/" + userId, { rooms: userRooms.concat(response.data._id) })
