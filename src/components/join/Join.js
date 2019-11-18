@@ -69,7 +69,7 @@ class Join extends Component {
                     />
                     <input type="submit" value="Submit"/>
                 </form>
-                <button onClick={this.linkedInAccountCreation}/>
+                <button onClick={this.linkedInAccountCreation}>Join with LinkedIn</button>
             </div>
         );
     }
