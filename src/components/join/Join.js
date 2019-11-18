@@ -39,7 +39,7 @@ class Join extends Component {
         localStorage.setItem("InvitationID",this.state.id);
         console.log(this.state.id)
         const { linkedInAccountCreation } = this.props;
-        linkedInAccountCreation(this.state.id)
+        linkedInAccountCreation(id)
     }
 
     render() {
