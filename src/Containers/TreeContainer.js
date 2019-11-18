@@ -8,7 +8,8 @@ const mapDispatchToProps = dispatch => ({
   
   const mapStateToProps = state => ({
     juniors: state.tree.juniors,
-    seniors: state.tree.seniors
+    seniors: state.tree.seniors,
+    userFocus : state.tree.userFocus
     
   });
   

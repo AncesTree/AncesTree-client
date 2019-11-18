@@ -14,9 +14,10 @@ class Tree extends Component {
         fetchLineage(id);
 
     }
-    fetchData = () => {
+    fetchData = (id) => {
+         id = "d04d969d-c52a-4307-b547-49352275ba56"
         const { fetchLineage } = this.props;
-        fetchLineage("9291b16a-fa11-4b0b-9c05-fbb3d0546b8c");
+        fetchLineage(id);
     };
     componentDidMount(){
         this.fetchData();
@@ -52,35 +53,49 @@ class Tree extends Component {
            
             
         }
-        // HARDCODE userFocus
-        let distOne =  userArray.filter(x => x.distance === 1)
-        if(isJunior){
-            for( let i=0; i<distOne.length;i++){
-                edges.push({from: distOne[i].node.id  , to: "userfocusid" ,value: 2, color: { color: "lightgray" }})
-            }
+        // // HARDCODE userFocus
+        // let distOne =  userArray.filter(x => x.distance === 1)
+        // if(isJunior){
+        //     for( let i=0; i<distOne.length;i++){
+        //         edges.push({from: distOne[i].node.id  , to: "userfocusid" ,value: 2, color: { color: "lightgray" }})
+        //     }
            
-        }
-        else {
-            for( let i=0; i<distOne.length;i++){
-            edges.push({from: "userfocusid", to: distOne[i].node.id  ,value: 2, color: { color: "lightgray" }})
-            }
-        }
+        // }
+        // else {
+        //     for( let i=0; i<distOne.length;i++){
+        //     edges.push({from: "userfocusid", to: distOne[i].node.id  ,value: 2, color: { color: "lightgray" }})
+        //     }
+        // }
         
 
         return edges
 
     }
+     isEmpty(obj) {
+        for(var key in obj) {
+            if(obj.hasOwnProperty(key))
+                return false;
+        }
+        return true;
+    }
     render() {
         
-        
+        const userNode = {distance : 0, 
+            node :
+             {
+                id : this.props.userFocus.id,
+                shape: "circularImage",
+                image: "/assets/images/404castelltort.png",
+                label: this.props.userFocus.firstname }}
+
         const juniorsNodes = this.getNodes(this.props.juniors).sort((a,b) => a.distance - b.distance)
         const seniorsNodes = this.getNodes(this.props.seniors).sort((a,b) => a.distance - b.distance)
-        const nodesFetched = seniorsNodes.concat(juniorsNodes)
+        const nodesFetched = seniorsNodes.concat(juniorsNodes).concat()
 
-        console.log(seniorsNodes[0])
-
-        const juniorsEdges = this.getEdges(this.props.juniors,true)
-        const seniorsEdges = this.getEdges(this.props.seniors,false)
+        
+        console.log(this.props.juniors.concat([userNode]))
+        const juniorsEdges = this.getEdges(this.props.juniors.concat([userNode]),true)
+        const seniorsEdges = this.getEdges(this.props.seniors.concat([userNode]),false)
         const edgesFetched = juniorsEdges.concat(seniorsEdges)
         // TODO recup  user focus
 
@@ -89,8 +104,16 @@ class Tree extends Component {
             
               edges : edgesFetched               
           };
-        //HARDCODE User Focus
-        graph.nodes.push({ id: "userfocusid", shape: "circularImage", image: "/assets/images/thibaut.png", label: "USER FOCUS" })
+          
+      
+          console.log(typeof this.props.userFocus != "undefined" && !this.isEmpty(this.props.userFocus) )
+          
+          console.log(this.props.userFocus.id)
+        //if(typeof this.props.userFocus != "undefined" && !this.isEmpty(this.props.userFocus)) {
+            graph.nodes.push({id : this.props.userFocus.id,shape: "circularImage", image: "/assets/images/404castelltort.png", label: this.props.userFocus.firstname })
+         //}
+            //HARDCODE User Focus
+        //graph.nodes.push({ id: "userfocusid", shape: "circularImage", image: "/assets/images/thibaut.png", label: "USER FOCUS" })
        
 
         

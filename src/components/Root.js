@@ -8,11 +8,11 @@ import rootReducer from "../reducers";
 import thunk from "redux-thunk";
 import Error404 from "./common/Error404";
 import TreeContainer from "../Containers/TreeContainer";
-
+import Token from "../components/Token";
 import LoginContainer from "../Containers/LoginContainer";
 import withAuth from "./auth/withAuth";
 import JoinContainer from "../Containers/JoinContainer";
-
+import RegistrationCallback from "../components/RegistrationCallback";
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -28,6 +28,9 @@ const Root = () => (
             <Switch>
                 <Route exact path="/join/:id" component={App(JoinContainer)}/>
                 <Route exact path="/login" component={LoginContainer} />
+                <Route exact path="/token/:token" component={Token}/>
+                <Route path="/registration_callback" component={RegistrationCallback}/>
+                <Route exact path="/join/:id" component={App(JoinContainer)}/>
                 <Route exact path="/home" component={App(withAuth(Error404))} />
                 <Route exact path="/tree" component={App(withAuth(TreeContainer))} />
                 <Route exact path="/message" component={App(withAuth(Error404))} />

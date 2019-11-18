@@ -1,9 +1,10 @@
 import {connect} from 'react-redux'
-import {accountCreation} from '../actions/Join'
+import {basicAccountCreation, linkedInAccountCreation} from '../actions/Join'
 import Join from "../components/join/Join";
 
 const mapDispatchToProps = dispatch => ({
-    accountCreation: (id,email,password) => dispatch(accountCreation(id,email,password)),
+    basicAccountCreation: (id,email,password) => dispatch(basicAccountCreation(id,email,password)),
+    linkedInAccountCreation: (id) => dispatch(linkedInAccountCreation(id))
   });
   
   const mapStateToProps = state => ({
