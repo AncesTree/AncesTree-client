@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Form, Button } from 'react-bootstrap'
+import { Form, Button } from 'react-bootstrap';
+import {LINKEDIN_LOGIN_URL} from '../conf/config'
 
 export default class Login extends Component {
     constructor(props) {
@@ -20,6 +21,11 @@ export default class Login extends Component {
         const { login } = this.props;
         login(this.state.email, this.state.password);
     };
+
+    loginWithLinkedin = () => {
+        window.location.href = LINKEDIN_LOGIN_URL.url
+    }
+
     render() {
         return (
             <div className="loginBackground">
@@ -38,6 +44,7 @@ export default class Login extends Component {
                         Submit
                     </Button>
                 </Form>
+                <button onClick={this.loginWithLinkedin}>Login with LinkedIn</button>
             </div>
         );
     }
