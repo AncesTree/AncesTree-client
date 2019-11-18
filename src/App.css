@@ -40,8 +40,7 @@ body {
 }
 .add-button {
   position: absolute;
-  top: 1px;
-  left: 1px;
+  
 }
 
 .navbar-brand {
@@ -99,4 +98,8 @@ a .active>svg {
 
 .navbar-light .navbar-brand:hover, .navbar-light .navbar-brand{
   color: #f5f5f5;
+}
+
+html {
+  overflow-x: hidden ;
 }

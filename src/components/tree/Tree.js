@@ -86,7 +86,7 @@ class Tree extends Component {
             </ul> */}
 
             <div className =" container text-center tree-container">
-                <h1>IGEALOGY</h1>
+                
                 
                 <div className = "row">
                     <div className = "col-8 col-sm-8 col-md-8">
@@ -109,7 +109,7 @@ class Tree extends Component {
                     </div>
                 </div>
                 
-                <Graph graph={graph} options={options} events={events}  style={{ height: "100%", display: "flex" }} />
+                <Graph graph={graph} options={options} events={events}  style={{ height: "80%", display: "flex" }} />
                 <div className = "row mt-2">
                     <div className = " col-6 col-sm-6 col-md-6">
                     <button type="button" className="btn bg-success rounded add-btn">
