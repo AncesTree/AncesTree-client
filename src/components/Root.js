@@ -26,6 +26,7 @@ const Root = () => (
         <button className="add-button">Add to home screen</button>
         <Router history={history}>
             <Switch>
+                <Route exact path="/join/:id" component={App(JoinContainer)}/>
                 <Route exact path="/login" component={LoginContainer} />
                 <Route exact path="/token/:token" component={Token}/>
                 <Route path="/registration_callback" component={RegistrationCallback}/>
