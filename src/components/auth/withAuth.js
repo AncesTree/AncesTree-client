@@ -20,7 +20,9 @@ export default function withAuth(ComponentToProtect) {
                 .then(res => {
                     if (res.status === 200) {
                         this.setState({loading: false});
-                        res.json().then(res =>  this.props.dispatch(setUserId(res.id)))
+                        res.json().then(res =>  {
+                            this.props.dispatch(setUserId(res.id))
+                        })
                     } else {
                         this.setState({loading: false, redirect: true});
                     }
