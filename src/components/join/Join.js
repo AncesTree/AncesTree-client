@@ -23,7 +23,9 @@ class Join extends Component {
 
     onSubmit = (event) => {
         event.preventDefault();
-        this.state.id = history.location.pathname.split("/")[2]
+        this.setState({
+            id: history.location.pathname.split("/")[2]
+        })
         const { basicAccountCreation } = this.props;
         if(this.state.confirmation === this.state.password){
             basicAccountCreation(this.state.id,this.state.email,this.state.password)
@@ -31,11 +33,13 @@ class Join extends Component {
     }
 
     linkedInAccountCreation = (event) => {
-        this.state.id = history.location.pathname.split("/")[2]
+        this.setState({
+            id: history.location.pathname.split("/")[2]
+        })
         localStorage.setItem("InvitationID",this.state.id);
         console.log(this.state.id)
         const { linkedInAccountCreation } = this.props;
-        linkedInAccountCreation(this.state.id)
+        linkedInAccountCreation(id)
     }
 
     render() {
