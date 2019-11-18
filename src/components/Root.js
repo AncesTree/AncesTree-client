@@ -14,10 +14,8 @@ import JoinContainer from "../Containers/JoinContainer";
 import Agora from './agora/Agora';
 import Conversation from './agora/Conversation'
 import ConversationSettings from './agora/ConversationSettings';
-import { GET_CHAT_API } from "../conf/config";
-import io from "socket.io-client";
-
-const socket = io.connect(GET_CHAT_API.url);
+import Token from "../components/Token";
+import RegistrationCallback from "../components/RegistrationCallback";
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -33,6 +31,9 @@ const Root = () => (
             <Switch>
                 <Route exact path="/join/:id" component={App(JoinContainer)}/>
                 <Route exact path="/login" component={LoginContainer} />
+                <Route exact path="/token/:token" component={Token}/>
+                <Route path="/registration_callback" component={RegistrationCallback}/>
+                <Route exact path="/join/:id" component={App(JoinContainer)}/>
                 <Route exact path="/home" component={App(withAuth(Error404))} />
                 <Route exact path="/tree" component={App(withAuth(TreeContainer))} />
                 <Route exact path="/agora" component={App(withAuth(Agora))} />

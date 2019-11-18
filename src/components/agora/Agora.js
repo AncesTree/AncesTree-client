@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import ListConversation from "./ListConversation";
 import CreateConversation from "./CreateConversation";
 import axios from "axios";
+import io from "socket.io-client";
 import { GET_CHAT_API } from "../../conf/config";
 import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
@@ -9,6 +10,9 @@ import SearchRoundedIcon from '@material-ui/icons/SearchRounded';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import useForm from "react-hook-form";
+import { useSelector, useDispatch } from "react-redux";
+
+const socket = io.connect(GET_CHAT_API.url);
 
 const useStyles = makeStyles(theme => ({
     button: {
@@ -30,6 +34,8 @@ const useStyles = makeStyles(theme => ({
 
 const Agora = () => {
     const classes = useStyles();
+    const user = useSelector(state => state.user);
+    const dispatch = useDispatch();
     const [user_id, setUser_id] = useState("5dd015790a792e19ae646734");
     const [rooms, setRooms] = useState([]);
     const [isSearching, setIsSearching] = useState(false);
@@ -37,6 +43,8 @@ const Agora = () => {
     const { register, handleSubmit, errors } = useForm();
 
     useEffect(() => {
+        socket.emit("User connected", {userId: user.id});
+
         let isFetching = true
         axios.get(GET_CHAT_API.url + "/users/rooms/" + user_id).then(response => {
             if (isFetching) {
