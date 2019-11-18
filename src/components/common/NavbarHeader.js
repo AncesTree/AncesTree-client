@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {Navbar} from 'react-bootstrap'
 import CheeseburgerMenu from "cheeseburger-menu";
 import {Link} from "react-router-dom";
+import history from "./history";
 
 class NavbarHeader extends Component {
     constructor(props) {
@@ -18,6 +19,11 @@ class NavbarHeader extends Component {
 
     closeMenu() {
         this.setState({menuOpen: false })
+    }
+
+    disconnect() {
+        localStorage.removeItem("Authorization");
+        history.push("/login")
     }
 
     render() {
@@ -40,7 +46,7 @@ class NavbarHeader extends Component {
                 <div className="my-menu-content">
                     <ul>
                         <li><Link to="/home" onClick={this.closeMenu.bind(this)}>Menu item 1</Link></li>
-                        <li><Link to="/home" onClick={this.closeMenu.bind(this)}>Menu item 2</Link></li>
+                        <li><Link to="/home" onClick={this.disconnect.bind(this)}>Déconnexion</Link></li>
                     </ul>
                 </div>
             </CheeseburgerMenu>
