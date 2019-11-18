@@ -14,6 +14,10 @@ import JoinContainer from "../Containers/JoinContainer";
 import Agora from './agora/Agora';
 import Conversation from './agora/Conversation'
 import ConversationSettings from './agora/ConversationSettings';
+import { GET_CHAT_API } from "../conf/config";
+import io from "socket.io-client";
+
+const socket = io.connect(GET_CHAT_API.url);
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 

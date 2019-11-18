@@ -9,7 +9,6 @@ import SendIcon from '@material-ui/icons/Send';
 import Button from "@material-ui/core/Button";
 import SettingsIcon from '@material-ui/icons/Settings';
 import Fab from '@material-ui/core/Fab';
-import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 
@@ -24,13 +23,15 @@ const useStyles = makeStyles(theme => ({
     color: "#08103b",
   },
   fab: {
+    left: theme.spacing(1),
   },
 }));
 
 const Conversation = () => {
   const [messages, setMessages] = useState([]);
   const [userId, setUserId] = useState("5dd015790a792e19ae646734")
-  const [roomId, setRoomId] = useState(history.location.pathname.split("/")[3])
+  const [roomId, setRoomId] = useState(history.location.pathname.split("/")[3]);
+  const [users, setUsers] = useState([]);
   const [input, setInput] = useState('');
   const classes = useStyles();
 
@@ -39,6 +40,7 @@ const Conversation = () => {
     axios.get(GET_CHAT_API.url + "/rooms/messages/" + roomId).then(response => {
       if (isFetching) {
         setMessages(response.data.messages);
+        setUsers(response.data.users);
       }
     })
 
@@ -97,6 +99,7 @@ const Conversation = () => {
           label="Message"
           margin="normal"
           variant="outlined"
+          type="text"
         />
         <Button
           variant="contained"
