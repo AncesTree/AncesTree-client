@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import history from "../../components/common/history";
-import { GET_CHAT_API } from "../../conf/config";
-import axios from "axios";
-import io from "socket.io-client";
 import ChatIcon from '@material-ui/icons/Chat';
 import Fab from '@material-ui/core/Fab';
 import { makeStyles } from '@material-ui/core/styles';
-
-const socket = io.connect(GET_CHAT_API.url);
+import { useSelector, useDispatch } from "react-redux";
 
 const useStyles = makeStyles(theme => ({
     fab: {
@@ -15,7 +11,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const ConversationSettings = () => {
-    const [userId, setUserId] = useState("5dd015790a792e19ae646734")
+    const user = useSelector(state => state.user);
     const [roomId, setRoomId] = useState(history.location.pathname.split("/")[4])
     const classes = useStyles();
 

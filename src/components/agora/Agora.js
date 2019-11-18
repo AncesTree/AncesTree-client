@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import ListConversation from "./ListConversation";
 import CreateConversation from "./CreateConversation";
 import axios from "axios";
-import io from "socket.io-client";
 import { GET_CHAT_API } from "../../conf/config";
 import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
@@ -11,8 +10,8 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import useForm from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
-
-const socket = io.connect(GET_CHAT_API.url);
+import socket from "./socketConnection";
+import SearchElement from "./SearchElement";
 
 const useStyles = makeStyles(theme => ({
     button: {
@@ -65,6 +64,8 @@ const Agora = () => {
     const renderAgora = () => {
         return (
             <div className='container'>
+                <p> {user.id} </p>
+                <SearchElement element="room"/>
                 <CreateConversation endpoint={GET_CHAT_API.url} userId={user_id} userRooms={rooms} className="fidex-bottom" />
                 <Fab color="primary" aria-label="add" className={classes.fab} onClick={handleSearch}>
                     <SearchRoundedIcon />

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import useForm from "react-hook-form";
 import axios from "axios";
 import { makeStyles } from '@material-ui/core/styles';
@@ -7,6 +7,10 @@ import AddIcon from '@material-ui/icons/Add';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItem from '@material-ui/core/ListItem';
+import List from "@material-ui/core/List";
+import { GET_CHAT_API } from "../../conf/config";
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -33,11 +37,14 @@ const useStyles = makeStyles(theme => ({
 const CreateConversation = ({ endpoint, userId, userRooms }) => {
     const [showForm, setShowForm] = useState(false);
     const [input, setInput] = useState("")
+    const [userIn, setUserIn] = useState([]);
     const classes = useStyles();
 
     const handleClick = () => {
         setShowForm(!showForm)
     }
+
+    useEffect(() => {})
 
     const { register, handleSubmit, errors } = useForm();
 
@@ -56,12 +63,27 @@ const CreateConversation = ({ endpoint, userId, userRooms }) => {
         }
     };
 
+    const removeFromRoom = () => {
+
+    }
+
     return (
         <>
             <Fab color="primary" aria-label="add" className={classes.fab} onClick={handleClick}>
                 <AddIcon />
             </Fab>
             {showForm ?
+                <div>
+                    <List>
+                    {
+                        userIn.map( user => (
+                            <ListItem onClick={removeFromRoom}>
+                                <ListItemText primary={user.firstName} secondary={user.lastName} />
+                            </ListItem>
+                        ))
+                    }
+                    </List>
+
                 <form className={classes.container} noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
                     <TextField
                         value={input}
@@ -80,6 +102,7 @@ const CreateConversation = ({ endpoint, userId, userRooms }) => {
                         type="submit"
                     > Save </Button>
                 </form>
+                </div>
                 : ""
             }
         </>

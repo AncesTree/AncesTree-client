@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import history from "../../components/common/history";
 import { GET_CHAT_API } from "../../conf/config";
 import axios from "axios";
-import io from "socket.io-client";
 import { makeStyles } from '@material-ui/core/styles';
 import { TextField } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
@@ -11,8 +10,8 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import Fab from '@material-ui/core/Fab';
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-
-const socket = io.connect(GET_CHAT_API.url);
+import { useSelector, useDispatch } from "react-redux";
+import socket from "./socketConnection";
 
 const useStyles = makeStyles(theme => ({
   textField: {
@@ -28,10 +27,9 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Conversation = () => {
+  const user = useSelector(state => state.user);
   const [messages, setMessages] = useState([]);
-  const [userId, setUserId] = useState("5dd015790a792e19ae646734")
   const [roomId, setRoomId] = useState(history.location.pathname.split("/")[3]);
-  const [users, setUsers] = useState([]);
   const [input, setInput] = useState('');
   const classes = useStyles();
 
@@ -40,7 +38,6 @@ const Conversation = () => {
     axios.get(GET_CHAT_API.url + "/rooms/messages/" + roomId).then(response => {
       if (isFetching) {
         setMessages(response.data.messages);
-        setUsers(response.data.users);
       }
     })
 
@@ -54,7 +51,7 @@ const Conversation = () => {
   const handleSend = e => {
     e.preventDefault();
     if (input !== '') {
-      const msg = { message: input, sender: userId, room: roomId }
+      const msg = { message: input, sender: user.id, room: roomId }
       socket.emit('chat message', msg);
       setInput('');
     }
@@ -75,7 +72,7 @@ const Conversation = () => {
             <ListItem alignItems="flex-start" >
               <ListItemText
                 primary={
-                  message.sender._id == userId ?
+                  message.sender._id == user.id ?
                     "You"
                     :
                     message.sender.name
