@@ -33,11 +33,9 @@ class Join extends Component {
     }
 
     linkedInAccountCreation = (event) => {
-        this.setState({
-            id: history.location.pathname.split("/")[2]
-        })
-        localStorage.setItem("InvitationID",this.state.id);
-        console.log(this.state.id)
+        let id = history.location.pathname.split("/")[2]
+        localStorage.setItem("InvitationID",id);
+        console.log(id)
         const { linkedInAccountCreation } = this.props;
         linkedInAccountCreation(id)
     }
