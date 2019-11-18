@@ -2,9 +2,8 @@ import React from 'react'
 import {Navbar} from 'react-bootstrap'
 
 const NavbarHeader = () => (
-    <div className="spacer">
-        <Navbar bg="dark" variant="pills" fixed="top">
-            <Navbar.Brand href="#home">
+        <Navbar bg="dark" fixed="top">
+            <Navbar.Brand>
                 <img
                     src="/assets/images/ancestree-logo.png"
                     width="30"
@@ -15,7 +14,6 @@ const NavbarHeader = () => (
                 {" Ancestree"}
             </Navbar.Brand>
         </Navbar>
-    </div>
 );
 
 export default NavbarHeader;

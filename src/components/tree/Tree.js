@@ -139,6 +139,7 @@ class Tree extends Component {
 
                
             </div>
+            
             </React.Fragment>
         )}
         }
