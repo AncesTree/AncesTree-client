@@ -14,7 +14,7 @@ export const accountCreationFailure = error => ({
 });
 
 export const linkedInAccountCreation = (id) => {
-    return dispatch => {window.location.href = LINKEDIN_REGISTRATION_URL.url+id}
+    window.location.href = LINKEDIN_REGISTRATION_URL.url+id
 }
 
 export const basicAccountCreation = (id, email, password) => {
