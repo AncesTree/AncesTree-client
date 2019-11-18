@@ -7,8 +7,13 @@ class Tree extends Component {
         super(props);
         this.state = {
         }
+        
     };
+    updateData(id) {
+        const { fetchLineage } = this.props;
+        fetchLineage(id);
 
+    }
     fetchData = () => {
         const { fetchLineage } = this.props;
         fetchLineage("9291b16a-fa11-4b0b-9c05-fbb3d0546b8c");
@@ -21,33 +26,61 @@ class Tree extends Component {
         const nodes = userArray.map(x => ({ id: x.node.id, shape: "circularImage", image: "/assets/images/404castelltort.png", label: x.node.firstname }))
         return nodes
     }
-    getEdges(userArray){
+    getEdges(userArray,isJunior){
         let edges = [];
         for(let i=0;i<userArray.length;i++){
           
             let iDistance = userArray[i].distance
             let iPlusOne = userArray.filter(x => x.distance === iDistance +1)
            
-            
-            for(let j =0; j < iPlusOne.length; j++) {
+            if(isJunior){
+                for(let j =0; j < iPlusOne.length; j++) {
                 
-                edges.push({from: userArray[i].node.id, to: iPlusOne[j].node.id ,value: 2, color: { color: "lightgray" }})
+                    edges.push({from: iPlusOne[j].node.id, to:   userArray[i].node.id,value: 2, color: { color: "lightgray" }})
+                }
+                
+            }else {
+               
+                for(let j =0; j < iPlusOne.length; j++) {
+                
+                    edges.push({from: userArray[i].node.id, to: iPlusOne[j].node.id ,value: 2, color: { color: "lightgray" }})
+                }
+                
             }
+
+            
            
             
         }
+        // HARDCODE userFocus
+        let distOne =  userArray.filter(x => x.distance === 1)
+        if(isJunior){
+            for( let i=0; i<distOne.length;i++){
+                edges.push({from: distOne[i].node.id  , to: "userfocusid" ,value: 2, color: { color: "lightgray" }})
+            }
+           
+        }
+        else {
+            for( let i=0; i<distOne.length;i++){
+            edges.push({from: "userfocusid", to: distOne[i].node.id  ,value: 2, color: { color: "lightgray" }})
+            }
+        }
+        
+
         return edges
 
     }
     render() {
         
         
-        const juniorsNodes = this.getNodes(this.props.juniors)
-        const seniorsNodes = this.getNodes(this.props.seniors)
+        const juniorsNodes = this.getNodes(this.props.juniors).sort((a,b) => a.distance - b.distance)
+        const seniorsNodes = this.getNodes(this.props.seniors).sort((a,b) => a.distance - b.distance)
         const nodesFetched = seniorsNodes.concat(juniorsNodes)
 
-        const juniorsEdges = this.getEdges(this.props.juniors)
-        const seniorsEdges = this.getEdges(this.props.seniors)
+        console.log(seniorsNodes[0])
+
+        const juniorsEdges = this.getEdges(this.props.juniors,true)
+        const seniorsEdges = this.getEdges(this.props.seniors,false)
         const edgesFetched = juniorsEdges.concat(seniorsEdges)
         // TODO recup  user focus
 
@@ -56,7 +89,12 @@ class Tree extends Component {
             
               edges : edgesFetched               
           };
-          
+        //HARDCODE User Focus
+        graph.nodes.push({ id: "userfocusid", shape: "circularImage", image: "/assets/images/thibaut.png", label: "USER FOCUS" })
+       
+
+        
+        
         const options = {
             nodes: {
               borderWidth: 4,
@@ -80,10 +118,12 @@ class Tree extends Component {
               console.log(nodes);
               console.log("Selected edges:");
               console.log(edges);
+              
+              
             }
           };
 
-          // HARD DATA END
+         
 
 
         const {juniors, seniors, focusUser} = this.props;
@@ -101,19 +141,8 @@ class Tree extends Component {
         }
         return (
         <React.Fragment>
-            {/*<button onClick={() => this.fetchData()}>Fetch</button>
-             <h1>juniors</h1>
-            <ul>
-
-            </ul>
-            <h1>Seniors</h1>
-            <ul>
-
-            </ul> */}
             
-
             <div className =" container text-center tree-container">
-            <button onClick={() => this.fetchData()}>Fetch</button>
                 
                 <div className = "row">
                     <div className = "col-8 col-sm-8 col-md-8">
