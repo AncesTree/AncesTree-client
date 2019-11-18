@@ -13,24 +13,34 @@ class Tree extends Component {
         const { fetchLineage } = this.props;
         fetchLineage("9291b16a-fa11-4b0b-9c05-fbb3d0546b8c");
     };
-
+    componentDidMount(){
+        this.fetchData();
+      }
     render() {
-
-       // HARD DATA TREE VIZ
         
+        const nodesFetched = this.props.seniors.map(x => ({ id: x.node.id, shape: "circularImage", image: "/assets/images/404castelltort.png", label: x.node.firstname }))
+        // TODO recup juniors et user focus
+
+        // TODO recup links
+        
+        console.log(this.props.seniors)
+        console.log(nodesFetched)
+        
+
+        
+       // HARD DATA TREE VIZ
+       
         
         const graph = {
-            nodes : [
-                { id: 1, shape: "circularImage", image: "/assets/images/thibaut.png", label: "thibaut" },
-                { id: 2, shape: "circularImage", image: "/assets/images/julien.jpg", label: "julien"},
-                { id: 3, shape: "circularImage", image: "/assets/images/hugo.jpg", label: "Hugo" }
-              ],
+            nodes : nodesFetched ,
             
               edges : [{from: 1, to: 2 ,value: 2, color: { color: "lightgray" }},
               {from: 2, to: 3 ,value: 2, color: { color: "lightgray" }},
               {from: 3, to: 1 ,value: 2, color: { color: "lightgray" }}]                 
           };
-          
+          graph.nodes.push(
+              { id: 4, shape: "circularImage", image: "/assets/images/thibaut.png", label: "thibaut" },{ id: 5, shape: "circularImage", image: "/assets/images/thibaut.png", label: "thibaut" })
+            
           const options = {
             nodes: {
               borderWidth: 4,
@@ -84,9 +94,10 @@ class Tree extends Component {
             <ul>
 
             </ul> */}
+            
 
             <div className =" container text-center tree-container">
-                
+            <button onClick={() => this.fetchData()}>Fetch</button>
                 
                 <div className = "row">
                     <div className = "col-8 col-sm-8 col-md-8">
