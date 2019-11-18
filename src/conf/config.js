@@ -22,3 +22,12 @@ export const GET_LINEAGE_BY_ID_URL = {
 export const LINKEDIN_REGISTRATION_URL = {
     url: AUTH_API.url + '/oauth/register/'
 }
+
+export const BASIC_REGISTRATION = {
+    url: 'https://ancestree-auth.igpolytech.fr/invitation/basic',
+    method: 'POST'
+}
+
+export const REGISTRATION_CALLBACK = {
+    url: 'https://ancestree-auth.igpolytech.fr/oauth/registration_callback'
+}
