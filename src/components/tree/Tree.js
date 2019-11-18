@@ -16,16 +16,49 @@ class Tree extends Component {
     componentDidMount(){
         this.fetchData();
       }
+
+    getNodes(userArray){
+        const nodes = userArray.map(x => ({ id: x.node.id, shape: "circularImage", image: "/assets/images/404castelltort.png", label: x.node.firstname }))
+        return nodes
+    }
     render() {
         
-        const nodesFetched = this.props.seniors.map(x => ({ id: x.node.id, shape: "circularImage", image: "/assets/images/404castelltort.png", label: x.node.firstname }))
+        
+        //const nodesFetched = this.props.seniors.map(x => ({ id: x.node.id, shape: "circularImage", image: "/assets/images/404castelltort.png", label: x.node.firstname }))
+        const juniorsNodes = this.getNodes(this.props.juniors)
+        const seniorsNodes = this.getNodes(this.props.seniors)
+        const nodesFetched = seniorsNodes.concat(juniorsNodes)
         // TODO recup juniors et user focus
 
         // TODO recup links
-        
+       /* const edgesFromSeniors = this.props.seniors.forEach(element => {
+            const dist = element.distance
+            let distPlusOne = this.props.seniors.filter(x=> x.distance = dist + 1)
+            console.log("tour : " + dist)
+            console.log(distPlusOne)     
+        });*/
+        let edgesFromSeniors = [];
+
+        for(let i=0;i<this.props.seniors.length;i++){
+            console.log("I = "+i)
+            let iDistance = this.props.seniors[i].distance
+            let iPlusOne = this.props.seniors.filter(x => x.distance === iDistance +1)
+            console.log(iDistance)
+            console.log(iPlusOne)
+            
+            for(let j =0; j < iPlusOne.length; j++) {
+                console.log("J = "+ j )
+                console.log(iPlusOne[j])
+                edgesFromSeniors.push({from: this.props.seniors[i].node.id, to: iPlusOne[j].node.id ,value: 2, color: { color: "lightgray" }})
+            }
+           
+            console.log("end of I : " )
+            console.log( edgesFromSeniors)
+        }
+        console.log(this.props.seniors.length)
         console.log(this.props.seniors)
         console.log(nodesFetched)
-        
+         
 
         
        // HARD DATA TREE VIZ
@@ -34,9 +67,7 @@ class Tree extends Component {
         const graph = {
             nodes : nodesFetched ,
             
-              edges : [{from: 1, to: 2 ,value: 2, color: { color: "lightgray" }},
-              {from: 2, to: 3 ,value: 2, color: { color: "lightgray" }},
-              {from: 3, to: 1 ,value: 2, color: { color: "lightgray" }}]                 
+              edges : edgesFromSeniors               
           };
           graph.nodes.push(
               { id: 4, shape: "circularImage", image: "/assets/images/thibaut.png", label: "thibaut" },{ id: 5, shape: "circularImage", image: "/assets/images/thibaut.png", label: "thibaut" })
