@@ -6,10 +6,11 @@ class Join extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            response: false,
             email : '',
             password: '',
             confirmation: '',
-            id: history.location.pathname.split("/")[2]
+            id: ''
         };
     }
 
@@ -22,42 +23,54 @@ class Join extends Component {
 
     onSubmit = (event) => {
         event.preventDefault();
-        const { accountCreation } = this.props;
+        this.state.id = history.location.pathname.split("/")[2]
+        const { basicAccountCreation } = this.props;
         if(this.state.confirmation === this.state.password){
-            accountCreation(this.state.id,this.state.email,this.state.password)
+            basicAccountCreation(this.state.id,this.state.email,this.state.password)
         }
+    }
+
+    linkedInAccountCreation = (event) => {
+        this.state.id = history.location.pathname.split("/")[2]
+        localStorage.setItem("InvitationID",this.state.id);
+        console.log(this.state.id)
+        const { linkedInAccountCreation } = this.props;
+        linkedInAccountCreation(this.state.id)
     }
 
     render() {
         return (
-            <form onSubmit={this.onSubmit}>
-                <h1>Completez votre inscription</h1>
-                <input
-                    type="email"
-                    name="email"
-                    placeholder="Adresse email"
-                    value={this.state.email}
-                    onChange={this.handleInputChange}
-                    required
-                />
-                <input
-                    type="password"
-                    name="password"
-                    placeholder="Mot de passe"
-                    value={this.state.password}
-                    onChange={this.handleInputChange}
-                    required
-                />
-                <input
-                    type="password"
-                    name="confirmation"
-                    placeholder="Confirmez votre mot de passe"
-                    value={this.state.confirmation}
-                    onChange={this.handleInputChange}
-                    required
-                />
-                <input type="submit" value="Submit"/>
-            </form>
+            <div>
+                <form onSubmit={this.onSubmit}>
+                    <h1>Completez votre inscription</h1>
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Adresse email"
+                        value={this.state.email}
+                        onChange={this.handleInputChange}
+                        required
+                    />
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Mot de passe"
+                        value={this.state.password}
+                        onChange={this.handleInputChange}
+                        required
+                    />
+                    <input
+                        type="password"
+                        name="confirmation"
+                        placeholder="Confirmez votre mot de passe"
+                        value={this.state.confirmation}
+                        onChange={this.handleInputChange}
+                        required
+                    />
+                    <input type="submit" value="Submit"/>
+                </form>
+                <button onClick={this.linkedInAccountCreation}/>
+            </div>
         );
     }
 }

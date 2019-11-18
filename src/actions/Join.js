@@ -1,5 +1,5 @@
 import history from '../components/common/history'
-
+import {LINKEDIN_REGISTRATION_URL, BASIC_REGISTRATION} from '../conf/config'
 export const ACCOUNT_CREATION_SUCESS = 'ACCOUNT_CREATION_SUCESS';
 export const ACCOUNT_CREATION_ERROR = 'ACCOUNT_CREATION_ERROR';
 
@@ -13,10 +13,14 @@ export const accountCreationFailure = error => ({
     error,
 });
 
-export const accountCreation = (id, email, password) => {
+export const linkedInAccountCreation = (id) => {
+    return dispatch => {window.location.href = LINKEDIN_REGISTRATION_URL.url+id}
+}
+
+export const basicAccountCreation = (id, email, password) => {
     return dispatch => {
-        fetch('https://ancestree-auth.igpolytech.fr/invitation', {
-            method: 'put',
+        fetch(BASIC_REGISTRATION.url, {
+            method: BASIC_REGISTRATION.method,
             body : JSON.stringify({
                 email: email,
                 password: password,
