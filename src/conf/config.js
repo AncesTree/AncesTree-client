@@ -1,7 +1,6 @@
 // auth
 export const AUTH_API = {
-    //url: 'https://ancestree-auth.igpolytech.fr',
-    url: 'http://localhost:8080'
+    url: 'https://ancestree-auth.igpolytech.fr',
 }
 
 export const CHECK_TOKEN_URL = {

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import {LINKEDIN_LOGIN_URL} from '../conf/config'
-import { FaLinkedin } from "react-icons/all";
 
 export default class Login extends Component {
     constructor(props) {
