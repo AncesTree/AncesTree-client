@@ -11,7 +11,7 @@
  height: 80px;
 }
 .add-btn {
-  width:100%;
+  width:160px;
   height: 80px
  }
 .tree-container{
@@ -99,8 +99,4 @@ a .active>svg {
 
 .navbar-light .navbar-brand:hover, .navbar-light .navbar-brand{
   color: #f5f5f5;
-}
-
-* {
-  overflow-x: hidden;
 }

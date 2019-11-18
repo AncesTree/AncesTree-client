@@ -87,6 +87,7 @@ class Tree extends Component {
 
             <div className =" container text-center tree-container">
                 <h1>IGEALOGY</h1>
+                
                 <div className = "row">
                     <div className = "col-8 col-sm-8 col-md-8">
                         <div className="input-group ">
