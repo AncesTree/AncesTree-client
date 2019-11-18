@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import history from "../components/common/history";
 import {REGISTRATION_CALLBACK} from "../conf/config"
 
 export default class Token extends Component {
