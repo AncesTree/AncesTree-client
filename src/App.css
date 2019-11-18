@@ -88,6 +88,14 @@ html {
   overflow-x: hidden;
 }
 
+.cheeseburger-menu-outer {
+  z-index: 1040 !important;
+}
+
+.cheeseburger-menu-overlay {
+  background: rgba(0, 0, 0, 0.5) !important;
+}
+
 .login-box {
   background: #fff;
   padding-top: 20px;
