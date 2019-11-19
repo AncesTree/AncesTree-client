@@ -22,7 +22,7 @@ export default function withAuth(ComponentToProtect) {
                         this.setState({loading: false});
                         res.json().then(res =>  {
                             this.props.dispatch(setUserId(res.id));
-                            fetch(GET_USER_URL.url,
+                            fetch(GET_USER_URL.url + res.id,
                                 {headers: GET_USER_URL.header()})
                                 .then(res => {
                                     if (res.status === 200) {
