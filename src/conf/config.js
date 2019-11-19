@@ -34,7 +34,7 @@ export const GET_LINEAGE_BY_ID_URL = {
 
 // Chat
 export const GET_CHAT_API = {
-    url: 'http://localhost:3000',
+    url: 'https://ancestree-chat.igpolytech.fr/',
     header: {'Authorization': localStorage.getItem("Authorization")}
 };
 

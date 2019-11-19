@@ -38,13 +38,24 @@ const CreateConversation = ({ endpoint, userId, userRooms }) => {
     const [showForm, setShowForm] = useState(false);
     const [input, setInput] = useState("")
     const [userIn, setUserIn] = useState([]);
+    const [allUsers, setAllUsers] = useState([]);
     const classes = useStyles();
 
     const handleClick = () => {
         setShowForm(!showForm)
     }
 
-    useEffect(() => {})
+    useEffect(() => {
+        let isFetching = true
+        axios.get(GET_CHAT_API.url + "users/")
+            .then(response => {
+                if (isFetching) {
+                    setAllUsers(response.data)
+                }
+            })
+
+        return () => isFetching = false
+    })
 
     const { register, handleSubmit, errors } = useForm();
 
@@ -53,7 +64,7 @@ const CreateConversation = ({ endpoint, userId, userRooms }) => {
             const room = { name: input, users: [userId], messages: [] }
             axios.post(endpoint + "/rooms", room).then(
                 response => {
-                    axios.patch(endpoint + "/users/" + userId, { rooms: userRooms.concat(response.data._id) })
+                    axios.patch(endpoint + "users/" + userId, { rooms: userRooms.concat(response.data._id) })
                 }
             )
             setInput('')

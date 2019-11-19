@@ -35,7 +35,7 @@ const Conversation = () => {
 
   useEffect(() => {
     let isFetching = true
-    axios.get(GET_CHAT_API.url + "/rooms/messages/" + roomId).then(response => {
+    axios.get(GET_CHAT_API.url + "rooms/messages/" + roomId).then(response => {
       if (isFetching) {
         setMessages(response.data.messages);
       }

@@ -42,10 +42,10 @@ const Agora = () => {
     const { register, handleSubmit, errors } = useForm();
 
     useEffect(() => {
-        socket.emit("User connected", {userId: user.id});
+        socket.emit("User connected", { userId: user.id, firstName: user.firstname, lastName: user.lastname });
 
         let isFetching = true
-        axios.get(GET_CHAT_API.url + "/users/rooms/" + user_id).then(response => {
+        axios.get(GET_CHAT_API.url + "users/rooms/" + user_id).then(response => {
             if (isFetching) {
                 setRooms(response.data.rooms)
             }
@@ -61,49 +61,41 @@ const Agora = () => {
         console.log(data)
     }
 
-    const renderAgora = () => {
-        return (
-            <div className='container'>
-                <p> {user.id} </p>
-                <SearchElement element="room"/>
-                <CreateConversation endpoint={GET_CHAT_API.url} userId={user_id} userRooms={rooms} className="fidex-bottom" />
-                <Fab color="primary" aria-label="add" className={classes.fab} onClick={handleSearch}>
-                    <SearchRoundedIcon />
-                </Fab>
-                {
-                    isSearching ?
-                        <form className={classes.container} noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
-                            <TextField
-                                value={input}
-                                onChange={e => setInput(e.target.value.trim())}
-                                id="outlined-basic"
-                                className={classes.textField}
-                                label="Conversation Name"
-                                margin="normal"
-                                variant="outlined"
-                            />
-                            <Button
-                                type="submit"
-                                variant="contained"
-                                color="primary"
-                                className={classes.button}
-                                endIcon={<SearchRoundedIcon />}
-                            > Search </Button>
-                        </form>
-                        :
-                        <div className="scrollable sidebar">
-                            <ListConversation rooms={rooms} />
-                        </div>
-                }
-            </div>
-        )
-    };
-
     return (
-        renderAgora()
+        <div className='container'>
+            <p> {user.id} </p>
+            <SearchElement element="room" />
+            <CreateConversation endpoint={GET_CHAT_API.url} userId={user_id} userRooms={rooms} className="fidex-bottom" />
+            <Fab color="primary" aria-label="add" className={classes.fab} onClick={handleSearch}>
+                <SearchRoundedIcon />
+            </Fab>
+            {
+                isSearching ?
+                    <form className={classes.container} noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
+                        <TextField
+                            value={input}
+                            onChange={e => setInput(e.target.value.trim())}
+                            id="outlined-basic"
+                            className={classes.textField}
+                            label="Conversation Name"
+                            margin="normal"
+                            variant="outlined"
+                        />
+                        <Button
+                            type="submit"
+                            variant="contained"
+                            color="primary"
+                            className={classes.button}
+                            endIcon={<SearchRoundedIcon />}
+                        > Search </Button>
+                    </form>
+                    :
+                    <div className="scrollable sidebar">
+                        <ListConversation rooms={rooms} />
+                    </div>
+            }
+        </div>
     );
 };
 
 export default Agora;
-
-// https://chaewonkong.github.io/posts/socket-io.html
