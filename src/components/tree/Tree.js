@@ -10,20 +10,14 @@ class Tree extends Component {
         this.fetchData = this.fetchData.bind(this)
         
     };
-    updateData(id) {
-        const { fetchLineage } = this.props;
-        fetchLineage(id);
-
-    }
+  
     fetchData = (id) => {
-        console.log("FD called on " + id)
-         //id = "9291b16a-fa11-4b0b-9c05-fbb3d0546b8c"
-         
+    
         const { fetchLineage } = this.props;
         fetchLineage(id);
     };
     componentDidMount(){
-        this.fetchData("90a9b490-af53-46a3-9b83-fcc3c9ddb6b2");
+        this.fetchData("9291b16a-fa11-4b0b-9c05-fbb3d0546b8c");
       }
 
     getNodes(userArray){
@@ -79,7 +73,7 @@ class Tree extends Component {
         const nodesFetched = seniorsNodes.concat(juniorsNodes).concat()
 
         
-        console.log(this.props.juniors.concat([userNode]))
+        
         const juniorsEdges = this.getEdges(this.props.juniors.concat([userNode]),true)
         const seniorsEdges = this.getEdges(this.props.seniors.concat([userNode]),false)
         const edgesFetched = juniorsEdges.concat(seniorsEdges)
@@ -94,7 +88,7 @@ class Tree extends Component {
       
           
           
-          console.log(this.props.userFocus.id)
+          
        
           graph.nodes.push({id : this.props.userFocus.id,shape: "circularImage", image: "/assets/images/404castelltort.png", label: this.props.userFocus.firstname })
         
@@ -117,17 +111,7 @@ class Tree extends Component {
           };
           
         const events = {
-            select: function(event) {
-
-              var { nodes, edges } = event;
-              console.log("Selected nodes:");
-              console.log(nodes);
-               
-              console.log("Selected edges:");
-              console.log(edges);
-              
-              
-            },
+            
             click : (event) => this.fetchData(event.nodes[0])
           };
 
