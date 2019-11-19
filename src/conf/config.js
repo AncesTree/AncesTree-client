@@ -4,7 +4,7 @@ export const AUTH_API = {
 }
 
 export const CHECK_TOKEN_URL = {
-    url: AUTH_API.url+'/auth/checktoken',
+    url: process.env.REACT_APP_AUTH_API+'/auth/checktoken',
     method: 'GET',
     header: () => {
         return {'Authorization': localStorage.getItem("Authorization")}
