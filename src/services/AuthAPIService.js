@@ -17,9 +17,18 @@ class AuthAPIService {
     };
 
     /**
-     * Return a promise with the id of the user or an error
+     * Return a promise containing the token or an error
      *
-     * @returns {Promise}
+     * @returns {Promise<void>}
+     */
+    async login () {
+
+    }
+
+    /**
+     *  Return a promise with the id of the user or an error
+     *
+     * @returns {Promise<*>}
      */
     async checkTocken () {
 
