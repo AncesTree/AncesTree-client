@@ -44,7 +44,12 @@ const useStyles = makeStyles(theme => ({
 
 const SearchElement = ({ elementToSearch }) => {
     const classes = useStyles();
-
+/*
+TODO : 
+- créer un champ ou les résultats de la requete apparaissent : créer des <ListItemLink href={`/agora/conversation/${room._id}`} >
+- créer la requete en fonction du champ texte 
+axios.get ? ou juste prendre les rooms quand a get avant 
+*/
 
 
     return (

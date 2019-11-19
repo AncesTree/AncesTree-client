@@ -77,7 +77,10 @@ const CreateConversation = ({ endpoint, userId, userRooms }) => {
     const removeFromRoom = () => {
 
     }
-
+/*
+TODO : dynamic search for users
+clickable users and then add on click above the search field
+*/
     return (
         <>
             <Fab color="primary" aria-label="add" className={classes.fab} onClick={handleClick}>
