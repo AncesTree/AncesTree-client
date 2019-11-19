@@ -35,7 +35,6 @@ const Agora = () => {
     const classes = useStyles();
     const user = useSelector(state => state.user);
     const dispatch = useDispatch();
-    const [user_id, setUser_id] = useState("5dd015790a792e19ae646734");
     const [rooms, setRooms] = useState([]);
     const [isSearching, setIsSearching] = useState(false);
     const [input, setInput] = useState("");
@@ -45,7 +44,10 @@ const Agora = () => {
         socket.emit("User connected", { userId: user.id, firstName: user.firstname, lastName: user.lastname });
 
         let isFetching = true
-        axios.get(GET_CHAT_API.url + "users/rooms/" + user_id).then(response => {
+        fetch(GET_CHAT_API.url + "users/rooms/" + user.id, {headers:GET_CHAT_API.header, }).then(response => console.log(response))
+
+        axios.get(GET_CHAT_API.url + "users/rooms/" + user.id, {headers:GET_CHAT_API.header})
+        .then(response => {
             if (isFetching) {
                 setRooms(response.data.rooms)
             }
@@ -63,9 +65,8 @@ const Agora = () => {
 
     return (
         <div className='container'>
-            <p> {user.id} </p>
             <SearchElement element="room" />
-            <CreateConversation endpoint={GET_CHAT_API.url} userId={user_id} userRooms={rooms} className="fidex-bottom" />
+            <CreateConversation endpoint={GET_CHAT_API.url} userId={user.id} userRooms={rooms} className="fidex-bottom" />
             <Fab color="primary" aria-label="add" className={classes.fab} onClick={handleSearch}>
                 <SearchRoundedIcon />
             </Fab>

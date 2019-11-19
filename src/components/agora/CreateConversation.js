@@ -47,7 +47,7 @@ const CreateConversation = ({ endpoint, userId, userRooms }) => {
 
     useEffect(() => {
         let isFetching = true
-        axios.get(GET_CHAT_API.url + "users/")
+        axios.get(GET_CHAT_API.url + "users", {headers:GET_CHAT_API.header})
             .then(response => {
                 if (isFetching) {
                     setAllUsers(response.data)

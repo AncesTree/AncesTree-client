@@ -40,6 +40,7 @@ const Root = () => (
                 <Route exact path="/agora" component={App(withAuth(Agora))} />
                 <Route exact path="/agora/conversation/:id" component={App(withAuth(Conversation))} />
                 <Route exact path="/agora/conversation/settings/:id" component={App(withAuth(ConversationSettings))} />
+                <Route exact path="/" component={App(withAuth(Error404))} />
                 <Error404 />
             </Switch>
         </Router>
