@@ -9,7 +9,8 @@ const mapDispatchToProps = dispatch => ({
   const mapStateToProps = state => ({
     juniors: state.tree.juniors,
     seniors: state.tree.seniors,
-    userFocus: undefined
+    userFocus : state.tree.userFocus
+    
   });
   
   export default connect(mapStateToProps, mapDispatchToProps)(Tree);
