@@ -1,5 +1,5 @@
 import { FETCH_AUTHENTICATE_SUCCESS, FETCH_AUTHENTICATE_FAILURE } from '../actions/Login';
-import { SET_USER_ID } from "../actions/User";
+import {SET_USER, SET_USER_ID} from "../actions/User";
 
 const initialState = {
 
@@ -17,6 +17,8 @@ const user = (state = initialState, action) => {
             return Object.assign({}, state, {
                 id: action.id
             });
+        case SET_USER:
+            return Object.assign({}, state, action.user);
         default:
             return state;
 

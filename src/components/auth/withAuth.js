@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import { CHECK_TOKEN_URL } from "../../conf/config";
-import {setUserId} from "../../actions/User";
+import {CHECK_TOKEN_URL, GET_USER_URL} from "../../conf/config";
+import { setUserId, setUser } from "../../actions/User";
 import { connect } from 'react-redux';
 
 export default function withAuth(ComponentToProtect) {
@@ -20,7 +20,23 @@ export default function withAuth(ComponentToProtect) {
                 .then(res => {
                     if (res.status === 200) {
                         this.setState({loading: false});
-                        res.json().then(res =>  this.props.dispatch(setUserId(res.id)))
+                        res.json().then(res =>  {
+                            this.props.dispatch(setUserId(res.id));
+                            fetch(GET_USER_URL.url + res.id,
+                                {headers: GET_USER_URL.header()})
+                                .then(res => {
+                                    if (res.status === 200) {
+                                        res.json().then(res =>  {
+                                            this.props.dispatch(setUser(res));
+                                        })
+                                    } else {
+                                        this.props.dispatch(setUser({}));
+                                    }
+                                })
+                                .catch(err => {
+                                    console.error(err);
+                                });
+                        })
                     } else {
                         this.setState({loading: false, redirect: true});
                     }

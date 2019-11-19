@@ -11,6 +11,14 @@ export const CHECK_TOKEN_URL = {
     }
 };
 
+export const GET_USER_URL = {
+    url:'https://ancestree-api-neo4j.igpolytech.fr/api/users/',
+    method: 'GET',
+    header: () => {
+        return {'Authorization': localStorage.getItem("Authorization")}
+    }
+};
+
 export const LOGIN_URL = {
     url: AUTH_API.url+'/auth/login',
     method: 'POST',
