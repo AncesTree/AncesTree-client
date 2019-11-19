@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import {LINKEDIN_LOGIN_URL} from '../conf/config'
+import history from './common/history'
 
 export default class Login extends Component {
     constructor(props) {
@@ -9,6 +10,12 @@ export default class Login extends Component {
             email : '',
             password: ''
         };
+    }
+
+    componentDidMount = () => {
+        if(history.location.pathname.includes('unknown_linkedin_account')){
+            alert('Unknown LinkedIn account!')
+        }
     }
     handleInputChange = (event) => {
         const { value, name } = event.target;
@@ -40,8 +47,8 @@ export default class Login extends Component {
                         Submit
                     </Button>
                 </Form>
-                <div class="login-box">
-			        <a href={LINKEDIN_LOGIN_URL.url} class="social-button" id="linkedin-connect"> <span>Connect with LinkedIn</span></a>
+                <div className="login-box">
+			        <a href={LINKEDIN_LOGIN_URL.url} className="social-button" id="linkedin-connect"> <span>Connect with LinkedIn</span></a>
 		        </div>
             </div>
         );
