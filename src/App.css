@@ -101,8 +101,11 @@ a .active>svg {
 }
 
 
-html {
-  overflow-x: hidden ;
+html, body {
+  overflow-x: hidden;
+}
+body {
+  position: relative
 }
 
 .login-box {
