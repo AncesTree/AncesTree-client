@@ -31,6 +31,7 @@ const Root = () => (
             <Switch>
                 <Route exact path="/join/:id" component={App(JoinContainer)}/>
                 <Route exact path="/login" component={LoginContainer} />
+                <Route exact path="/login/:error_msg" component={LoginContainer} />
                 <Route exact path="/token/:token" component={Token}/>
                 <Route path="/registration_callback" component={RegistrationCallback}/>
                 <Route exact path="/join/:id" component={App(JoinContainer)}/>

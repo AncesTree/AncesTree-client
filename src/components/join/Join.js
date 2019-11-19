@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import history from '../common/history'
+import { Form, Button } from 'react-bootstrap';
+import {LINKEDIN_REGISTRATION_URL} from '../../conf/config'
 
 class Join extends Component {
 
@@ -33,47 +35,39 @@ class Join extends Component {
     }
 
     linkedInAccountCreation = (event) => {
-        this.setState({
-            id: history.location.pathname.split("/")[2]
-        })
-        localStorage.setItem("InvitationID",this.state.id);
-        console.log(this.state.id)
-        const { linkedInAccountCreation } = this.props;
-        linkedInAccountCreation(id)
+        let id = history.location.pathname.split("/")[2]
+        localStorage.setItem("InvitationID",id);
+        console.log(id)
+        window.location.href = LINKEDIN_REGISTRATION_URL.url+id
     }
 
     render() {
         return (
-            <div>
-                <form onSubmit={this.onSubmit}>
-                    <h1>Completez votre inscription</h1>
-                    <input
-                        type="email"
-                        name="email"
-                        placeholder="Adresse email"
-                        value={this.state.email}
-                        onChange={this.handleInputChange}
-                        required
-                    />
-                    <input
-                        type="password"
-                        name="password"
-                        placeholder="Mot de passe"
-                        value={this.state.password}
-                        onChange={this.handleInputChange}
-                        required
-                    />
-                    <input
-                        type="password"
-                        name="confirmation"
-                        placeholder="Confirmez votre mot de passe"
-                        value={this.state.confirmation}
-                        onChange={this.handleInputChange}
-                        required
-                    />
-                    <input type="submit" value="Submit"/>
-                </form>
-                <button onClick={this.linkedInAccountCreation}>Join with LinkedIn</button>
+            <div className="loginBackground">
+                <Form className="loginForm" onSubmit={this.onSubmit}>
+                    <Form.Group controlId="formBasicEmail">
+                        <Form.Label>Adresse mail</Form.Label>
+                        <Form.Control type="email"  name="email" placeholder="Adresse mail" value={this.state.email} onChange={this.handleInputChange} required />
+                    </Form.Group>
+
+                    <Form.Group controlId="formBasicPassword">
+                        <Form.Label>Mot de passe</Form.Label>
+                        <Form.Control type="password" name="password" placeholder="Mot de passe" value={this.state.password} onChange={this.handleInputChange} required />
+                    </Form.Group>
+
+                    <Form.Group controlId="formBasicPassword">
+                        <Form.Label>Confirmation</Form.Label>
+                        <Form.Control type="password" name="password" placeholder="Mot de passe" value={this.state.confirmation} onChange={this.handleInputChange} required />
+                    </Form.Group>
+
+
+                    <Button className="loginButton" variant="primary" type="submit">
+                        Valider
+                    </Button>
+                </Form>
+                <div className="login-box">
+			        <button onClick={this.linkedInAccountCreation} className="social-button" id="linkedin-connect"> <span>S'inscrire avec LinkedIn</span></button>
+		        </div>
             </div>
         );
     }
