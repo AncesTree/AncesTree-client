@@ -1,5 +1,12 @@
 [![Build Status](https://travis-ci.org/AncesTree/AncesTree-client.svg?branch=master)](https://travis-ci.org/AncesTree/AncesTree-client)
 
+Here are the needed environment var needed, put them in .env to work in local
+```shell
+REACT_APP_CHAT_API=https://ancestree-chat.igpolytech.fr
+REACT_APP_AUTH_API=https://ancestree-auth.igpolytech.fr
+REACT_APP_NEO4J_API=https://ancestree-api-neo4j.igpolytech.fr
+```
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

@@ -114,23 +114,6 @@ class Tree extends Component {
             
             click : (event) => this.fetchData(event.nodes[0])
           };
-
-         
-
-
-        const {juniors, seniors, focusUser} = this.props;
-        let juniorsClean, seniorsClean;
-        if (juniors === undefined){
-            juniorsClean = []
-        } else {
-            juniorsClean = juniors
-        }
-
-        if (seniors === undefined){
-            seniorsClean = []
-        } else {
-            seniorsClean = seniors
-        }
         return (
         <React.Fragment>
             
