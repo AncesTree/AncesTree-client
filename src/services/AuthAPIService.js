@@ -4,9 +4,9 @@ class AuthAPIService {
     domain = process.env.REACT_APP_AUTH_API;
     static inst = null;
 
-    static getInstance () {
+    static getInstance() {
         if (AuthAPIService.inst === null) {
-           this.inst = new AuthAPIService()
+            this.inst = new AuthAPIService()
         }
         return this.inst
     }
@@ -20,15 +20,15 @@ class AuthAPIService {
      *
      * @returns {Promise<void>}
      */
-    async login (email, password) {
+    async login(email, password) {
         const result = await authFetch(this.getDomain() + '/auth/login', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({
-                    email: email,
-                    password: password
-                })
-            });
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                email: email,
+                password: password
+            })
+        });
 
         const data = await result.json();
         return data.token
@@ -39,9 +39,9 @@ class AuthAPIService {
      *
      * @returns {Promise<*>}
      */
-    async checkTocken () {
+    async checkTocken() {
         const result = await authFetch(this.getDomain() + "/auth/checktoken");
-        if( result.status === 200){
+        if (result.status === 200) {
             const data = await result.json();
             return data.id
         } else {

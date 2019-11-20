@@ -1,11 +1,11 @@
-function authFetch(url, init = {headers: {}}){
+function authFetch(url, init = {headers: {}}) {
     const headers = Object.assign(init.headers, {'Authorization': getToken()});
 
     const initComplete = Object.assign(init,
         {
-                    headers: headers
-                }
-            );
+            headers: headers
+        }
+    );
     return fetch(url, initComplete)
 }
 
