@@ -1,6 +1,5 @@
 import authFetch from "./authFetch";
 
-
 class AuthAPIService {
     domain = process.env.REACT_APP_AUTH_API;
     static inst = null;
@@ -21,8 +20,18 @@ class AuthAPIService {
      *
      * @returns {Promise<void>}
      */
-    async login () {
+    async login (email, password) {
+        const result = await authFetch(this.getDomain() + '/auth/login', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    email: email,
+                    password: password
+                })
+            });
 
+        const data = await result.json();
+        return data.token
     }
 
     /**
@@ -31,7 +40,6 @@ class AuthAPIService {
      * @returns {Promise<*>}
      */
     async checkTocken () {
-
         const result = await authFetch(this.getDomain() + "/auth/checktoken");
         if( result.status === 200){
             const data = await result.json();

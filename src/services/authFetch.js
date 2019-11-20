@@ -1,8 +1,9 @@
-function authFetch(url, init = {}){
+function authFetch(url, init = {headers: {}}){
+    const headers = Object.assign(init.headers, {'Authorization': getToken()});
+
     const initComplete = Object.assign(init,
         {
-                    headers: {'Authorization': getToken(),
-                              'Content-Type': 'application/json'}
+                    headers: headers
                 }
             );
     return fetch(url, initComplete)

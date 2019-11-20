@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import {LINKEDIN_LOGIN_URL} from '../conf/config'
 import history from './common/history'
+import AuthAPIService from "../services/AuthAPIService";
 
 export default class Login extends Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             email : '',
             password: ''
@@ -16,7 +17,7 @@ export default class Login extends Component {
         if(history.location.pathname.includes('unknown_linkedin_account')){
             alert('Unknown LinkedIn account!')
         }
-    }
+    };
     handleInputChange = (event) => {
         const { value, name } = event.target;
         this.setState({
@@ -25,8 +26,12 @@ export default class Login extends Component {
     };
     onSubmit = (event) => {
         event.preventDefault();
-        const { login } = this.props;
-        login(this.state.email, this.state.password);
+        AuthAPIService.login(this.state.email, this.state.password)
+            .then(token => {
+                localStorage.setItem("Authorization", token);
+                history.push("/");
+            })
+            .catch(err => {console.error(err)});
     };
 
     render() {

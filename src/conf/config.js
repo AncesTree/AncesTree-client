@@ -3,28 +3,6 @@ export const AUTH_API = {
     url: 'https://ancestree-auth.igpolytech.fr',
 }
 
-export const CHECK_TOKEN_URL = {
-    url: process.env.REACT_APP_AUTH_API+'/auth/checktoken',
-    method: 'GET',
-    header: () => {
-        return {'Authorization': localStorage.getItem("Authorization")}
-    }
-};
-
-export const GET_USER_URL = {
-    url:'https://ancestree-api-neo4j.igpolytech.fr/api/users/',
-    method: 'GET',
-    header: () => {
-        return {'Authorization': localStorage.getItem("Authorization")}
-    }
-};
-
-export const LOGIN_URL = {
-    url: AUTH_API.url+'/auth/login',
-    method: 'POST',
-    header: {'Content-Type': 'application/json'}
-};
-
 // Neo4j
 export const GET_LINEAGE_BY_ID_URL = {
     url: 'https://ancestree-api-neo4j.igpolytech.fr/api/query/lineage/',

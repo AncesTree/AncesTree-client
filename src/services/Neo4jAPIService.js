@@ -1,6 +1,5 @@
 import authFetch from "./authFetch";
 
-
 class Neo4jAPIService {
     domain = process.env.REACT_APP_NEO4J_API;
     static inst = null;
@@ -22,17 +21,18 @@ class Neo4jAPIService {
      * @returns {Promise}
      */
     async getUser (id) {
-        //console.log(id)
         const result = await authFetch(this.getDomain() + "/api/users/" + id);
         if( result.status === 200){
-            const data = await result.json();
-            return data
+            return await result.json()
         } else {
             return {}
         }
-
     }
 
+    async getLineageById (id) {
+        const result = await authFetch(this.getDomain() + "/api/query/lineage/" + id)
+        return await result.json()
+    }
 
 }
 
