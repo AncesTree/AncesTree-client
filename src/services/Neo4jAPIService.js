@@ -21,7 +21,10 @@ class Neo4jAPIService {
      * @returns {Promise}
      */
     async getUser(id) {
-        const result = await authFetch(this.getDomain() + "/api/users/" + id);
+        const result = await authFetch(this.getDomain() + "/api/users/" + id,
+            {
+                method: 'GET'
+            });
         if (result.status === 200) {
             return await result.json()
         } else {
@@ -30,7 +33,10 @@ class Neo4jAPIService {
     }
 
     async getLineageById(id) {
-        const result = await authFetch(this.getDomain() + "/api/query/lineage/" + id)
+        const result = await authFetch(this.getDomain() + "/api/query/lineage/" + id,
+            {
+                method: 'GET'
+            })
         return await result.json()
     }
 

@@ -40,7 +40,7 @@ class AuthAPIService {
      * @returns {Promise<*>}
      */
     async checkTocken() {
-        const result = await authFetch(this.getDomain() + "/auth/checktoken");
+        const result = await authFetch(this.getDomain() + "/auth/checktoken", {method: 'GET'});
         if (result.status === 200) {
             const data = await result.json();
             return data.id
