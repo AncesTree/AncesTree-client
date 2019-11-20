@@ -8,7 +8,7 @@ import rootReducer from "../reducers";
 import thunk from "redux-thunk";
 import Error404 from "./common/Error404";
 import TreeContainer from "../Containers/TreeContainer";
-import LoginContainer from "../Containers/LoginContainer";
+import Token from "../components/Token";
 import withAuth from "./auth/withAuth";
 import JoinContainer from "../Containers/JoinContainer";
 import Agora from './agora/Agora';
@@ -16,6 +16,7 @@ import Conversation from './agora/Conversation'
 import ConversationSettings from './agora/ConversationSettings';
 import Token from "../components/Token";
 import RegistrationCallback from "../components/RegistrationCallback";
+import Login from "./Login";
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -30,8 +31,8 @@ const Root = () => (
         <Router history={history}>
             <Switch>
                 <Route exact path="/join/:id" component={App(JoinContainer)}/>
-                <Route exact path="/login" component={LoginContainer} />
-                <Route exact path="/login/:error_msg" component={LoginContainer} />
+                <Route exact path="/login" component={Login} />
+                <Route exact path="/login/:error_msg" component={Login} />
                 <Route exact path="/token/:token" component={Token}/>
                 <Route path="/registration_callback" component={RegistrationCallback}/>
                 <Route exact path="/join/:id" component={App(JoinContainer)}/>

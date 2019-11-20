@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import {CHECK_TOKEN_URL, GET_USER_URL} from "../../conf/config";
 import { setUserId, setUser } from "../../actions/User";
 import { connect } from 'react-redux';
+import AuthAPIService from "../../services/AuthAPIService";
+import Neo4jAPIService from "../../services/Neo4jAPIService";
 
 export default function withAuth(ComponentToProtect) {
     class WithAuth extends Component {
@@ -14,37 +15,16 @@ export default function withAuth(ComponentToProtect) {
             };
         }
         componentDidMount() {
+            AuthAPIService.checkTocken()
+                .then(id => {
+                    this.setState({loading: false});
+                    this.props.dispatch(setUserId(id));
+                    Neo4jAPIService.getUser(id)
+                        .then(user => {this.props.dispatch(setUser(user))})
+                        .catch(err => {console.error(err)})
 
-            fetch(CHECK_TOKEN_URL.url,
-                {headers: CHECK_TOKEN_URL.header()})
-                .then(res => {
-                    if (res.status === 200) {
-                        this.setState({loading: false});
-                        res.json().then(res =>  {
-                            this.props.dispatch(setUserId(res.id));
-                            fetch(GET_USER_URL.url + res.id,
-                                {headers: GET_USER_URL.header()})
-                                .then(res => {
-                                    if (res.status === 200) {
-                                        res.json().then(res =>  {
-                                            this.props.dispatch(setUser(res));
-                                        })
-                                    } else {
-                                        this.props.dispatch(setUser({}));
-                                    }
-                                })
-                                .catch(err => {
-                                    console.error(err);
-                                });
-                        })
-                    } else {
-                        this.setState({loading: false, redirect: true});
-                    }
                 })
-                .catch(err => {
-                    console.error(err);
-                    this.setState({loading: false, redirect: true});
-                });
+                .catch(err => this.setState({loading: false, redirect: true}));
         }
         render() {
             const { loading, redirect } = this.state;
