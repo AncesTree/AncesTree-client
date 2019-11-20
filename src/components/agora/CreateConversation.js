@@ -17,11 +17,8 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
         flexWrap: 'wrap',
     },
-    button: {
-        margin: "dense",
-    },
     fab: {
-        position: 'absolute',
+        position: 'fixed',
         bottom: theme.spacing(8),
         right: theme.spacing(1),
     },
@@ -34,9 +31,10 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const CreateConversation = ({ endpoint, userId, userRooms }) => {
+const CreateConversation = ({ endpoint, user, userRooms }) => {
     const [showForm, setShowForm] = useState(false);
-    const [input, setInput] = useState("")
+    const [input, setInput] = useState("");
+    const [inputUser, setInputUser] = useState("");
     const [userIn, setUserIn] = useState([]);
     const [allUsers, setAllUsers] = useState([]);
     const classes = useStyles();
@@ -61,12 +59,21 @@ const CreateConversation = ({ endpoint, userId, userRooms }) => {
 
     const onSubmit = data => {
         if (input !== '') {
-            const room = { name: input, users: [userId], messages: [] }
-            axios.post(endpoint + "/rooms", room).then(
+            const room = { "name": input, "users": [user.id], "messages": [] }
+            axios.post(
+                GET_CHAT_API.url + "rooms", 
+                room, 
+                {headers:GET_CHAT_API.header})
+                .then(
                 response => {
-                    axios.patch(endpoint + "users/" + userId, { rooms: userRooms.concat(response.data._id) })
-                }
-            )
+                    axios.patch(
+                        GET_CHAT_API.url + "users/" + user.id, 
+                        { rooms: userRooms.concat(response.data._id) }, 
+                        {headers:GET_CHAT_API.header})
+                        .then()
+                        .catch(err => err)
+                    }
+                ).catch( err => err)
             setInput('')
             handleClick();
         } else {
@@ -74,7 +81,11 @@ const CreateConversation = ({ endpoint, userId, userRooms }) => {
         }
     };
 
-    const removeFromRoom = () => {
+    const removeFromRoom = (user) => {
+
+    }
+
+    const handleChange = (value) => {
 
     }
 /*
@@ -91,31 +102,41 @@ clickable users and then add on click above the search field
                     <List>
                     {
                         userIn.map( user => (
-                            <ListItem onClick={removeFromRoom}>
+                            <ListItem onClick={removeFromRoom(user)}>
                                 <ListItemText primary={user.firstName} secondary={user.lastName} />
                             </ListItem>
                         ))
                     }
                     </List>
 
-                <form className={classes.container} noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
+                <form noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
                     <TextField
                         value={input}
-                        onChange={e => setInput(e.target.value.trim())}
+                        onChange={e => setInput(e.target.value)}
                         id="outlined-basic"
                         className={classes.textField}
                         label="Conversation Name"
                         margin="normal"
                         variant="outlined"
+                        type="text"
                     />
                     <Button
                         variant="contained"
                         color="primary"
-                        className={classes.button}
                         endIcon={<SaveIcon />}
                         type="submit"
                     > Save </Button>
                 </form>
+                <TextField
+                    value={inputUser}
+                    onChange={e => setInput(e.target.value)}
+                    id="outlined-basic"
+                    className={classes.textField}
+                    label="Conversation Name"
+                    margin="normal"
+                    variant="outlined"
+                    onChange={e => handleChange(e.target.value)}
+                />
                 </div>
                 : ""
             }

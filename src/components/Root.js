@@ -11,12 +11,17 @@ import TreeContainer from "../Containers/TreeContainer";
 import Token from "../components/Token";
 import withAuth from "./auth/withAuth";
 import JoinContainer from "../Containers/JoinContainer";
-import Agora from './agora/Agora';
-import Conversation from './agora/Conversation'
-import ConversationSettings from './agora/ConversationSettings';
-import Token from "../components/Token";
 import RegistrationCallback from "../components/RegistrationCallback";
 import Login from "./Login";
+import Agora from "./agora/Agora";
+import Conversation from "./agora/Conversation";
+import ConversationSettings from "./agora/ConversationSettings";
+import SocketContext from "./SocketContext";
+
+
+import io from "socket.io-client";
+import { GET_CHAT_API } from "../conf/config";
+const socket = io(GET_CHAT_API.url);
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -27,6 +32,7 @@ const store = createStore(
 
 const Root = () => (
     <Provider store={store}>
+        <SocketContext.Provider value={socket} >
         <button className="add-button">Add to home screen</button>
         <Router history={history}>
             <Switch>
@@ -45,6 +51,7 @@ const Root = () => (
                 <Error404 />
             </Switch>
         </Router>
+        </SocketContext.Provider>
     </Provider>
 );
 

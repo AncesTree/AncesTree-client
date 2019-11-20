@@ -17,10 +17,13 @@ export default function withAuth(ComponentToProtect) {
         componentDidMount() {
             AuthAPIService.checkTocken()
                 .then(id => {
-                    this.setState({loading: false});
+                    
                     this.props.dispatch(setUserId(id));
                     Neo4jAPIService.getUser(id)
-                        .then(user => {this.props.dispatch(setUser(user))})
+                        .then(user => {
+                            this.props.dispatch(setUser(user))
+                            this.setState({loading: false});
+                        })
                         .catch(err => {console.error(err)})
 
                 })

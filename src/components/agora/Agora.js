@@ -10,15 +10,13 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import useForm from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
-import socket from "./socketConnection";
-import SearchElement from "./SearchElement";
+//import socket from "./socketConnection";
+import SocketService from "../../services/SocketService";
+import SocketContext from "../SocketContext";
 
 const useStyles = makeStyles(theme => ({
-    button: {
-        margin: "dense",
-    },
     fab: {
-        position: 'absolute',
+        position: 'fixed',
         bottom: theme.spacing(8),
         left: theme.spacing(1),
     },
@@ -31,27 +29,29 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const Agora = () => {
+const Agora = (props) => {
     const classes = useStyles();
     const user = useSelector(state => state.user);
     const dispatch = useDispatch();
     const [rooms, setRooms] = useState([]);
     const [isSearching, setIsSearching] = useState(false);
     const [input, setInput] = useState("");
+    //const [socketS, setSocket] = useState(props.socket)
     const { register, handleSubmit, errors } = useForm();
 
     useEffect(() => {
-        socket.emit("User connected", { userId: user.id, firstName: user.firstname, lastName: user.lastname });
-
+        //setSocket(SocketService.getInstance())
         let isFetching = true
-        fetch(GET_CHAT_API.url + "users/rooms/" + user.id, {headers:GET_CHAT_API.header, }).then(response => console.log(response))
-
-        axios.get(GET_CHAT_API.url + "users/rooms/" + user.id, {headers:GET_CHAT_API.header})
-        .then(response => {
-            if (isFetching) {
-                setRooms(response.data.rooms)
-            }
-        })
+        const backUser = {userId: user.id, firstName: user.firstname, lastName: user.lastname};
+        //props.socket.emit("User connected", backUser);
+        SocketService.emit("User connected", backUser);
+        axios.get(GET_CHAT_API.url + "users/rooms/" + user.id, { headers: GET_CHAT_API.header })
+            .then(response => {
+                if (isFetching) {
+                    setRooms(response.data.rooms)
+                }
+            })
+            .catch(err => console.error(err))
         return () => isFetching = false
     });
 
@@ -65,17 +65,16 @@ const Agora = () => {
 
     return (
         <div className='container'>
-            <SearchElement element="room" />
-            <CreateConversation endpoint={GET_CHAT_API.url} userId={user.id} userRooms={rooms} className="fidex-bottom" />
+            <CreateConversation endpoint={GET_CHAT_API.url} user={user} userRooms={rooms} className="fidex-bottom" />
             <Fab color="primary" aria-label="add" className={classes.fab} onClick={handleSearch}>
                 <SearchRoundedIcon />
             </Fab>
             {
                 isSearching ?
-                    <form className={classes.container} noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
+                    <form noValidate onSubmit={handleSubmit(onSubmit)}>
                         <TextField
                             value={input}
-                            onChange={e => setInput(e.target.value.trim())}
+                            onChange={e => setInput(e.target.value)}
                             id="outlined-basic"
                             className={classes.textField}
                             label="Conversation Name"
@@ -86,7 +85,7 @@ const Agora = () => {
                             type="submit"
                             variant="contained"
                             color="primary"
-                            className={classes.button}
+
                             endIcon={<SearchRoundedIcon />}
                         > Search </Button>
                     </form>
@@ -99,4 +98,12 @@ const Agora = () => {
     );
 };
 
-export default Agora;
+const AgoraSocket = props => (
+    <SocketContext.Consumer >
+        {
+            socket => <Agora {...props} socket={socket}/>
+        }
+    </SocketContext.Consumer>
+)
+
+export default AgoraSocket;

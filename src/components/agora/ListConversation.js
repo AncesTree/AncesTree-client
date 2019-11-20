@@ -5,6 +5,8 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import NearMeIcon from '@material-ui/icons/NearMe';
+import List from '@material-ui/core/List';
+import ListSubheader from '@material-ui/core/ListSubheader';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -20,10 +22,10 @@ function ListItemLink(props) {
 const ListConversation = ({ rooms }) => {
     const classes = useStyles();
     return (
-        <div className={classes.root}>
+        <List subheader={<ListSubheader>Your conversations</ListSubheader>} className={classes.root}>
             {
-                rooms.map(room => (
-                    <div>
+                rooms.map((room) => (
+                    <React.Fragment key={room._id}>
                         <ListItemLink href={`/agora/conversation/${room._id}`} >
                             <ListItemText primary={room.name} secondary={room.users.length}></ListItemText>
                             <ListItemIcon>
@@ -31,10 +33,10 @@ const ListConversation = ({ rooms }) => {
                             </ListItemIcon>
                         </ListItemLink>
                         <Divider />
-                    </div>
+                    </React.Fragment>
                 ))
             }
-        </div>
+        </List>
     )
 }
 

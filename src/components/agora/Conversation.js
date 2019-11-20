@@ -35,11 +35,12 @@ const Conversation = () => {
 
   useEffect(() => {
     let isFetching = true
-    axios.get(GET_CHAT_API.url + "rooms/messages/" + roomId, {headers:GET_CHAT_API.header}).then(response => {
-      if (isFetching) {
-        setMessages(response.data.messages);
-      }
-    })
+    axios.get(GET_CHAT_API.url + "rooms/messages/" + roomId, { headers: GET_CHAT_API.header })
+      .then(response => {
+        if (isFetching) {
+          setMessages(response.data.messages);
+        }
+      })
 
     socket.on(roomId, message => setMessages(drafts => { drafts.push(message) }))
 
@@ -90,7 +91,7 @@ const Conversation = () => {
       <form onSubmit={e => handleSend(e)}>
         <TextField
           value={input}
-          onChange={e => setInput(e.target.value.trim())}
+          onChange={e => setInput(e.target.value)}
           id="outlined-basic"
           className={classes.textField}
           label="Message"
