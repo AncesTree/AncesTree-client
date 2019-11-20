@@ -28,3 +28,4 @@ yarn-error.log*
 # Credentials
 .travis/*.key
 .travis/*.key.pub
+.env
