@@ -47,7 +47,7 @@ class AuthAPIService {
         } else {
             throw new Error(`code ${result.status} : Token probably not valid`)
         }
-
+        
     }
 
 

@@ -3,7 +3,6 @@ import CheeseburgerMenu from "cheeseburger-menu";
 import {Link} from "react-router-dom";
 import history from "./history";
 import React, { useState } from 'react';
-import {GiExitDoor} from "react-icons/all";
 
 function NavbarHeader() {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -14,6 +13,7 @@ function NavbarHeader() {
 
     function disconnect() {
         localStorage.removeItem("Authorization");
+        localStorage.removeItem("refresh_token")
         history.push("/login")
     }
 
@@ -37,7 +37,7 @@ function NavbarHeader() {
             <div className="my-menu-content">
                 <ul>
                     <li><Link to="/home" onClick={closeMenu}>Menu item 1</Link></li>
-                    <li><GiExitDoor/><Link to="/home" onClick={disconnect}>Déconnexion</Link></li>
+                    <li><Link to="/home" onClick={disconnect}>Déconnexion</Link></li>
                 </ul>
             </div>
         </CheeseburgerMenu>
