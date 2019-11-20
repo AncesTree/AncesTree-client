@@ -1,5 +1,3 @@
-require('dotenv').config()
-
 export const AUTH_API = {
     url: 'https://ancestree-auth.igpolytech.fr',
 };
