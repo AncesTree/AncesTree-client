@@ -53,9 +53,9 @@ function Root() {
                 <Route exact path="/login/:error_msg" component={Login} />
                 <Route exact path="/token/:token" component={Token}/>
 
-                <Route path="/callback_linkedin_login" component={CallbackLoginLinkedIn}/>
-                <Route path="/callback_linkedin_join" component={CallbackRegisterLinkedIn}/>
-                <Route path="/callback_mydash" component={CallbackMyDash}/>
+                <Route exact path="/callback_linkedin_login" component={CallbackLoginLinkedIn}/>
+                <Route exact path="/callback_linkedin_join" component={CallbackRegisterLinkedIn}/>
+                <Route exact path="/callback_mydash" component={CallbackMyDash}/>
                 
                 <Route exact path="/join/:id" component={App(JoinContainer)}/>
                 <Route exact path="/home" component={App(withAuth(Error404))}/>
