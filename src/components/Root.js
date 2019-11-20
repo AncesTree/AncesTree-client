@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Provider } from 'react-redux'
 import { Router, Route, Switch } from 'react-router-dom'
 import history from "./common/history";
@@ -11,17 +11,16 @@ import TreeContainer from "../Containers/TreeContainer";
 import Token from "../components/Token";
 import withAuth from "./auth/withAuth";
 import JoinContainer from "../Containers/JoinContainer";
-import RegistrationCallback from "../components/RegistrationCallback";
+import CallbackLoginLinkedIn from "./callback/CallbackLoginLinkedIn";
+import CallbackRegisterLinkedIn from "./callback/CallbackRegisterLinkedIn";
+import CallbackMyDash  from "./callback/CallbackMyDash";
+import Invitation from "../components/Invitation";
 import Login from "./Login";
 import Agora from "./agora/Agora";
 import Conversation from "./agora/Conversation";
 import ConversationSettings from "./agora/ConversationSettings";
-import SocketContext from "./SocketContext";
 
-
-import io from "socket.io-client";
-import { GET_CHAT_API } from "../conf/config";
-const socket = io(GET_CHAT_API.url);
+import { Alert } from "react-bootstrap";
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -30,17 +29,38 @@ const store = createStore(
     composeEnhancer(applyMiddleware(thunk)),
 );
 
-const Root = () => (
+function Root() {
+    const [show, setShow] = useState(true);
+
+    let alert;
+    if (show) {
+        alert =
+        <Alert className="alertDownload" variant="primary" onClose={() => setShow(false)} dismissible>
+            Download the app !
+        </Alert>
+    } else {
+        alert =
+            <Alert style={{display: "none"}} className="alertDownload" variant="primary" onClose={() => setShow(false)} dismissible>
+                Download the app !
+            </Alert>
+    }
+
+    return (
     <Provider store={store}>
-        <SocketContext.Provider value={socket} >
-        <button className="add-button">Add to home screen</button>
+        { alert }
         <Router history={history}>
             <Switch>
                 <Route exact path="/join/:id" component={App(JoinContainer)}/>
+                <Route exact path="/join/:id/:error" component={App(JoinContainer)}/>
+                <Route exact path="/invitation" component={App(Invitation)}/>    
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/login/:error_msg" component={Login} />
                 <Route exact path="/token/:token" component={Token}/>
-                <Route path="/registration_callback" component={RegistrationCallback}/>
+
+                <Route exact path="/callback_linkedin_login" component={CallbackLoginLinkedIn}/>
+                <Route exact path="/callback_linkedin_join" component={CallbackRegisterLinkedIn}/>
+                <Route exact path="/callback_mydash" component={CallbackMyDash}/>
+                
                 <Route exact path="/join/:id" component={App(JoinContainer)}/>
                 <Route exact path="/home" component={App(withAuth(Error404))} />
                 <Route exact path="/tree" component={App(withAuth(TreeContainer))} />
@@ -51,8 +71,7 @@ const Root = () => (
                 <Error404 />
             </Switch>
         </Router>
-        </SocketContext.Provider>
     </Provider>
-);
+    )};
 
 export default Root;

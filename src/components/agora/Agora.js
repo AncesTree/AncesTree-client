@@ -11,8 +11,6 @@ import Button from '@material-ui/core/Button';
 import useForm from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
 //import socket from "./socketConnection";
-import SocketService from "../../services/SocketService";
-import SocketContext from "../SocketContext";
 
 const useStyles = makeStyles(theme => ({
     fab: {

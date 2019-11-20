@@ -1,5 +1,13 @@
-function authFetch(url, init = {headers: {}}) {
-    const headers = Object.assign(init.headers, {'Authorization': getToken()});
+function authFetch(url, init = {}) {
+
+    // headers injection
+    let headers;
+    if (init.headers === undefined){
+        headers = {'Authorization': getToken()}
+    } else {
+        headers = Object.assign(init.headers,
+            {'Authorization': getToken()});
+    }
 
     const initComplete = Object.assign(init,
         {
