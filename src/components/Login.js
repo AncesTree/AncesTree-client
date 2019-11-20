@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
-import {Form, Button} from 'react-bootstrap';
-import {LINKEDIN_LOGIN_URL} from '../conf/config'
+import React, { Component } from 'react';
+import { Form, Button } from 'react-bootstrap';
+import {MYDASH_AUTHORIZATION_URL, LINKEDIN_AUTHORIZATION_LOGIN_URL} from '../conf/config'
 import history from './common/history'
 import AuthAPIService from "../services/AuthAPIService";
 
@@ -57,7 +57,8 @@ export default class Login extends Component {
                     </Button>
                 </Form>
                 <div className="login-box">
-                    <a href={LINKEDIN_LOGIN_URL.url} className="social-button" id="linkedin-connect"> <span>Connect with LinkedIn</span></a>
+			        <a href={LINKEDIN_AUTHORIZATION_LOGIN_URL.url} className="social-button" id="linkedin-connect"><span>Connect with LinkedIn</span></a>
+                    <a href={MYDASH_AUTHORIZATION_URL.url} className="social-button" id="linkedin-connect"><span>Connect with MyDash</span></a>
                 </div>
             </div>
         );
