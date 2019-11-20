@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Form, Button } from 'react-bootstrap';
-import {LINKEDIN_LOGIN_URL} from '../conf/config'
+import {MYDASH_AUTHORIZATION_URL, LINKEDIN_AUTHORIZATION_LOGIN_URL} from '../conf/config'
 import history from './common/history'
 
 export default class Login extends Component {
@@ -13,6 +13,7 @@ export default class Login extends Component {
     }
 
     componentDidMount = () => {
+        console.log(process.env.REACT_APP_CLIENT_ID_LINKEDIN)
         if(history.location.pathname.includes('unknown_linkedin_account')){
             alert('Unknown LinkedIn account!')
         }
@@ -48,8 +49,9 @@ export default class Login extends Component {
                     </Button>
                 </Form>
                 <div className="login-box">
-			        <a href={LINKEDIN_LOGIN_URL.url} className="social-button" id="linkedin-connect"> <span>Connect with LinkedIn</span></a>
-		        </div>
+			        <a href={LINKEDIN_AUTHORIZATION_LOGIN_URL.url} className="social-button" id="linkedin-connect"><span>Connect with LinkedIn</span></a>
+                    <a href={MYDASH_AUTHORIZATION_URL.url} className="social-button" id="linkedin-connect"><span>Connect with MyDash</span></a>
+                </div>
             </div>
         );
     }
