@@ -12,7 +12,6 @@ class AuthAPIService {
     }
 
     getDomain = () => {
-        console.log(this.domain)
         return this.domain
     };
 
