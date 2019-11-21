@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import history from '../common/history'
 import { Form, Button } from 'react-bootstrap';
-import {LINKEDIN_REGISTRATION_URL} from '../../conf/config'
+import {LINKEDIN_AUTHORIZATION_REGISTER_URL} from '../../conf/config'
 
 class Join extends Component {
 
@@ -37,8 +37,7 @@ class Join extends Component {
     linkedInAccountCreation = (event) => {
         let id = history.location.pathname.split("/")[2]
         localStorage.setItem("InvitationID",id);
-        console.log(id)
-        window.location.href = LINKEDIN_REGISTRATION_URL.url+id
+        window.location.href = LINKEDIN_AUTHORIZATION_REGISTER_URL.url
     }
 
     render() {

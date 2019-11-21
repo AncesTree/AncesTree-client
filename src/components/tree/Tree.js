@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import Graph from "react-graph-vis";
 import {GET_SEARCH_URL} from '../../conf/config';
-import { Form, Button } from 'react-bootstrap';
+import history from '../common/history'
+import { Form, Button, Row, Col } from 'react-bootstrap';
 
 class Tree extends Component {
 
@@ -29,12 +30,13 @@ class Tree extends Component {
       }
     
       handleSubmit(event) {
-        this.searchData();
         event.preventDefault();
+        this.searchData();
+        
       }
 
     searchData = () => {
-        console.log("SD called")
+        /**console.log("SD called")
         let completeUrl =GET_SEARCH_URL.url + "?lastname="+this.state.lastname+"&firstname="+this.state.firstname+"&end_year="+this.state.endYear
         console.log(completeUrl)
        
@@ -52,22 +54,25 @@ class Tree extends Component {
                 lastname : '',
                 endYear : ''
               }));
-        })
-        
-        
+        })*/
+        this.props.searchUser(this.state.firstname);
+
 
 
     }
-
-
-    fetchData = (id) => {
-    
-        const { fetchLineage } = this.props;
-        fetchLineage(id);
+    goToInvitation() {
+        history.push('/invitation')
     };
 
+    fetchData = (id) => {
+        console.log("FD")
+        this.props.fetchLineage(id);
+    };
+
+
     componentDidMount(){
-        this.fetchData("9291b16a-fa11-4b0b-9c05-fbb3d0546b8c");
+        console.log(this.props.user.id)
+        this.fetchData(this.props.user.id);
       }
 
 
@@ -99,14 +104,14 @@ class Tree extends Component {
             }    
         }
        return edges
-
     }
-
+  
+    
+    
   
     
     render() {
-        console.log(this.state.aloneNodes)
-        console.log(this.state.firstname)
+        
         const userNode = {distance : 0, 
             node :
              {
@@ -117,11 +122,15 @@ class Tree extends Component {
 
         const juniorsNodes = this.getNodes(this.props.juniors).sort((a,b) => a.distance - b.distance)
         const seniorsNodes = this.getNodes(this.props.seniors).sort((a,b) => a.distance - b.distance)
-        const searchedNodes = this.state.aloneNodes.map(x => ({ id: x.id, shape: "circularImage", image: "/assets/images/404castelltort.png", label: x.firstname }))
-        console.log(searchedNodes)
+        const searchedNodes = this.props.searchResult.map(x => ({ id: x.id, shape: "circularImage", image: "/assets/images/404castelltort.png", label: x.firstname }))
+        
         const nodesFetched = seniorsNodes.concat(juniorsNodes.concat(searchedNodes))
-
+        console.log("JUNIOR,SENIORS,FETECHED")
+        console.log(juniorsNodes)
+        console.log(seniorsNodes)
         console.log(nodesFetched)
+        console.log("USERFOCUS")
+        console.log(this.props.userFocus)
         
         const juniorsEdges = this.getEdges(this.props.juniors.concat([userNode]),true)
         const seniorsEdges = this.getEdges(this.props.seniors.concat([userNode]),false)
@@ -182,95 +191,53 @@ class Tree extends Component {
             
             <div className =" container text-center tree-container">
                 
-                <div className = "row">
-                    <div className = "col-8 col-sm-8 col-md-8">
-                        <div className="input-group ">
-                            <div className="input-group-prepend">
-                                <span className="input-group-text" id="basic-addon1">Username </span>
-                            </div>
-                            <input type="text" className="form-control" placeholder="Arnaud Castelltort"  onChange={this.handleChange} aria-label="Username" aria-describedby="basic-addon1"></input>
-
-                        </div>
-                        <div className="input-group mb-3">
-                            <div className="input-group-prepend">
-                                    <span className="input-group-text" id="basic-addon1">Promotion</span>
+            <div className="row">
+                        <div className="col-8 col-sm-8 col-md-8">
+                            <div className="input-group">
+                                <div className="input-group-prepend">
+                                    <span className="input-group-text" id="basic-addon1">Nom</span>
                                 </div>
-                                <input type="text" className="form-control" placeholder="2020"  onChange={this.handleChange} aria-label="Username" aria-describedby="basic-addon1"></input>
+                                <input type="text" className="form-control" placeholder="Rechercher une personne" aria-label="Username" aria-describedby="basic-addon1"></input>
+                            </div>
+                            <div className="input-group mb-3">
+                                <div className="input-group-prepend">
+                                    <span className="input-group-text" id="basic-addon1">Promo</span>
+                                </div>
+                                <input type="text" className="form-control" placeholder="Année diplomante" aria-label="Username" aria-describedby="basic-addon1"></input>
+                            </div>
+                        </div>
+                        <div className="col-4 col-sm-4 col-md-4">
+                            <button type="button" className="btn bg-dark rounded find-btn" onClick = {this.handleSubmit}><img src="/assets/images/recruitment.svg" className="img-fluid" alt="" /></button>
                         </div>
                     </div>
-                    <div className = "col-4 col-sm-4 col-md-4">
-                        <button type="button" className="btn bg-dark rounded find-btn" onClick ={this.handleSubmit}><img src="/assets/images/recruitment.svg" className = "img-fluid" alt="" /></button>
-                    </div>
-        </div>
                  
                 
                 <Graph graph={graph} options={options} events={events}  style={{ height: "80%", display: "flex" }} />
-                <div className = "row mt-2">
-                    <div className = " col-6 col-sm-6 col-md-6" >
-                    <button type="button" className="btn bg-success rounded add-btn">
-                        <div className = "row">
-                        <div className = "col-6 col-sm-6 col-md-6"><img src="/assets/images/add.svg" className = "img-fluid" alt="" /></div>
-                        <div className = "col"><img src="/assets/images/student.svg" className = "img-fluid" alt="" /></div>
-
+                
+                <div className="row mt-2">
+                        <div className=" col-6 col-sm-6 col-md-6">
+                            <Button variant="success" onClick={() => history.push('/invitation')} >
+                                <div className="inside-btn row">
+                                    <div className="col-6 col-sm-6 col-md-6"><img src="/assets/images/add.svg" className="image-btn" alt="" /></div>
+                                    <div className="col-6 col-sm-6 col-md-6"><img src="/assets/images/student.svg" className="image-btn" alt="" /></div>
+                                </div>
+                            </Button>
                         </div>
-                        
-                            
-                        </button>
-                    </div>
-                    
-                    <div className = " col-6 col-sm-6 col-md-6">
-                       
-                        <button type="button" className="btn bg-success rounded add-btn" data-toggle="modal" data-target="#exampleModal">
-                        <div className = "row">
-                        <div className = "col-6 col-sm-6 col-md-6"><img src="/assets/images/add.svg" className = "img-fluid" alt="" /></div>
-                        <div className = "col"><img src="/assets/images/relationship.svg" className = "img-fluid" alt="" /></div>
-
-                        </div>
-                        
-                            
-                        </button>
-                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Nouvelle Relation</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                            <div class="input-group input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="inputGroup-sizing-sm">Parrain</span>
+                        <div className="col-6 col-sm-6 col-md-6">
+                            <Button variant="success">
+                                <div className="inside-btn row">
+                                    <div className="col-6 col-sm-6 col-md-6"><img src="/assets/images/add.svg" className="image-btn" alt="" /></div>
+                                    <div className="col-6 col-sm-6 col-md-6"><img src="/assets/images/relationship.svg" className="image-btn" alt="" /></div>
                                 </div>
-                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"></input>
-                                </div>
-
-                                <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="inputGroup-sizing-default">Filleul</span>
-                                </div>
-                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></input>
-                                </div>
-
-                                
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                                <button type="button" class="btn btn-primary">Creer</button>
-                            </div>
-                            </div>
-                        </div>
+                            </Button>
                         </div>
                     </div>
-
-                </div>
 
                
             </div>
             
             </React.Fragment>
         )}
-        }
+    }
 
 export default Tree;

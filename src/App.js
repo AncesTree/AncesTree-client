@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import NavbarMobile from "./components/common/NavbarMobile";
 import NavbarHeader from "./components/common/NavbarHeader";
-import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 

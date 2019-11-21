@@ -15,7 +15,6 @@
   height: 80px
  }
 .tree-container{
- 
   height: 350px;
 
 }
@@ -31,11 +30,15 @@
 body {
   padding-top: 60px;
   padding-bottom: 60px;
-  
 }
 .plus {
   font-size: 40px;
 }
+
+.plus {
+  font-size: 40px;
+}
+
 .add-button {
   position: absolute;
   
@@ -165,7 +168,7 @@ body {
 }
 
 #linkedin-connect span {
-  box-sizing: border-box;
+  box-sizing: content-box;
   color: rgb(0, 119, 181);
   cursor: pointer;
   text-align: center;
@@ -186,5 +189,35 @@ body {
   -ms-transition: all .3s ease;
   -o-transition: all .3s ease;
   transition: all .3s ease;
+}
 
+.invitationBackground {
+  background-size: cover;
+  margin-top: 5%;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  max-width: 400px;
+}
+
+
+.invitationLabel {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.invitationButton {
+  margin-top: 10px;
+  width: 100%;
+  background-color: #00adef;
+  border-color: #00adef;
+}
+
+.inside-btn{
+  max-height: 65px;
+}
+
+.image-btn{
+  max-height: 50px;
 }

@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css'
 import Root from "./components/Root";
 import * as serviceWorker from './serviceWorker'
@@ -9,8 +10,11 @@ ReactDOM.render(<Root />, document.getElementById('root'));
 serviceWorker.register();
 
 let deferredPrompt;
-const addBtn = document.querySelector('.add-button');
-addBtn.style.display = 'none';
+const alertDownload = document.querySelector('.alertDownload');
+alertDownload.style.display = 'none';
+alertDownload.style.position = 'fixed';
+alertDownload.style.top = '0';
+alertDownload.style.width = '100%';
 
 window.addEventListener('beforeinstallprompt', (e) => {
     // Prevent Chrome 67 and earlier from automatically showing the prompt
@@ -18,11 +22,11 @@ window.addEventListener('beforeinstallprompt', (e) => {
     // Stash the event so it can be triggered later.
     deferredPrompt = e;
     // Update UI to notify the user they can add to home screen
-    addBtn.style.display = 'block';
+    alertDownload.style.display = 'block';
 
-    addBtn.addEventListener('click', (e) => {
+    alertDownload.addEventListener('click', (e) => {
         // hide our user interface that shows our A2HS button
-        addBtn.style.display = 'none';
+        alertDownload.style.display = 'none';
         // Show the prompt
         deferredPrompt.prompt();
         // Wait for the user to respond to the prompt

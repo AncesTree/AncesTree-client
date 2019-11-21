@@ -1,7 +1,11 @@
-import {GET_LINEAGE_BY_ID_URL} from "../conf/config";
+import Neo4jAPIService from "../services/Neo4jAPIService";
 
 export const FETCH_LINEAGE_SUCESS = 'FETCH_LINEAGE_SUCESS';
 export const FETCH_LINEAGE_ERROR = 'FETCH_LINEAGE_ERROR';
+
+export const FETCH_RESEARCH_SUCESS = 'FETCH_RESEARCH_SUCESS';
+export const FETCH_RESEARCH_ERROR = 'FETCH_RESEARCH_ERROR';
+
 
 export const fetchLineageSuccess = results => ({
     type: FETCH_LINEAGE_SUCESS,
@@ -15,19 +19,27 @@ export const fetchLineageFailure = error => ({
 
 export const fetchLineage = (id) => {
     return dispatch => {
-        let completeUrl = GET_LINEAGE_BY_ID_URL.url + id
-
-        return fetch(completeUrl, {
-            headers: GET_LINEAGE_BY_ID_URL.header(),
-            method: GET_LINEAGE_BY_ID_URL.method
-        })
-            .then(res => res.json())
-            .then(res => {
-                dispatch(fetchLineageSuccess(res));
-                return res
-            })
-            .catch((error) => {
-                dispatch(fetchLineageFailure(error))
-            });
+        Neo4jAPIService.getLineageById(id)
+            .then(res => {dispatch(fetchLineageSuccess(res))})
+            .catch(err => {dispatch(fetchLineageFailure(err))});
     }
-}
+};
+
+
+export const fetchResearchSuccess = results => ({
+    type: FETCH_RESEARCH_SUCESS,
+    results
+})
+
+export const fetchResearchFailure = error => ({
+    type: FETCH_RESEARCH_ERROR,
+    error,
+});
+
+export const fetchResearch = (search) => {
+    return dispatch => {
+        Neo4jAPIService.searchUsers(search)
+            .then(res => {dispatch(fetchResearchSuccess(res))})
+            .catch(err => {dispatch(fetchResearchFailure(err))});
+    }
+};
