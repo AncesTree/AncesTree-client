@@ -70,6 +70,13 @@ class Neo4jAPIService {
             })
             return await result.json()
     }
+    async searchPromo(search){
+        const result = await authFetch(this.getDomain() + `/api/query/promo/${search}`,
+            {
+                method: 'GET'
+            })
+            return await result.json()
+    }
 }
 
 export default Neo4jAPIService.getInstance()

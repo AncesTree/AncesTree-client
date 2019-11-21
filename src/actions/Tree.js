@@ -6,6 +6,9 @@ export const FETCH_LINEAGE_ERROR = 'FETCH_LINEAGE_ERROR';
 export const FETCH_RESEARCH_SUCESS = 'FETCH_RESEARCH_SUCESS';
 export const FETCH_RESEARCH_ERROR = 'FETCH_RESEARCH_ERROR';
 
+export const FETCH_PROMO_SUCESS = 'FETCH_PROMO_SUCESS';
+export const FETCH_PROMO_ERROR = 'FETCH_PROMO_ERROR';
+
 
 export const fetchLineageSuccess = results => ({
     type: FETCH_LINEAGE_SUCESS,
@@ -41,5 +44,23 @@ export const fetchResearch = (search) => {
         Neo4jAPIService.searchUsers(search)
             .then(res => {dispatch(fetchResearchSuccess(res))})
             .catch(err => {dispatch(fetchResearchFailure(err))});
+    }
+};
+
+export const fetchPromoSuccess = results => ({
+    type: FETCH_PROMO_SUCESS,
+    results
+})
+
+export const fetchPromoFailure = error => ({
+    type: FETCH_PROMO_ERROR,
+    error,
+});
+
+export const fetchPromo = (search) => {
+    return dispatch => {
+        Neo4jAPIService.searchPromo(search)
+            .then(res => {dispatch(fetchPromoSuccess(res))})
+            .catch(err => {dispatch(fetchPromoFailure(err))});
     }
 };
