@@ -15,7 +15,8 @@ export default class Invitation extends Component {
             birthdate: '',
             end_year: 2023,
             mentor: '',
-            start_year: 2020
+            start_year: 2020,
+            departement: 'IG'
         };
     }
 
@@ -39,7 +40,8 @@ export default class Invitation extends Component {
                 lastname: this.state.lastname,
                 birthdate: this.state.birthdate,
                 end_year: this.state.end_year.toString(),
-                start_year: this.state.start_year.toString()                
+                start_year: this.state.start_year.toString(),
+                departement: this.state.departement                
             })
         })
         .then(res => res.json())
@@ -92,8 +94,19 @@ export default class Invitation extends Component {
                         </Form.Control>
                     </Form.Group>
 
-                    <Form.Group controlId="formBasicMentor">
-                        <Form.Control type="text"  name="mentor" placeholder="Parain" value={this.state.mentor} onChange={this.handleInputChange}/>
+                    <Form.Group controlId="formBasicDepartement">
+                        <Form.Label>Département</Form.Label>
+                        <Form.Control as="select" name="end_year" value={this.state.departement} onChange={this.handleInputChange} required >
+                        <option key={'1'} value={'IG'}>IG</option>
+                        <option key={'2'} value={'DO'}>DO</option>
+                        <option key={'3'} value={'MEA'}>MEA</option>
+                        <option key={'4'} value={'MSI'}>MSI</option>
+                        <option key={'5'} value={'GBA'}>GBA</option>
+                        <option key={'6'} value={'STE'}>STE</option>
+                        <option key={'7'} value={'EGC'}>EGC</option>
+                        <option key={'8'} value={'SE'}>SE</option>
+                        <option key={'9'} value={'MI'}>MI</option>
+                        </Form.Control>                    
                     </Form.Group>
 
                     <Form.Group controlId="formBasicPhone">
