@@ -14,7 +14,6 @@ export default class CallbackRegisterLinkedIn extends Component {
         let urlParams = new URLSearchParams(this.props.location.search)
         let code = urlParams.get('code')
 
-        console.log(code)
         
         axios.post(REGISTRATION_CALLBACK_LINKEDIN.url, {code: code, id: localStorage.getItem("InvitationID")},
         {  headers: {
