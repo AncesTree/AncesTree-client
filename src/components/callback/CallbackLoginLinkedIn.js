@@ -13,7 +13,6 @@ export default class CallbackLoginLinkedIn extends Component {
         let urlParams = new URLSearchParams(this.props.location.search)
         let code = urlParams.get('code')
 
-        console.log(code)
         
         axios.post(LOGIN_CALLBACK_LINKEDIN.url, {code: code},
         {  headers: {

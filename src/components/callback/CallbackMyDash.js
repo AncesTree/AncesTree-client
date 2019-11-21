@@ -21,7 +21,6 @@ export default class CallbackMyDash extends Component {
             'Content-Type':'application/x-www-form-urlencoded'
         }})
         .then((res) => {
-            console.log(res)
             localStorage.setItem("refresh_token", res.data.refresh_token)
             let access_token = res.data.access_token
             axios.post(LOGIN_CALLBACK_MYDASH.url,  {access_token: access_token},

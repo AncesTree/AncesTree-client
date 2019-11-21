@@ -30,7 +30,6 @@ export default function withAuth(ComponentToProtect) {
                         AuthAPIService.refreshToken()
                             .then(res => {
                                 this.setState({loading: false});
-                                console.log(res)
                         })
                             .catch(err => {
                                 this.setState({loading: false, redirect: true})
