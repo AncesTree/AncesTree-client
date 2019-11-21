@@ -19,10 +19,7 @@ import Login from "./Login";
 import Home from "./home/HomeScreen";
 import { Alert } from "react-bootstrap";
 import Register from "./Register";
-<<<<<<< HEAD
 import Profile from "./profile/Profile";
-=======
->>>>>>> origin/master
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
