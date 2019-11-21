@@ -1,5 +1,5 @@
 import history from '../components/common/history'
-import {LINKEDIN_REGISTRATION_URL, BASIC_REGISTRATION} from '../conf/config'
+import {BASIC_REGISTRATION} from '../conf/config'
 export const ACCOUNT_CREATION_SUCESS = 'ACCOUNT_CREATION_SUCESS';
 export const ACCOUNT_CREATION_ERROR = 'ACCOUNT_CREATION_ERROR';
 
@@ -12,10 +12,6 @@ export const accountCreationFailure = error => ({
     type: ACCOUNT_CREATION_ERROR,
     error,
 });
-
-export const linkedInAccountCreation = (id) => {
-    return dispatch => {window.location.href = LINKEDIN_REGISTRATION_URL.url+id}
-}
 
 export const basicAccountCreation = (id, email, password) => {
     return dispatch => {

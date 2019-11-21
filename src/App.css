@@ -28,10 +28,6 @@
   }
 }
 
-.spacer {
-  height: 60px;
-}
-
 body {
   padding-top: 60px;
   padding-bottom: 60px;
@@ -71,7 +67,7 @@ a .active>svg {
   height: 100vh;
 }
 
-.loginForm {
+.loginBackground {
   background-image: url("/assets/images/ancestree-logo.png");
   background-size: cover;
   margin-top: 5%;
@@ -82,7 +78,7 @@ a .active>svg {
   max-width: 400px;
 }
 
-.loginForm>* {
+.loginForm>*, .login-box {
   opacity: 0.92;
 }
 
@@ -104,7 +100,18 @@ a .active>svg {
 
 
 html {
-  overflow-x: hidden ;
+  overflow-x: hidden;
+}
+body {
+  position: relative
+}
+
+.cheeseburger-menu-outer {
+  z-index: 1040 !important;
+}
+
+.cheeseburger-menu-overlay {
+  background: rgba(0, 0, 0, 0.5) !important;
 }
 
 .login-box {

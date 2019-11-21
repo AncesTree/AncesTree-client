@@ -13,10 +13,6 @@ export default function App(ComponentToRender) {
               <div className="App">
                   <NavbarHeader/>
                       <ComponentToRender/>
-
-                 
-
-
                   <NavbarMobile/>
               </div>
           );
