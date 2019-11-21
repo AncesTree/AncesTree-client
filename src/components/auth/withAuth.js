@@ -4,7 +4,6 @@ import { setUserId, setUser } from "../../actions/User";
 import { connect } from 'react-redux';
 import AuthAPIService from "../../services/AuthAPIService";
 import Neo4jAPIService from "../../services/Neo4jAPIService";
-import refreshToken from '../../services/refreshToken'
 
 export default function withAuth(ComponentToProtect) {
     class WithAuth extends Component {
@@ -28,7 +27,15 @@ export default function withAuth(ComponentToProtect) {
                 })
                 .catch(err => {
                     if(localStorage.getItem('refresh_token')){
-                        refreshToken()
+                        AuthAPIService.refreshToken()
+                            .then(res => {
+                                this.setState({loading: false});
+                                console.log(res)
+                        })
+                            .catch(err => {
+                                this.setState({loading: false, redirect: true})
+                                console.log(err)
+                        })
                     }
                     else{
                         this.setState({loading: false, redirect: true})
