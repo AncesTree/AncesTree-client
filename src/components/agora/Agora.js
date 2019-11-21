@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import useForm from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
-import io from 'socket.io-client';
 
 import ListConversation from "./ListConversation";
 import CreateConversation from "./CreateConversation";
@@ -41,10 +40,6 @@ const Agora = () => {
     const { register, handleSubmit, errors } = useForm();
     
     const fetchUser = () => {
-        const socket = io(GET_CHAT_API.url);
-        socket.emit("User connected", { userId: user.id, firstName: user.firstname, lastName: user.lastname });
-        socket.disconnect();
-
         const query = GET_CHAT_API.url + "users/rooms/" + user.id; 
         get(query, { headers: GET_CHAT_API.header })
             .then(res => {

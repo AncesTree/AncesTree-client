@@ -77,7 +77,10 @@ const CreateConversation = ({ endpoint, user, userRooms }) => {
                     const queryUser = GET_CHAT_API.url + "users/" + user._id;
                     const userUpdate = { "rooms": [...user.rooms,res._id] };
                     patch(queryUser, userUpdate, headers)
-                        .then()
+                        .then(response => {
+                            setInput('');
+                            setShowForm(!showForm);
+                        })
                         .catch( err => {
                             setError(err.message)
                         })
@@ -87,22 +90,10 @@ const CreateConversation = ({ endpoint, user, userRooms }) => {
                 setError(err.message)
             })
     }
+    /*
     const onSubmit = data => {
         console.log(user)
         if (input !== '') {
-            
-            const query = GET_CHAT_API.url + "rooms"; 
-
-            get(query, { headers: GET_CHAT_API.header })
-            .then(res => console.log(res))
-            //axios.delete( GET_CHAT_API.url + "users/db6f904f-7291-4d66-a95c-e8515253ae0a", { headers: GET_CHAT_API.header })
-            /*axios.patch(
-                GET_CHAT_API.url + "users/" + user._id, 
-                { "rooms": []}, 
-                {headers:GET_CHAT_API.header})
-                .then(response => console.log(response))
-                .catch(err => err)
-                */
             const room = { "name": input, "users": [user._id], "messages": [] }
             axios.post(
                 GET_CHAT_API.url + "rooms", 
@@ -118,14 +109,13 @@ const CreateConversation = ({ endpoint, user, userRooms }) => {
                         .catch(err => err)
                     }
                 ).catch( err => err)  
-            
-                
             setInput('')
             handleClick();
         } else {
             alert("Please enter a name for the conversation")
         }
     };
+    */
 
 
 
@@ -153,7 +143,7 @@ clickable users and then add on click above the search field
                     }
                     </List>
 
-                <form noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
+                <form noValidate autoComplete="off" onSubmit={postRoom}>
                     <TextField
                         value={input}
                         onChange={e => setInput(e.target.value)}
