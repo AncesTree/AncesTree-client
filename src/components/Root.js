@@ -21,6 +21,8 @@ import Conversation from "./agora/Conversation";
 import ConversationSettings from "./agora/ConversationSettings";
 
 import { Alert } from "react-bootstrap";
+import { get } from 'http';
+import user from '../reducers/UserReducer';
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -31,6 +33,8 @@ const store = createStore(
 
 function Root() {
     const [show, setShow] = useState(true);
+
+
 
     let alert;
     if (show) {

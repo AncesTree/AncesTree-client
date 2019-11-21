@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Form, Button } from 'react-bootstrap';
-import {MYDASH_AUTHORIZATION_URL, LINKEDIN_AUTHORIZATION_LOGIN_URL} from '../conf/config'
+import {MYDASH_AUTHORIZATION_URL, LINKEDIN_AUTHORIZATION_LOGIN_URL, GET_CHAT_API} from '../conf/config'
 import history from './common/history'
 import AuthAPIService from "../services/AuthAPIService";
 

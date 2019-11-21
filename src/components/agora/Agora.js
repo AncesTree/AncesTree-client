@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from "react";
+import useForm from "react-hook-form";
+import { useSelector, useDispatch } from "react-redux";
+import io from 'socket.io-client';
+
 import ListConversation from "./ListConversation";
 import CreateConversation from "./CreateConversation";
-import axios from "axios";
 import { GET_CHAT_API } from "../../conf/config";
+
 import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import SearchRoundedIcon from '@material-ui/icons/SearchRounded';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import useForm from "react-hook-form";
-import { useSelector, useDispatch } from "react-redux";
-//import socket from "./socketConnection";
+
+import { get } from './methods'
 
 const useStyles = makeStyles(theme => ({
     fab: {
@@ -27,31 +30,36 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const Agora = (props) => {
+const Agora = () => {
     const classes = useStyles();
     const user = useSelector(state => state.user);
-    const dispatch = useDispatch();
-    const [rooms, setRooms] = useState([]);
+    const [userDB, setUserDB]= useState(null)
     const [isSearching, setIsSearching] = useState(false);
     const [input, setInput] = useState("");
-    //const [socketS, setSocket] = useState(props.socket)
+    const [load, setLoad] = useState(false);
+    const [error, setError] = useState('');
     const { register, handleSubmit, errors } = useForm();
+    
+    const fetchUser = () => {
+        const socket = io(GET_CHAT_API.url);
+        socket.emit("User connected", { userId: user.id, firstName: user.firstname, lastName: user.lastname });
+        socket.disconnect();
+
+        const query = GET_CHAT_API.url + "users/rooms/" + user.id; 
+        get(query, { headers: GET_CHAT_API.header })
+            .then(res => {
+                setUserDB(res);
+                setLoad(true);
+            })
+            .catch(err => {
+                setError(err.message);
+                setLoad(true)
+            })
+    }
 
     useEffect(() => {
-        //setSocket(SocketService.getInstance())
-        let isFetching = true
-        const backUser = {userId: user.id, firstName: user.firstname, lastName: user.lastname};
-        //props.socket.emit("User connected", backUser);
-        SocketService.emit("User connected", backUser);
-        axios.get(GET_CHAT_API.url + "users/rooms/" + user.id, { headers: GET_CHAT_API.header })
-            .then(response => {
-                if (isFetching) {
-                    setRooms(response.data.rooms)
-                }
-            })
-            .catch(err => console.error(err))
-        return () => isFetching = false
-    });
+        fetchUser();
+    }, [load]);
 
     const handleSearch = () => {
         setIsSearching(!isSearching);
@@ -61,9 +69,9 @@ const Agora = (props) => {
         console.log(data)
     }
 
-    return (
+    const renderAgora = () => (
         <div className='container'>
-            <CreateConversation endpoint={GET_CHAT_API.url} user={user} userRooms={rooms} className="fidex-bottom" />
+            <CreateConversation endpoint={GET_CHAT_API.url} user={userDB} className="fidex-bottom" />
             <Fab color="primary" aria-label="add" className={classes.fab} onClick={handleSearch}>
                 <SearchRoundedIcon />
             </Fab>
@@ -89,19 +97,23 @@ const Agora = (props) => {
                     </form>
                     :
                     <div className="scrollable sidebar">
-                        <ListConversation rooms={rooms} />
+                        <ListConversation rooms={userDB.rooms} />
                     </div>
             }
         </div>
-    );
+    )
+
+    if (load) {
+        return (<ul>
+            {error ? <li>{error.message}</li> : renderAgora()}
+        </ul>);
+    } else {
+        return (
+            <div>
+                Loading...
+            </div>
+        );
+    }
 };
 
-const AgoraSocket = props => (
-    <SocketContext.Consumer >
-        {
-            socket => <Agora {...props} socket={socket}/>
-        }
-    </SocketContext.Consumer>
-)
-
-export default AgoraSocket;
+export default Agora;

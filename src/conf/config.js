@@ -2,7 +2,6 @@ export const AUTH_API = {
     url: 'https://ancestree-auth.igpolytech.fr',
 };
 
-
 export const BASIC_REGISTRATION = {
     url: AUTH_API.url+'/invitation/basic',
     method: 'POST'

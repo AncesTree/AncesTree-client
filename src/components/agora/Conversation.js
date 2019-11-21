@@ -11,7 +11,7 @@ import Fab from '@material-ui/core/Fab';
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import { useSelector, useDispatch } from "react-redux";
-import socket from "./socketConnection";
+import io from 'socket.io-client';
 
 const useStyles = makeStyles(theme => ({
   textField: {
@@ -33,6 +33,8 @@ const Conversation = () => {
   const [input, setInput] = useState('');
   const classes = useStyles();
 
+  const socket = io(GET_CHAT_API.url);
+
   useEffect(() => {
     let isFetching = true
     axios.get(GET_CHAT_API.url + "rooms/messages/" + roomId, { headers: GET_CHAT_API.header })
@@ -43,10 +45,6 @@ const Conversation = () => {
       })
 
     socket.on(roomId, message => setMessages(drafts => { drafts.push(message) }))
-
-    return () => {
-      isFetching = false;
-    }
   });
 
   const handleSend = e => {
@@ -64,9 +62,11 @@ const Conversation = () => {
 
   return (
     <div>
+      {/*
       <Fab aria-label="add" className={classes.fab} onClick={handleSettings}>
         <SettingsIcon />
       </Fab>
+      */}
       <div>
         {
           messages.map(message => (
