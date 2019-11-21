@@ -1,29 +1,81 @@
 import React, {Component} from 'react'
 import Graph from "react-graph-vis";
+import {GET_SEARCH_URL} from '../../conf/config';
+import { Form, Button } from 'react-bootstrap';
 
 class Tree extends Component {
 
     constructor(props){
         super(props);
         this.state = {
+            aloneNodes : [],
+            firstname : '',
+            endYear : '',
+            lastname : ''
         }
         this.fetchData = this.fetchData.bind(this)
+        this.handleChange = this.handleChange.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
         
     };
-  
+
+
+    handleChange(event) {
+        this.setState(
+            {
+                endYear: event.target.endYear, 
+                firstname : event.target.firstname
+        });
+      }
+    
+      handleSubmit(event) {
+        this.searchData();
+        event.preventDefault();
+      }
+
+    searchData = () => {
+        console.log("SD called")
+        let completeUrl =GET_SEARCH_URL.url + "?lastname="+this.state.lastname+"&firstname="+this.state.firstname+"&end_year="+this.state.endYear
+        console.log(completeUrl)
+       
+        const searchNodes = fetch(completeUrl, {
+            headers: GET_SEARCH_URL.header(),
+            method: GET_SEARCH_URL.method
+        })
+        .then(res => res.json())
+        .then(res =>  {
+            console.log(res.users)
+            this.setState(state => ({
+                
+                aloneNodes: res.users,
+                firstname : '',
+                lastname : '',
+                endYear : ''
+              }));
+        })
+        
+        
+
+
+    }
+
+
     fetchData = (id) => {
     
         const { fetchLineage } = this.props;
         fetchLineage(id);
     };
+
     componentDidMount(){
         this.fetchData("9291b16a-fa11-4b0b-9c05-fbb3d0546b8c");
       }
+
 
     getNodes(userArray){
         const nodes = userArray.map(x => ({ id: x.node.id, shape: "circularImage", image: "/assets/images/404castelltort.png", label: x.node.firstname }))
         return nodes
     }
+
     getEdges(userArray,isJunior){
         let edges = [];
         for(let i=0;i<userArray.length;i++){
@@ -36,30 +88,25 @@ class Tree extends Component {
                 
                     edges.push({from: iPlusOne[j].node.id, to:   userArray[i].node.id,value: 2, color: { color: "lightgray" }})
                 }
-                
-            }else {
+                }
+            else {
                
                 for(let j =0; j < iPlusOne.length; j++) {
                 
                     edges.push({from: userArray[i].node.id, to: iPlusOne[j].node.id ,value: 2, color: { color: "lightgray" }})
                 }
                 
-            }
-
-            
-           
-            
+            }    
         }
-       
-        
-
-        return edges
+       return edges
 
     }
+
   
     
     render() {
-        
+        console.log(this.state.aloneNodes)
+        console.log(this.state.firstname)
         const userNode = {distance : 0, 
             node :
              {
@@ -70,9 +117,11 @@ class Tree extends Component {
 
         const juniorsNodes = this.getNodes(this.props.juniors).sort((a,b) => a.distance - b.distance)
         const seniorsNodes = this.getNodes(this.props.seniors).sort((a,b) => a.distance - b.distance)
-        const nodesFetched = seniorsNodes.concat(juniorsNodes).concat()
+        const searchedNodes = this.state.aloneNodes.map(x => ({ id: x.id, shape: "circularImage", image: "/assets/images/404castelltort.png", label: x.firstname }))
+        console.log(searchedNodes)
+        const nodesFetched = seniorsNodes.concat(juniorsNodes.concat(searchedNodes))
 
-        
+        console.log(nodesFetched)
         
         const juniorsEdges = this.getEdges(this.props.juniors.concat([userNode]),true)
         const seniorsEdges = this.getEdges(this.props.seniors.concat([userNode]),false)
@@ -82,18 +131,15 @@ class Tree extends Component {
         const graph = {
             nodes : nodesFetched ,
             
-              edges : edgesFetched               
+            edges : edgesFetched               
           };
-          
+         
       
-          
-          
-          
-       
-          graph.nodes.push({id : this.props.userFocus.id,shape: "circularImage", image: "/assets/images/404castelltort.png", label: this.props.userFocus.firstname })
+        graph.nodes.push({id : this.props.userFocus.id,shape: "circularImage", image: "/assets/images/404castelltort.png", label: this.props.userFocus.firstname })
         
 
-        
+        console.log("graph nodes")
+        console.log(graph.nodes)
         
         const options = {
             nodes: {
@@ -142,24 +188,25 @@ class Tree extends Component {
                             <div className="input-group-prepend">
                                 <span className="input-group-text" id="basic-addon1">Username </span>
                             </div>
-                            <input type="text" className="form-control" placeholder="Arnaud Castelltort" aria-label="Username" aria-describedby="basic-addon1"></input>
+                            <input type="text" className="form-control" placeholder="Arnaud Castelltort"  onChange={this.handleChange} aria-label="Username" aria-describedby="basic-addon1"></input>
 
                         </div>
                         <div className="input-group mb-3">
                             <div className="input-group-prepend">
                                     <span className="input-group-text" id="basic-addon1">Promotion</span>
                                 </div>
-                                <input type="text" className="form-control" placeholder="2020" aria-label="Username" aria-describedby="basic-addon1"></input>
+                                <input type="text" className="form-control" placeholder="2020"  onChange={this.handleChange} aria-label="Username" aria-describedby="basic-addon1"></input>
                         </div>
                     </div>
                     <div className = "col-4 col-sm-4 col-md-4">
-                        <button type="button" className="btn bg-dark rounded find-btn"><img src="/assets/images/recruitment.svg" className = "img-fluid" alt="" /></button>
+                        <button type="button" className="btn bg-dark rounded find-btn" onClick ={this.handleSubmit}><img src="/assets/images/recruitment.svg" className = "img-fluid" alt="" /></button>
                     </div>
-                </div>
+        </div>
+                 
                 
                 <Graph graph={graph} options={options} events={events}  style={{ height: "80%", display: "flex" }} />
                 <div className = "row mt-2">
-                    <div className = " col-6 col-sm-6 col-md-6">
+                    <div className = " col-6 col-sm-6 col-md-6" >
                     <button type="button" className="btn bg-success rounded add-btn">
                         <div className = "row">
                         <div className = "col-6 col-sm-6 col-md-6"><img src="/assets/images/add.svg" className = "img-fluid" alt="" /></div>
@@ -173,7 +220,7 @@ class Tree extends Component {
                     
                     <div className = " col-6 col-sm-6 col-md-6">
                        
-                        <button type="button" className="btn bg-success rounded add-btn">
+                        <button type="button" className="btn bg-success rounded add-btn" data-toggle="modal" data-target="#exampleModal">
                         <div className = "row">
                         <div className = "col-6 col-sm-6 col-md-6"><img src="/assets/images/add.svg" className = "img-fluid" alt="" /></div>
                         <div className = "col"><img src="/assets/images/relationship.svg" className = "img-fluid" alt="" /></div>
@@ -182,6 +229,39 @@ class Tree extends Component {
                         
                             
                         </button>
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Nouvelle Relation</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                            <div class="input-group input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-sm">Parrain</span>
+                                </div>
+                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"></input>
+                                </div>
+
+                                <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-default">Filleul</span>
+                                </div>
+                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></input>
+                                </div>
+
+                                
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                <button type="button" class="btn btn-primary">Creer</button>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
                     </div>
 
                 </div>

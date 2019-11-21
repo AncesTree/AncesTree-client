@@ -25,6 +25,13 @@ export const GET_LINEAGE_BY_ID_URL = {
         return {'Authorization': localStorage.getItem("Authorization")}
     }
 };
+export const GET_SEARCH_URL = {
+    url: 'https://ancestree-api-neo4j.igpolytech.fr/api/users/find',
+    method: 'GET',
+    header: () => {
+        return {'Authorization': localStorage.getItem("Authorization")}
+    }
+};
 
 export const LINKEDIN_REGISTRATION_URL = {
     url: AUTH_API.url + '/oauth/register/'
