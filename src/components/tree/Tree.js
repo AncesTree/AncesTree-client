@@ -60,34 +60,26 @@ class Tree extends Component {
     getEdges(userArray, isJunior) {
         let edges = [];
         for (let i = 0; i < userArray.length; i++) {
-
             let iDistance = userArray[i].distance
             let iPlusOne = userArray.filter(x => x.distance === iDistance + 1)
-
             if (isJunior) {
                 for (let j = 0; j < iPlusOne.length; j++) {
-
                     edges.push({ from: iPlusOne[j].node.id, to: userArray[i].node.id, value: 2, color: { color: "lightgray" } })
                 }
-            }
-            else {
-
+            } else {
                 for (let j = 0; j < iPlusOne.length; j++) {
-
                     edges.push({ from: userArray[i].node.id, to: iPlusOne[j].node.id, value: 2, color: { color: "lightgray" } })
                 }
-
             }
         }
         return edges
-    }
+    };
 
-
-
-
+    goToInvitation() {
+        history.push('/invitation')
+    };
 
     render() {
-
         const userNode = {
             distance: 0,
             node:
@@ -110,7 +102,6 @@ class Tree extends Component {
         const seniorsEdges = this.getEdges(this.props.seniors.concat([userNode]), false)
         const edgesFetched = juniorsEdges.concat(seniorsEdges)
         // TODO recup  user focus
-
         const graph = {
             nodes: nodesFetched,
 

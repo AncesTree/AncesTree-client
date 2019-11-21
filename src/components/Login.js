@@ -58,7 +58,7 @@ export default class Login extends Component {
                 </Form>
                 <div className="login-box">
 			        <a href={LINKEDIN_AUTHORIZATION_LOGIN_URL.url} className="social-button" id="linkedin-connect"><span>Connect with LinkedIn</span></a>
-                    <a href={MYDASH_AUTHORIZATION_URL.url} className="social-button" id="linkedin-connect"><span>Connect with MyDash</span></a>
+                    <a href={MYDASH_AUTHORIZATION_URL.url}  className="social-button2" id="mydash-connect"><span>Connect with MyDash</span></a>
                 </div>
             </div>
         );

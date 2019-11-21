@@ -17,6 +17,7 @@ import CallbackMyDash  from "./callback/CallbackMyDash";
 import Invitation from "../components/Invitation";
 import Login from "./Login";
 import { Alert } from "react-bootstrap";
+import Register from "./Register";
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -52,6 +53,7 @@ function Root() {
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/login/:error_msg" component={Login} />
                 <Route exact path="/token/:token" component={Token}/>
+                <Route exact path="/register" component={App(Register)}/>    
 
                 <Route exact path="/callback_linkedin_login" component={CallbackLoginLinkedIn}/>
                 <Route exact path="/callback_linkedin_join" component={CallbackRegisterLinkedIn}/>
