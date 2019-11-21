@@ -40,6 +40,29 @@ class Neo4jAPIService {
         return await result.json()
     }
 
+    /**
+     * Ask te api to return all the events.
+     */
+    async getEvents(){
+        const result = await authFetch(this.getDomain() + "/api/events",
+        {
+            method: 'GET'
+        })
+        return result.json()
+    }
+
+    /**
+    * Ask the api to create an event.
+    * @param {*} event The event that will be created.
+    */
+    async createEvent (event) {      
+        return authFetch(this.getDomain() + '/api/events', {
+          method: 'POST',
+          headers: {'Content-Type':'application/json' },
+          body: JSON.stringify(event)
+        })
+      }
+
 }
 
 export default Neo4jAPIService.getInstance()

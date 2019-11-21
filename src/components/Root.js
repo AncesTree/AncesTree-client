@@ -16,6 +16,7 @@ import CallbackRegisterLinkedIn from "./callback/CallbackRegisterLinkedIn";
 import CallbackMyDash  from "./callback/CallbackMyDash";
 import Invitation from "../components/Invitation";
 import Login from "./Login";
+import Home from "./home/HomeScreen";
 import { Alert } from "react-bootstrap";
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -58,10 +59,10 @@ function Root() {
                 <Route exact path="/callback_mydash" component={CallbackMyDash}/>
                 
                 <Route exact path="/join/:id" component={App(JoinContainer)}/>
-                <Route exact path="/home" component={App(withAuth(Error404))}/>
+                <Route exact path="/home" component={App(withAuth(Home))}/>
                 <Route exact path="/tree" component={App(withAuth(TreeContainer))}/>
                 <Route exact path="/message" component={App(withAuth(Error404))}/>
-                <Route exact path="/" component={App(withAuth(Error404))}/>
+                <Route exact path="/" component={App(withAuth(Home))}/>
                 <Error404/>
             </Switch>
         </Router>
