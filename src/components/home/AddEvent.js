@@ -36,7 +36,7 @@ export default class AddEvent extends Component {
     this.eventAdded = this.props.eventAdded;
   }
 
-  async onSubmit(values) {
+  async onSubmit(values, props) {
     const event = {
       ...values
     }
@@ -57,7 +57,7 @@ export default class AddEvent extends Component {
         initialValues={this.initialValues}
         validationSchema={schema}
         onSubmit={values => {
-          this.onSubmit(values)
+          this.onSubmit(values, this.props)
         }}
       >
         {({
@@ -108,7 +108,7 @@ export default class AddEvent extends Component {
                 </Form.Control.Feedback>
               </Form.Group>
 
-              <Button variant="primary" onClick={handleReset} type="submit">
+              <Button variant="primary" onClick={() => setTimeout(handleReset,200)} type="submit">
                 Créer évènement
               </Button>
             </Form>

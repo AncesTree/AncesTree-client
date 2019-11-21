@@ -17,6 +17,7 @@ export default class HomeScreen extends Component {
 
     async eventAdded(){
         ApiService.getEvents()
+        
         .then(events => {
             this.setState({
                 events: events
