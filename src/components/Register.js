@@ -15,7 +15,10 @@ export default class Register extends Component {
             end_year: 2023,
             mentor: '',
             start_year: 2020,
-            privacy: ''
+            privacy: 'private',
+            profession: '',
+            company: '',
+            departement: ''
         };
     }
 
@@ -38,16 +41,20 @@ export default class Register extends Component {
                 firstname: this.state.firstname,
                 lastname: this.state.lastname,
                 birthdate: this.state.birthdate,
-                end_year: this.state.end_year,
-                start_year: this.state.start_year,
-                privacy: this.state.privacy                  
+                end_year: this.state.end_year.toString(),
+                start_year: this.state.start_year.toString(),
+                privacy: this.state.privacy,
+                profession: this.state.profession,
+                company: this.state.company,
+                departement: this.state.departement            
             })
         })
         .then(res => {
-            console.log(res)
+            console.log(res.body)
             res.json()
         })
-        .then( () => {
+        .then( (res) => {
+            console.log(res)
             history.push("/");
         }).catch((error) => console.log(error))
     }
@@ -82,6 +89,14 @@ export default class Register extends Component {
                         <Form.Control type="email"  name="email" placeholder="Adresse mail" value={this.state.email} onChange={this.handleInputChange} required />
                     </Form.Group>
 
+                    <Form.Group controlId="formBasicCompany">
+                        <Form.Control type="text"  name="company" placeholder="Entreprise" value={this.state.company} onChange={this.handleInputChange} required/>
+                    </Form.Group>
+
+                    <Form.Group controlId="formBasicProfession">
+                        <Form.Control type="text"  name="profession" placeholder="Fonction" value={this.state.profession} onChange={this.handleInputChange} />
+                    </Form.Group>
+
                     <Form.Group controlId="formBasicStartYear">
                         <Form.Label>Année d'inscription</Form.Label>
                         <Form.Control as="select" name="start_year" value={this.state.start_year} onChange={this.handleInputChange} required >
@@ -94,6 +109,10 @@ export default class Register extends Component {
                         <Form.Control as="select" name="end_year" value={this.state.end_year} onChange={this.handleInputChange} required >
                             {optionsEnd}
                         </Form.Control>
+                    </Form.Group>
+
+                    <Form.Group controlId="formBasicDepartement">
+                        <Form.Control type="text"  name="departement" placeholder="Département" value={this.state.departement} onChange={this.handleInputChange} required />
                     </Form.Group>
 
                     <Form.Group controlId="formBasicMentor">
@@ -111,8 +130,8 @@ export default class Register extends Component {
                     <Form.Group controlId="formBasicConfidentiality">
                         <Form.Label>Confidentialité du compte</Form.Label>
                         <Form.Control as="select" name="privacy" value={this.state.privacy} onChange={this.handleInputChange} required >
-                            <option value={'private'}>Privé</option>
-                            <option value={'public'}>Public</option>
+                            <option key={1} value={'private'}>Privé</option>
+                            <option key={2} value={'public'}>Public</option>
                         </Form.Control>
                     </Form.Group>
 
