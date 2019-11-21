@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import useForm from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -19,6 +19,7 @@ const useStyles = makeStyles(theme => ({
         position: 'fixed',
         bottom: theme.spacing(8),
         left: theme.spacing(1),
+        zIndex: "1035",
     },
     extendedIcon: {
         marginRight: theme.spacing(1),
@@ -32,15 +33,15 @@ const useStyles = makeStyles(theme => ({
 const Agora = () => {
     const classes = useStyles();
     const user = useSelector(state => state.user);
-    const [userDB, setUserDB]= useState(null)
+    const [userDB, setUserDB] = useState(null);
     const [isSearching, setIsSearching] = useState(false);
     const [input, setInput] = useState("");
     const [load, setLoad] = useState(false);
     const [error, setError] = useState('');
     const { register, handleSubmit, errors } = useForm();
-    
+
     const fetchUser = () => {
-        const query = GET_CHAT_API.url + "users/rooms/" + user.id; 
+        const query = GET_CHAT_API.url + "users/rooms/" + user.id;
         get(query, { headers: GET_CHAT_API.header })
             .then(res => {
                 setUserDB(res);
@@ -66,7 +67,7 @@ const Agora = () => {
 
     const renderAgora = () => (
         <div className='container'>
-            <CreateConversation endpoint={GET_CHAT_API.url} user={userDB} className="fidex-bottom" />
+            <CreateConversation endpoint={GET_CHAT_API.url} user={userDB} userRooms={userDB.rooms} callParent={fetchUser} className="fidex-bottom" />
             <Fab color="primary" aria-label="add" className={classes.fab} onClick={handleSearch}>
                 <SearchRoundedIcon />
             </Fab>
@@ -92,22 +93,25 @@ const Agora = () => {
                     </form>
                     :
                     <div className="scrollable sidebar">
-                        <ListConversation rooms={userDB.rooms} />
+                        <ListConversation rooms={userDB.rooms} userId={userDB._id} callParent={fetchUser} />
                     </div>
             }
         </div>
     )
 
     if (load) {
-        return (<ul>
-            {error ? <li>{error.message}</li> : renderAgora()}
-        </ul>);
+        return (
+        <ul>
+            {error ? <p>{error.message}</p> : renderAgora()}
+        </ul>
+        );
     } else {
         return (
             <div>
                 Loading...
             </div>
         );
+
     }
 };
 
