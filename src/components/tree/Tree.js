@@ -1,31 +1,61 @@
 import React, { Component } from 'react'
 import Graph from "react-graph-vis";
+import { GET_SEARCH_URL } from '../../conf/config';
 import history from '../common/history'
 import { Form, Button, Row, Col } from 'react-bootstrap';
-
 
 class Tree extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
+            endYear: ''
         }
         this.fetchData = this.fetchData.bind(this)
+        this.handleChange = this.handleChange.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
 
+    };
+
+
+    handleChange(event) {
+        event.preventDefault();
+
+        this.searchData(event.target.value);
+
+    }
+
+    handleSubmit(event) {
+        event.preventDefault();
+        this.searchData();
+
+    }
+
+    searchData = (search) => {
+        this.props.searchUser(search);
+    }
+    goToInvitation() {
+        history.push('/invitation')
     };
 
     fetchData = (id) => {
-        const { fetchLineage } = this.props;
-        fetchLineage(id);
+        if (id) {
+
+            this.props.fetchLineage(id);
+        }
     };
+
 
     componentDidMount() {
-        this.fetchData("9291b16a-fa11-4b0b-9c05-fbb3d0546b8c");
-    };
+
+        this.fetchData(this.props.user.id);
+    }
+
 
     getNodes(userArray) {
-        return userArray.map(x => ({ id: x.node.id, shape: "circularImage", image: "/assets/images/404castelltort.png", label: x.node.firstname }))
-    };
+        const nodes = userArray.map(x => ({ id: x.node.id, shape: "circularImage", image: "/assets/images/404castelltort.png", label: x.node.firstname }))
+        return nodes
+    }
 
     getEdges(userArray, isJunior) {
         let edges = [];
@@ -63,7 +93,10 @@ class Tree extends Component {
 
         const juniorsNodes = this.getNodes(this.props.juniors).sort((a, b) => a.distance - b.distance)
         const seniorsNodes = this.getNodes(this.props.seniors).sort((a, b) => a.distance - b.distance)
-        const nodesFetched = seniorsNodes.concat(juniorsNodes).concat()
+        const searchedNodes = this.props.searchResult.map(x => ({ id: x.id, shape: "circularImage", image: "/assets/images/404castelltort.png", label: x.firstname }))
+
+        const nodesFetched = seniorsNodes.concat(juniorsNodes.concat(searchedNodes))
+
 
         const juniorsEdges = this.getEdges(this.props.juniors.concat([userNode]), true)
         const seniorsEdges = this.getEdges(this.props.seniors.concat([userNode]), false)
@@ -71,15 +104,24 @@ class Tree extends Component {
         // TODO recup  user focus
         const graph = {
             nodes: nodesFetched,
+
             edges: edgesFetched
         };
 
-        graph.nodes.push({ id: this.props.userFocus.id, shape: "circularImage", image: "/assets/images/404castelltort.png", label: this.props.userFocus.firstname })
+
+        if (this.props.userFocus.id !== undefined) {
+            graph.nodes.push({ id: this.props.userFocus.id, shape: "circularImage", image: "/assets/images/404castelltort.png", label: this.props.userFocus.firstname })
+
+        }
+
+
+
+
 
         const options = {
             nodes: {
                 borderWidth: 4,
-                size: 30,
+                size: 40,
                 color: {
                     border: "#222222",
                     background: "#666666"
@@ -92,18 +134,38 @@ class Tree extends Component {
         };
 
         const events = {
+
             click: (event) => this.fetchData(event.nodes[0])
         };
 
+
+
+
+        const { juniors, seniors, focusUser } = this.props;
+        let juniorsClean, seniorsClean;
+        if (juniors === undefined) {
+            juniorsClean = []
+        } else {
+            juniorsClean = juniors
+        }
+
+        if (seniors === undefined) {
+            seniorsClean = []
+        } else {
+            seniorsClean = seniors
+        }
         return (
-                <div className="container text-center tree-container">
+            <React.Fragment>
+
+                <div className=" container text-center tree-container">
+
                     <div className="row">
-                        <div className="col-8 col-sm-8 col-md-8">
+                        <div className="col">
                             <div className="input-group">
                                 <div className="input-group-prepend">
                                     <span className="input-group-text" id="basic-addon1">Nom</span>
                                 </div>
-                                <input type="text" className="form-control" placeholder="Rechercher une personne" aria-label="Username" aria-describedby="basic-addon1"></input>
+                                <input type="text" className="form-control" placeholder="Rechercher une personne" aria-label="Username" aria-describedby="basic-addon1" value={this.state.firstname} onChange={this.handleChange}></input>
                             </div>
                             <div className="input-group mb-3">
                                 <div className="input-group-prepend">
@@ -112,12 +174,12 @@ class Tree extends Component {
                                 <input type="text" className="form-control" placeholder="Année diplomante" aria-label="Username" aria-describedby="basic-addon1"></input>
                             </div>
                         </div>
-                        <div className="col-4 col-sm-4 col-md-4">
-                            <button type="button" className="btn bg-dark rounded find-btn"><img src="/assets/images/recruitment.svg" className="img-fluid" alt="" /></button>
-                        </div>
+
                     </div>
 
-                    <Graph graph={graph} options={options} events={events} style={{ height: "90%", display: "block" }} />
+
+                    <Graph graph={graph} options={options} events={events} style={{ height: "120%", display: "flex" }} />
+
                     <div className="row mt-2">
                         <div className=" col-6 col-sm-6 col-md-6">
                             <Button variant="success" onClick={() => history.push('/invitation')} >
@@ -136,7 +198,11 @@ class Tree extends Component {
                             </Button>
                         </div>
                     </div>
+
+
                 </div>
+
+            </React.Fragment>
         )
     }
 }

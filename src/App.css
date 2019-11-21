@@ -12,7 +12,8 @@
 }
 .add-btn {
   width:160px;
-  height: 80px
+  height: 80px;
+ 
  }
 .tree-container{
   height: 350px;
@@ -34,6 +35,11 @@ body {
 .plus {
   font-size: 40px;
 }
+
+.plus {
+  font-size: 40px;
+}
+
 .add-button {
   position: absolute;
   
@@ -99,9 +105,11 @@ a .active>svg {
 
 html {
   overflow-x: hidden;
+  height: 100%;
 }
 body {
-  position: relative
+  position: relative;
+  min-height: 100%;
 }
 
 .cheeseburger-menu-outer {
