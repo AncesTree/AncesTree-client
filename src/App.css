@@ -104,9 +104,11 @@ a .active>svg {
 
 html {
   overflow-x: hidden;
+  height: 100%;
 }
 body {
-  position: relative
+  position: relative;
+  min-height: 100%;
 }
 
 .cheeseburger-menu-outer {

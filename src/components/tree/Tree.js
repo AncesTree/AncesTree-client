@@ -39,8 +39,10 @@ class Tree extends Component {
     };
 
     fetchData = (id) => {
-        console.log("FD")
-        this.props.fetchLineage(id);
+        if(id){
+            console.log("FD")
+            this.props.fetchLineage(id);
+        }
     };
 
 
@@ -190,7 +192,7 @@ class Tree extends Component {
                     </div>
                  
                 
-                <Graph graph={graph} options={options} events={events}  style={{ height: "80%", display: "flex" }} />
+                <Graph graph={graph} options={options} events={events}  style={{ height: "120%", display: "flex" }} />
                 
                 <div className="row mt-2">
                         <div className=" col-6 col-sm-6 col-md-6">
