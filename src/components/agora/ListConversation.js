@@ -60,7 +60,6 @@ const ListConversation = ({ rooms, userId, callParent }) => {
                 ))
             }
         </List>
-
     )
 }
 

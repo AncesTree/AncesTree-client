@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import useForm from "react-hook-form";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 import ListConversation from "./ListConversation";
 import CreateConversation from "./CreateConversation";
@@ -38,7 +38,7 @@ const Agora = () => {
     const [input, setInput] = useState("");
     const [load, setLoad] = useState(false);
     const [error, setError] = useState('');
-    const { register, handleSubmit, errors } = useForm();
+    const { handleSubmit } = useForm();
 
     const fetchUser = () => {
         const query = GET_CHAT_API.url + "users/rooms/" + user.id;
@@ -101,9 +101,9 @@ const Agora = () => {
 
     if (load) {
         return (
-        <ul>
-            {error ? <p>{error.message}</p> : renderAgora()}
-        </ul>
+            <ul>
+                {error ? <p>{error.message}</p> : renderAgora()}
+            </ul>
         );
     } else {
         return (

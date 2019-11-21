@@ -32,7 +32,7 @@ const useStyles = makeStyles(theme => ({
     },
     save: {
         position: "fixed",
-        bottom : theme.spacing(8),
+        bottom: theme.spacing(8),
         left: theme.spacing(20),
         zIndex: "1035",
     }
@@ -45,7 +45,6 @@ const CreateConversation = ({ user, callParent }) => {
     const [dico, setDico] = useState({})
     const [load, setLoad] = useState(false);
     const [error, setError] = useState('');
-    const [anchorEl, setAnchorEl] = useState(null);
     const classes = useStyles();
 
     const handleClick = () => {
@@ -59,7 +58,8 @@ const CreateConversation = ({ user, callParent }) => {
                 const dico = {};
                 res.forEach(element => {
                     if (element._id != user._id) {
-                        dico[element._id] = false}
+                        dico[element._id] = false
+                    }
                 });
                 setDico(dico);
                 setAllUsers(res);
@@ -75,7 +75,7 @@ const CreateConversation = ({ user, callParent }) => {
         fetchUsers();
     }, [load])
 
-    const { register, handleSubmit, errors } = useForm();
+    const { handleSubmit } = useForm();
 
     const postRoom = () => {
         const users = [user._id]
@@ -84,7 +84,6 @@ const CreateConversation = ({ user, callParent }) => {
                 users.push(key)
             }
         }
-
         const queryRoom = GET_CHAT_API.url + "rooms";
         const room = { "name": input, "users": users, "messages": [] };
         const headers = { headers: GET_CHAT_API.header };
@@ -110,7 +109,7 @@ const CreateConversation = ({ user, callParent }) => {
     }
 
     const onSubmit = () => {
-        if (input != ""){
+        if (input != "") {
             postRoom();
         } else {
             alert("Please insert a name for the conversation");
@@ -122,7 +121,7 @@ const CreateConversation = ({ user, callParent }) => {
         dico[id] = event.target.checked /* ATTENTION CRITIQUE ICI */
         setDico(dico => ({ ...dico, [id]: event.target.checked }));
     };
-    
+
 
 
     const renderCreateConversation = () => (
@@ -131,31 +130,31 @@ const CreateConversation = ({ user, callParent }) => {
                 <AddIcon />
             </Fab>
             {showForm ?
-                    <form noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
-                        <Fab className={classes.save} type="submit">
-                            <SaveIcon/>
-                        </Fab>
-                        <TextField
-                            value={input}
-                            onChange={e => setInput(e.target.value)}
-                            id="outlined-basic"
-                            className={classes.textField}
-                            label="Conversation Name"
-                            margin="normal"
-                            variant="outlined"
-                            type="text"
-                        />
-                        <List>
-                            {
-                                allUsers.map((user, key) => (
-                                    <ListItem key={key}>
-                                        <Checkbox checked={dico[user._id]} onChange={handleChange(user._id)} value={user._id} />
-                                        <ListItemText primary={user.firstName} secondary={user.lastName} />
-                                    </ListItem>
-                                ))
-                            }
-                        </List>
-                    </form>
+                <form noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
+                    <Fab className={classes.save} type="submit">
+                        <SaveIcon />
+                    </Fab>
+                    <TextField
+                        value={input}
+                        onChange={e => setInput(e.target.value)}
+                        id="outlined-basic"
+                        className={classes.textField}
+                        label="Conversation Name"
+                        margin="normal"
+                        variant="outlined"
+                        type="text"
+                    />
+                    <List>
+                        {
+                            allUsers.map((user, key) => (
+                                <ListItem key={key}>
+                                    <Checkbox checked={dico[user._id]} onChange={handleChange(user._id)} value={user._id} />
+                                    <ListItemText primary={user.firstName} secondary={user.lastName} />
+                                </ListItem>
+                            ))
+                        }
+                    </List>
+                </form>
                 : ""
             }
         </>
