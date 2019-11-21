@@ -24,11 +24,23 @@ export default function withAuth(ComponentToProtect) {
                             this.setState({loading: false});
                         })
                         .catch(err => {console.error(err)})
-
                 })
                 .catch(err => {
-                    this.setState({loading: false, redirect: true})
-                    console.log(err)
+                    if(localStorage.getItem('refresh_token')){
+                        AuthAPIService.refreshToken()
+                            .then(res => {
+                                this.setState({loading: false});
+                                console.log(res)
+                        })
+                            .catch(err => {
+                                this.setState({loading: false, redirect: true})
+                                console.log(err)
+                        })
+                    }
+                    else{
+                        this.setState({loading: false, redirect: true})
+                        console.log(err)
+                    }   
                 });
         }
         render() {

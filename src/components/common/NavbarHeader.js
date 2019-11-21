@@ -14,6 +14,7 @@ function NavbarHeader() {
 
     function disconnect() {
         localStorage.removeItem("Authorization");
+        localStorage.removeItem("refresh_token")
         history.push("/login")
     }
 

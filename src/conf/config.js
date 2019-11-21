@@ -45,6 +45,11 @@ export const MYDASH_TOKEN_ENDPOINT = {
     method: 'POST'
 };
 
+export const MYDASH_REFRESH_ENDPOINT = {
+    url: 'https://oauth.igpolytech.fr/refresh',
+    method: 'POST'
+};
+
 export const LINKEDIN_REDIRECT_LOGIN_URI = {
     url: 'https://ancestree.igpolytech.fr/callback_linkedin_login'
 };
