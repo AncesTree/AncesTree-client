@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { Form, Button, Row, Col } from 'react-bootstrap';
-import {INVITATION_URL} from '../conf/config'
 import history from './common/history'
 import authFetch from '../services/authFetch'
 
-export default class Invitation extends Component {
+export default class Register extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -15,7 +14,8 @@ export default class Invitation extends Component {
             birthdate: '',
             end_year: 2023,
             mentor: '',
-            start_year: 2020
+            start_year: 2020,
+            privacy: ''
         };
     }
 
@@ -29,8 +29,8 @@ export default class Invitation extends Component {
     onSubmit = (event) => {
         console.log(this.state)
         event.preventDefault();
-        authFetch(INVITATION_URL.url, {
-            method: INVITATION_URL.method,
+        authFetch('https://ancestree-api-neo4j.igpolytech.fr/api/users', {
+            method: 'POST',
             headers: {'Content-Type':'application/json'},
             body: JSON.stringify({
                 email : this.state.email,
@@ -39,10 +39,14 @@ export default class Invitation extends Component {
                 lastname: this.state.lastname,
                 birthdate: this.state.birthdate,
                 end_year: this.state.end_year,
-                start_year: this.state.start_year                  
+                start_year: this.state.start_year,
+                privacy: this.state.privacy                  
             })
         })
-        .then(res => res.json())
+        .then(res => {
+            console.log(res)
+            res.json()
+        })
         .then( () => {
             history.push("/");
         }).catch((error) => console.log(error))
@@ -61,7 +65,7 @@ export default class Invitation extends Component {
         const optionsEnd = listEndYear.map( (annee, keyAnnee) => <option key={keyAnnee} value={annee}>{annee}</option>)
         return (
             <div className="invitationBackground">
-                <h4 className="invitationLabel">Inviter une personne à rejoindre Ancestree!</h4>
+                <h4 className="invitationLabel">Completez votre profil Ancestree!</h4>
                 <Form className="loginForm" onSubmit={this.onSubmit}>
                     <Form.Group>
                         <Row>
@@ -104,8 +108,16 @@ export default class Invitation extends Component {
                         <Form.Control type="date"  name="birthdate" placeholder="Date de naissance" value={this.state.birthdate} onChange={this.handleInputChange}/>
                     </Form.Group>
 
+                    <Form.Group controlId="formBasicConfidentiality">
+                        <Form.Label>Confidentialité du compte</Form.Label>
+                        <Form.Control as="select" name="privacy" value={this.state.privacy} onChange={this.handleInputChange} required >
+                            <option value={'private'}>Privé</option>
+                            <option value={'public'}>Public</option>
+                        </Form.Control>
+                    </Form.Group>
+
                     <Button className="invitationButton" variant="primary" type="submit">
-                        Inviter
+                        Valider
                     </Button>
                 </Form>
             </div>
