@@ -38,8 +38,8 @@ export default class Invitation extends Component {
                 firstname: this.state.firstname,
                 lastname: this.state.lastname,
                 birthdate: this.state.birthdate,
-                end_year: this.state.end_year,
-                start_year: this.state.start_year                  
+                end_year: this.state.end_year.toString(),
+                start_year: this.state.start_year.toString()                
             })
         })
         .then(res => res.json())

@@ -46,7 +46,8 @@ export default class Register extends Component {
                 privacy: this.state.privacy,
                 profession: this.state.profession,
                 company: this.state.company,
-                departement: this.state.departement            
+                departement: this.state.departement,
+                inscription_date: new Date().toDateString()            
             })
         })
         .then(res => {
@@ -115,12 +116,8 @@ export default class Register extends Component {
                         <Form.Control type="text"  name="departement" placeholder="Département" value={this.state.departement} onChange={this.handleInputChange} required />
                     </Form.Group>
 
-                    <Form.Group controlId="formBasicMentor">
-                        <Form.Control type="text"  name="mentor" placeholder="Parain" value={this.state.mentor} onChange={this.handleInputChange}/>
-                    </Form.Group>
-
                     <Form.Group controlId="formBasicPhone">
-                        <Form.Control type="text"  name="phone" placeholder="Numéro de téléphone" value={this.state.phone} onChange={this.handleInputChange}/>
+                        <Form.Control type="text"  name="phone" placeholder="Numéro de téléphone" value={this.state.phone} onChange={this.handleInputChange} required />
                     </Form.Group>
 
                     <Form.Group controlId="formBasicBirthdate">
