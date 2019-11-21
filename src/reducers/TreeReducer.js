@@ -21,6 +21,7 @@ const tree = (state = initialState, action) => {
     case FETCH_RESEARCH_SUCESS:
     return Object.assign({}, state, initialState, {
       searchResult: action.results.users
+      
     });
   case FETCH_RESEARCH_ERROR:
     return Object.assign({}, state, initialState, {

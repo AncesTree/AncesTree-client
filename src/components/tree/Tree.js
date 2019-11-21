@@ -9,10 +9,7 @@ class Tree extends Component {
     constructor(props){
         super(props);
         this.state = {
-            aloneNodes : [],
-            firstname : '',
-            endYear : '',
-            lastname : ''
+            endYear : ''
         }
         this.fetchData = this.fetchData.bind(this)
         this.handleChange = this.handleChange.bind(this)
@@ -22,11 +19,10 @@ class Tree extends Component {
 
 
     handleChange(event) {
-        this.setState(
-            {
-                endYear: event.target.endYear, 
-                firstname : event.target.firstname
-        });
+        event.preventDefault();
+        
+        this.searchData(event.target.value);
+       
       }
     
       handleSubmit(event) {
@@ -35,30 +31,8 @@ class Tree extends Component {
         
       }
 
-    searchData = () => {
-        /**console.log("SD called")
-        let completeUrl =GET_SEARCH_URL.url + "?lastname="+this.state.lastname+"&firstname="+this.state.firstname+"&end_year="+this.state.endYear
-        console.log(completeUrl)
-       
-        const searchNodes = fetch(completeUrl, {
-            headers: GET_SEARCH_URL.header(),
-            method: GET_SEARCH_URL.method
-        })
-        .then(res => res.json())
-        .then(res =>  {
-            console.log(res.users)
-            this.setState(state => ({
-                
-                aloneNodes: res.users,
-                firstname : '',
-                lastname : '',
-                endYear : ''
-              }));
-        })*/
-        this.props.searchUser(this.state.firstname);
-
-
-
+    searchData = (search) => {
+        this.props.searchUser(search);
     }
     goToInvitation() {
         history.push('/invitation')
@@ -143,8 +117,12 @@ class Tree extends Component {
             edges : edgesFetched               
           };
          
-      
-        graph.nodes.push({id : this.props.userFocus.id,shape: "circularImage", image: "/assets/images/404castelltort.png", label: this.props.userFocus.firstname })
+          
+          if(this.props.userFocus.id !== undefined) {
+            graph.nodes.push({id : this.props.userFocus.id,shape: "circularImage", image: "/assets/images/404castelltort.png", label: this.props.userFocus.firstname })
+
+          }
+       
         
 
         console.log("graph nodes")
@@ -197,7 +175,7 @@ class Tree extends Component {
                                 <div className="input-group-prepend">
                                     <span className="input-group-text" id="basic-addon1">Nom</span>
                                 </div>
-                                <input type="text" className="form-control" placeholder="Rechercher une personne" aria-label="Username" aria-describedby="basic-addon1"></input>
+                                <input type="text" className="form-control" placeholder="Rechercher une personne" aria-label="Username" aria-describedby="basic-addon1" value = {this.state.firstname} onChange = {this.handleChange}></input>
                             </div>
                             <div className="input-group mb-3">
                                 <div className="input-group-prepend">
