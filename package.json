@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "formik": "^1.5.8",
+    "yup": "^0.27.0",
     "axios": "^0.19.0",
     "bootstrap": "^4.3.1",
     "cheeseburger-menu": "0.0.13",
