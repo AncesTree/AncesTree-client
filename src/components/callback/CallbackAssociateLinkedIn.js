@@ -30,7 +30,6 @@ export default class CallbackAssociateLinkedIn extends Component {
     render() {
         return (
             <div></div>
-            
         );
     }
 }
