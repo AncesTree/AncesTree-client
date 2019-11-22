@@ -66,7 +66,7 @@ const Agora = () => {
     };
 
     const renderAgora = () => (
-        <div className='container agoraStuff'>
+        <div className='container'>
             <CreateConversation endpoint={GET_CHAT_API.url} user={userDB} userRooms={userDB.rooms} callParent={fetchUser} className="fidex-bottom" />
             <Fab color="primary" aria-label="add" className={classes.fab} onClick={handleSearch}>
                 <SearchRoundedIcon />

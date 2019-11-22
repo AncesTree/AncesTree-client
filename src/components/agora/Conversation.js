@@ -58,7 +58,7 @@ const Conversation = () => {
     socket.on(roomId, payload => {
       setMessages([...messages, payload])
     });
-  }, [load, messages, roomId]);
+  }, [load]);
 
   const handleSend = e => {
     e.preventDefault();

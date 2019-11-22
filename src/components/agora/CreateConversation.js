@@ -75,7 +75,7 @@ const CreateConversation = ({ user, callParent }) => {
 
     useEffect(() => {
         fetchUsers();
-    }, [load, fetchUsers])
+    }, [load])
 
     const { handleSubmit } = useForm();
 
