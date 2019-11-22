@@ -7,7 +7,6 @@ import './App.css';
 export default function App(ComponentToRender) {
   return class extends Component {
       render() {
-        
           return (
               <div className="App">
                   <NavbarHeader/>

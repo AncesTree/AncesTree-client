@@ -2,11 +2,16 @@ export const AUTH_API = {
     url: 'https://ancestree-auth.igpolytech.fr',
 };
 
-
 export const BASIC_REGISTRATION = {
     url: AUTH_API.url+'/basic',
     method: 'POST'
 };
+
+// Chat
+export const GET_CHAT_API = {
+    url: 'https://ancestree-chat.igpolytech.fr/',
+    header: {'Authorization': localStorage.getItem("Authorization")}
+}
 
 export const REGISTRATION_CALLBACK_LINKEDIN = {
     url: AUTH_API.url+'/oauth/linkedin/registration_callback'
