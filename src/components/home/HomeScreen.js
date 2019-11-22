@@ -44,7 +44,7 @@ export default class HomeScreen extends Component {
 
     render() {
         return (
-            <div className="justify-content-md-center">
+            <div className="justify-content-md-center container">
               <AddEvent eventAdded = {this.eventAdded.bind(this)}/>
               <h1>Liste des Evènements</h1>
               {this.state.isFetching ? (
