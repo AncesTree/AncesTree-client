@@ -63,7 +63,7 @@ class AuthAPIService {
         const resAccessToken = await authFetch(MYDASH_REFRESH_ENDPOINT.url,
             {
                 method: 'POST',
-                headers: {'Content-Type':'application/x-www-form-urlencoded'},
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                 body: stringifyQS({
                     'refresh_token': localStorage.getItem("refresh_token"),
                     'client_id': process.env.REACT_APP_CLIENT_ID_MYDASH,
@@ -82,12 +82,12 @@ class AuthAPIService {
                 body: JSON.stringify({
                     'access_token': accessTokenJson.access_token
                 })
-            }).catch(err =>{
+            }).catch(err => {
             this.disconnect();
             throw err
         });
 
-        if (dataToken.status !== 201){
+        if (dataToken.status !== 201) {
             this.disconnect();
             throw new Error(`code ${dataToken.status}: invalid refresh_token`);
         }
@@ -96,7 +96,6 @@ class AuthAPIService {
         localStorage.setItem("Authorization", tokenJson.token);
         return tokenJson.token
     }
-
 
 }
 

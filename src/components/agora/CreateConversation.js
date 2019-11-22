@@ -11,6 +11,7 @@ import List from "@material-ui/core/List";
 import Checkbox from '@material-ui/core/Checkbox';
 import { GET_CHAT_API } from "../../conf/config";
 import { get, post, patch } from './methods';
+import {useSelector} from "react-redux";
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -45,6 +46,7 @@ const CreateConversation = ({ user, callParent }) => {
     const [dico, setDico] = useState({})
     const [load, setLoad] = useState(false);
     const [error, setError] = useState('');
+    const me = useSelector(state => state.user);
     const classes = useStyles();
 
     const handleClick = () => {

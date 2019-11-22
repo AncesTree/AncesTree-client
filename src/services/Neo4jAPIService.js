@@ -67,8 +67,31 @@ class Neo4jAPIService {
         const result = await authFetch(this.getDomain() + `/api/users/find/?search=${search}`,
             {
                 method: 'GET'
+            });
+            return await result.json()
+    }
+
+    async createSeniorRelation(actorId, otherId) {
+        return authFetch(this.getDomain() + `/api/relationship`,
+            {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    actor: actorId,
+                    other: otherId,
+                    type: "isSenior",
+                    properties: {}
+                })
+            });
+    }
+
+    async searchPromo(search){
+        const result = await authFetch(this.getDomain() + `/api/query/promo/${search}`,
+            {
+                method: 'GET'
             })
             return await result.json()
+
     }
 }
 

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import history from "../../components/common/history";
 import { GET_CHAT_API } from "../../conf/config";
 import { makeStyles } from '@material-ui/core/styles';
-import { TextField, Box } from '@material-ui/core';
+import { TextField } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
 import Fab from '@material-ui/core/Fab';
 import ListItem from "@material-ui/core/ListItem";
@@ -35,31 +35,30 @@ const useStyles = makeStyles(theme => ({
 const Conversation = () => {
   const user = useSelector(state => state.user);
   const [messages, setMessages] = useState([]);
-  const [roomId, setRoomId] = useState(history.location.pathname.split("/")[3]);
+  const [roomId, ] = useState(history.location.pathname.split("/")[3]);
   const [input, setInput] = useState('');
   const [load, setLoad] = useState(false);
   const [error, setError] = useState('');
   const classes = useStyles();
 
-  const fetchMessages = () => {
-    const query = GET_CHAT_API.url + "rooms/messages/" + roomId;
-    get(query, { headers: GET_CHAT_API.header })
-      .then(res => {
-        setMessages(res.messages);
-        setLoad(true);
-      })
-      .catch(err => {
-        setError(err.message);
-        setLoad(true)
-      })
-  }
-
   useEffect(() => {
+    const fetchMessages = () => {
+      const query = GET_CHAT_API.url + "rooms/messages/" + roomId;
+      get(query, { headers: GET_CHAT_API.header })
+          .then(res => {
+            setMessages(res.messages);
+            setLoad(true);
+          })
+          .catch(err => {
+            setError(err.message);
+            setLoad(true)
+          })
+    };
     fetchMessages();
     socket.on(roomId, payload => {
       setMessages([...messages, payload])
     });
-  }, [load]);
+  }, [load, messages, roomId]);
 
   const handleSend = e => {
     e.preventDefault();
@@ -71,9 +70,10 @@ const Conversation = () => {
     }
   }
 
+  /**
   const handleSettings = () => {
     history.push("/agora/conversation/settings/" + roomId);
-  }
+  }*/
 
   const renderConversation = () => (
     <>
