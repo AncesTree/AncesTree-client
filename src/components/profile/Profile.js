@@ -110,6 +110,9 @@ class Profile extends Component {
                 </Form.Group>
             </Form>
             <a href={LINKEDIN_AUTHORIZATION_ASSOCIATE_URL.url} className="social-button" id="linkedin-connect"><span>Associate with LinkedIn</span></a>
+            <Button variant="primary" size="lg" onClick={() => history.push("/updateprofile")}>
+                Modifier mon profil
+            </Button>
         </div>
 
         );
