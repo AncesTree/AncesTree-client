@@ -70,12 +70,12 @@ function Root() {
                 <Route exact path="/callback_mydash" component={CallbackMyDash}/>
                 <Route exact path="/me" component={App(withAuth(Profile))}/>
                 <Route exact path="/join/:id" component={App(JoinContainer)}/>
-                <Route exact path="/home" component={App(withAuth(Error404))} />
+                <Route exact path="/home" component={App(withAuth(Home))} />
                 <Route exact path="/tree" component={App(withAuth(TreeContainer))} />
                 <Route exact path="/agora" component={App(withAuth(Agora))} />
                 <Route exact path="/agora/conversation/:id" component={App(withAuth(Conversation))} />
                 <Route exact path="/agora/conversation/settings/:id" component={App(withAuth(ConversationSettings))} />
-                <Route exact path="/" component={App(withAuth(Error404))} />
+                <Route exact path="/" component={App(withAuth(Home))} />
                 <Error404 />
             </Switch>
         </Router>
