@@ -9,6 +9,7 @@ class UpdateProfile extends Component {
         super(props)
         const user = this.props.user
         this.state = {
+            id: user.id,
             email : user.email,
             phone : user.phone,
             firstname: user.firstname,
@@ -33,7 +34,7 @@ class UpdateProfile extends Component {
     onSubmit = (event) => {
         console.log(this.state)
         event.preventDefault();
-        authFetch('https://ancestree-api-neo4j.igpolytech.fr/api/users', {
+        authFetch('https://ancestree-api-neo4j.igpolytech.fr/api/users'+this.state.id, {
             method: 'PUT',
             headers: {'Content-Type':'application/json'},
             body: JSON.stringify({
