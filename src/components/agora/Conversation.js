@@ -139,11 +139,7 @@ const Conversation = () => {
       </div>
     );
   } else {
-    return (
-      <div>
-        Loading...
-      </div>
-    );
+    return null;
   }
 };
 

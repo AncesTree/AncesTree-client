@@ -149,11 +149,7 @@ const CreateConversation = ({ user, callParent }) => {
             {error ? <p>{error.message}</p> : renderCreateConversation()}
         </div>);
     } else {
-        return (
-            <div>
-                Loading...
-            </div>
-        );
+        return null;
     }
 }
 export default CreateConversation;

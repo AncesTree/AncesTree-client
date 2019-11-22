@@ -100,12 +100,7 @@ const Agora = () => {
             </div>
         );
     } else {
-        return (
-            <div>
-                Loading...
-            </div>
-        );
-
+        return null;
     }
 };
 
