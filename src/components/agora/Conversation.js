@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import history from "../../components/common/history";
-import { GET_CHAT_API } from "../../conf/config";
 import { makeStyles } from '@material-ui/core/styles';
 import { TextField } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
@@ -9,9 +8,11 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import { useSelector } from "react-redux";
 import io from 'socket.io-client';
-import { get } from './methods'
 import List from '@material-ui/core/List';
-const socket = io(GET_CHAT_API.url);
+import ChatAPIService from "../../services/ChatAPIService";
+
+
+const socket = io(process.env.REACT_APP_CHAT_API);
 
 const useStyles = makeStyles(theme => ({
   textField: {
@@ -42,23 +43,19 @@ const Conversation = () => {
   const classes = useStyles();
 
   useEffect(() => {
-    const fetchMessages = () => {
-      const query = GET_CHAT_API.url + "rooms/messages/" + roomId;
-      get(query, { headers: GET_CHAT_API.header })
-          .then(res => {
-            setMessages(res.messages);
-            setLoad(true);
-          })
-          .catch(err => {
-            setError(err.message);
-            setLoad(true)
-          })
-    };
-    fetchMessages();
-    socket.on(roomId, payload => {
-      setMessages([...messages, payload])
-    });
-  }, [load]);
+    ChatAPIService.getMessages(roomId)
+      .then(res => {
+        setMessages(res.messages);
+        setLoad(true);
+      })
+      .catch(err => {
+        setError(err.message);
+        setLoad(true)
+      });
+      socket.on(roomId, newMessage => {
+        setMessages(messages => [...messages, newMessage])
+      });
+  }, [load, messages.length, roomId]);
 
   const handleSend = e => {
     e.preventDefault();
@@ -83,7 +80,7 @@ const Conversation = () => {
             <ListItem key={key} alignItems="flex-start" >
               <ListItemText
                 primary={
-                  message.sender === user.id ?
+                  message.sender._id === user.id ?
                     "You"
                     :
                     "Not You" //message.sender.name

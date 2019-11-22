@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 
 import ListConversation from "./ListConversation";
 import CreateConversation from "./CreateConversation";
-import { GET_CHAT_API } from "../../conf/config";
 
 import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
@@ -12,7 +11,7 @@ import SearchRoundedIcon from '@material-ui/icons/SearchRounded';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
-import { get } from './methods'
+import ChatAPIService from "../../services/ChatAPIService";
 
 const useStyles = makeStyles(theme => ({
     fab: {
@@ -40,22 +39,17 @@ const Agora = () => {
     const [error, setError] = useState('');
     const { handleSubmit } = useForm();
 
-    const fetchUser = () => {
-        const query = GET_CHAT_API.url + "users/rooms/" + user.id;
-        get(query, { headers: GET_CHAT_API.header })
+    useEffect(() => {
+        ChatAPIService.getUser(user.id)
             .then(res => {
-                setUserDB(res);
+                setUserDB(res);    
                 setLoad(true);
             })
             .catch(err => {
                 setError(err.message);
                 setLoad(true)
             })
-    };
-
-    useEffect(() => {
-        fetchUser();
-    }, [load]);
+    }, [load, user.id]);
 
     const handleSearch = () => {
         setIsSearching(!isSearching);
@@ -67,7 +61,7 @@ const Agora = () => {
 
     const renderAgora = () => (
         <div className='container'>
-            <CreateConversation endpoint={GET_CHAT_API.url} user={userDB} userRooms={userDB.rooms} callParent={fetchUser} className="fidex-bottom" />
+            <CreateConversation user={userDB} userRooms={userDB.rooms} callParent={setLoad} className="fidex-bottom" />
             <Fab color="primary" aria-label="add" className={classes.fab} onClick={handleSearch}>
                 <SearchRoundedIcon />
             </Fab>
@@ -93,7 +87,7 @@ const Agora = () => {
                     </form>
                     :
                     <div className="scrollable sidebar">
-                        <ListConversation rooms={userDB.rooms} userId={userDB._id} callParent={fetchUser} />
+                        <ListConversation rooms={userDB.rooms} userId={userDB._id} callParent={setLoad} />
                     </div>
             }
         </div>

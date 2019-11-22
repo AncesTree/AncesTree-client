@@ -9,8 +9,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import { GET_CHAT_API } from "../../conf/config";
-import { patch } from "./methods";
+import ChatAPIService from '../../services/ChatAPIService';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -28,15 +27,13 @@ const ListConversation = ({ rooms, userId, callParent }) => {
 
     const deleteRoom = (id) => {
         const roomsUpdated = rooms.map(r => r._id).filter(r => r !== id);
-        const query = GET_CHAT_API.url + "users/" + userId;
-        patch(query, { "rooms": roomsUpdated }, { headers: GET_CHAT_API.header })
+        ChatAPIService.patchUser(userId, {rooms: roomsUpdated})
             .then(response => {
-                callParent();
+                callParent(false);
             })
             .catch(err => {
                 console.log(err.message)
             })
-
     }
 
     return (

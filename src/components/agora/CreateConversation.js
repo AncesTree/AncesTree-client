@@ -9,9 +9,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
 import List from "@material-ui/core/List";
 import Checkbox from '@material-ui/core/Checkbox';
-import { GET_CHAT_API } from "../../conf/config";
-import { get, post, patch } from './methods';
-import {useSelector} from "react-redux";
+import ChatAPIService from "../../services/ChatAPIService";
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -52,9 +50,8 @@ const CreateConversation = ({ user, callParent }) => {
         setShowForm(!showForm)
     }
 
-    const fetchUsers = () => {
-        const query = GET_CHAT_API.url + "users";
-        get(query, { headers: GET_CHAT_API.header })
+    useEffect(() => {
+        ChatAPIService.getUsers()
             .then(res => {
                 const dico = {};
                 res.forEach(element => {
@@ -70,28 +67,22 @@ const CreateConversation = ({ user, callParent }) => {
                 setError(err.message);
                 setLoad(true)
             })
-    }
-
-    useEffect(() => {
-        fetchUsers();
-    }, [load])
+    }, [load, user._id])
 
     const { handleSubmit } = useForm();
 
     const postRoom = () => {
-        const users = []
+        const users = [user._id]
         for (var key in dico) {
             if (dico[key]) {
                 users.push(key)
             }
         }
-        const queryRoom = GET_CHAT_API.url + "rooms";
-        const room = { "name": input, "users": users, "messages": [] };
-        const headers = { headers: GET_CHAT_API.header };
-        post(queryRoom, room, headers)
+        const room = { name: input, users: users, messages: [] };
+        ChatAPIService.postRoom(room)
             .then(
                 res => {
-                    callParent();
+                    callParent(false);
                     setInput('');
                     setShowForm(!showForm);
                 }
@@ -154,9 +145,9 @@ const CreateConversation = ({ user, callParent }) => {
     )
 
     if (load) {
-        return (<ul>
-            {error ? <li>{error.message}</li> : renderCreateConversation()}
-        </ul>);
+        return (<div>
+            {error ? <p>{error.message}</p> : renderCreateConversation()}
+        </div>);
     } else {
         return (
             <div>
