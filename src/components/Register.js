@@ -18,7 +18,7 @@ export default class Register extends Component {
             privacy: 'private',
             profession: '',
             company: '',
-            departement: ''
+            departement: 'IG'
         };
     }
 
@@ -113,7 +113,18 @@ export default class Register extends Component {
                     </Form.Group>
 
                     <Form.Group controlId="formBasicDepartement">
-                        <Form.Control type="text"  name="departement" placeholder="Département" value={this.state.departement} onChange={this.handleInputChange} required />
+                        <Form.Label>Département</Form.Label>
+                        <Form.Control as="select" name="departement" value={this.state.departement} onChange={this.handleInputChange} required >
+                        <option key={'1'} value={'IG'}>IG</option>
+                        <option key={'2'} value={'DO'}>DO</option>
+                        <option key={'3'} value={'MEA'}>MEA</option>
+                        <option key={'4'} value={'MSI'}>MSI</option>
+                        <option key={'5'} value={'GBA'}>GBA</option>
+                        <option key={'6'} value={'STE'}>STE</option>
+                        <option key={'7'} value={'EGC'}>EGC</option>
+                        <option key={'8'} value={'SE'}>SE</option>
+                        <option key={'9'} value={'MI'}>MI</option>
+                        </Form.Control>                    
                     </Form.Group>
 
                     <Form.Group controlId="formBasicPhone">
