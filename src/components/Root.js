@@ -64,7 +64,7 @@ function Root() {
                 <Route exact path="/callback_linkedin_join" component={CallbackRegisterLinkedIn}/>
                 <Route exact path="/callback_mydash" component={CallbackMyDash}/>
                 <Route exact path="/me" component={App(withAuth(Profile))}/>
-                <Route exact path="/join/:id" component={App(JoinContainer)}/>
+                <Route exact path="/join/:id" component={JoinContainer}/>
                 <Route exact path="/home" component={App(withAuth(Home))}/>
                 <Route exact path="/tree" component={App(withAuth(TreeContainer))}/>
                 <Route exact path="/message" component={App(withAuth(Error404))}/>
