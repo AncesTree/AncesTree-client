@@ -56,7 +56,7 @@ class Join extends Component {
 
                     <Form.Group controlId="formBasicPassword">
                         <Form.Label>Confirmation</Form.Label>
-                        <Form.Control type="password" name="password" placeholder="Mot de passe" value={this.state.confirmation} onChange={this.handleInputChange} required />
+                        <Form.Control type="password" name="confirmation" placeholder="Mot de passe" value={this.state.confirmation} onChange={this.handleInputChange} required />
                     </Form.Group>
 
 

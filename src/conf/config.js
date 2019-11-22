@@ -4,7 +4,7 @@ export const AUTH_API = {
 
 
 export const BASIC_REGISTRATION = {
-    url: AUTH_API.url+'/invitation/basic',
+    url: AUTH_API.url+'/basic',
     method: 'POST'
 };
 
