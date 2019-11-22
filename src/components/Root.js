@@ -23,6 +23,10 @@ import ConversationSettings from "./agora/ConversationSettings";
 import { Alert } from "react-bootstrap";
 import { get } from 'http';
 import user from '../reducers/UserReducer';
+import Home from "./home/HomeScreen";
+import { Alert } from "react-bootstrap";
+import Register from "./Register";
+import Profile from "./profile/Profile";
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -60,11 +64,12 @@ function Root() {
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/login/:error_msg" component={Login} />
                 <Route exact path="/token/:token" component={Token}/>
+                <Route exact path="/register" component={App(Register)}/>    
 
                 <Route exact path="/callback_linkedin_login" component={CallbackLoginLinkedIn}/>
                 <Route exact path="/callback_linkedin_join" component={CallbackRegisterLinkedIn}/>
                 <Route exact path="/callback_mydash" component={CallbackMyDash}/>
-                
+                <Route exact path="/me" component={App(withAuth(Profile))}/>
                 <Route exact path="/join/:id" component={App(JoinContainer)}/>
                 <Route exact path="/home" component={App(withAuth(Error404))} />
                 <Route exact path="/tree" component={App(withAuth(TreeContainer))} />

@@ -39,6 +39,13 @@ export const INVITATION_URL = {
         return {'Authorization': localStorage.getItem("Authorization")}
     }
 };
+export const GET_SEARCH_URL = {
+    url: 'https://ancestree-api-neo4j.igpolytech.fr/api/users/find',
+    method: 'GET',
+    header: () => {
+        return {'Authorization': localStorage.getItem("Authorization")}
+    }
+};
 
 export const MYDASH_TOKEN_ENDPOINT = {
     url: 'https://oauth.igpolytech.fr/token',
