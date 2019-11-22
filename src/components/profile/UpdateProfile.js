@@ -34,10 +34,11 @@ class UpdateProfile extends Component {
     onSubmit = (event) => {
         console.log(this.state)
         event.preventDefault();
-        authFetch('https://ancestree-api-neo4j.igpolytech.fr/api/users'+this.state.id, {
+        authFetch('https://ancestree-api-neo4j.igpolytech.fr/api/users/'+this.state.id, {
             method: 'PUT',
             headers: {'Content-Type':'application/json'},
             body: JSON.stringify({
+                id : this.state.id,
                 email : this.state.email,
                 phone : this.state.phone,
                 firstname: this.state.firstname,
@@ -52,14 +53,10 @@ class UpdateProfile extends Component {
                 inscription_date: new Date().toDateString()            
             })
         })
-        .then(res => {
-            console.log(res.body)
-            res.json()
-        })
-        .then( (res) => {
-            console.log(res)
+        .then(() => {
             history.push("/");
-        }).catch((error) => console.log(error))
+        })
+        .catch((error) => console.log(error))
     }
 
     render() {
@@ -160,5 +157,6 @@ const mapDispatchToProps = dispatch => ({
 const mapStateToProps = state => ({
     user: state.user
 });
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(UpdateProfile);
