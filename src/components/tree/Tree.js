@@ -192,7 +192,7 @@ class Tree extends Component {
                     </div>
 
                    
-                    <Graph graph={graph} options={options} events={events} style={{ height: "120%", display: "flex" }} className = "graph "/>
+                    <Graph graph={graph} options={options} events={events} style={{ height: "100%", display: "flex" }} className = "graph "/>
 
                     
                     
