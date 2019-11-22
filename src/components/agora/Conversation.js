@@ -30,6 +30,7 @@ const useStyles = makeStyles(theme => ({
     right: theme.spacing(10)
   },
   root: {
+    top: "0px",
     bottom: theme.spacing(8)
   },
   divMessage: {
