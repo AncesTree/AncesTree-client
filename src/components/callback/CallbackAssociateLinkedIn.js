@@ -16,7 +16,8 @@ export default class CallbackAssociateLinkedIn extends Component {
         
         axios.post(ASSOCIATION_CALLBACK_LINKEDIN.url, {code: code},
         {  headers: {
-            'Content-Type':'application/json'
+            'Content-Type':'application/json',
+            'Authorization': localStorage.getItem("Authorization")
             }
         })
         .then((res) => {
