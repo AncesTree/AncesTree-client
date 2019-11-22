@@ -23,12 +23,13 @@
     "react-redux": "^7.1.3",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0",
+    "react-scroll": "^1.7.14",
     "react-window": "^1.8.5",
     "redux": "^4.0.4",
     "redux-thunk": "^2.3.0",
     "socket.io-client": "^2.3.0",
-    "use-socket.io-client": "^1.0.4",
     "svgo": "1.3.0",
+    "use-socket.io-client": "^1.0.4",
     "yup": "^0.27.0"
   },
   "scripts": {

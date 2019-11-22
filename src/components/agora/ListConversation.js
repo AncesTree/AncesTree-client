@@ -42,7 +42,7 @@ const ListConversation = ({ rooms, userId, callParent }) => {
                 rooms.map((room) => (
                     <React.Fragment key={room._id}>
                         <ListItemLink href={`/agora/conversation/${room._id}`} >
-                            <ListItemText primary={room.name} secondary={room.users.length}></ListItemText>
+                            <ListItemText primary={room.name} secondary={`${room.users.length} users & ${room.messages.length} messages `}></ListItemText>
                             <ListItemSecondaryAction>
                                 <ListItemIcon>
                                     <IconButton edge="end" aria-label="delete" onClick={e => deleteRoom(room._id)}>

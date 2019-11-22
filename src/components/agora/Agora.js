@@ -95,9 +95,9 @@ const Agora = () => {
 
     if (load) {
         return (
-            <ul>
+            <div>
                 {error ? <p>{error.message}</p> : renderAgora()}
-            </ul>
+            </div>
         );
     } else {
         return (

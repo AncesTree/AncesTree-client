@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 import io from 'socket.io-client';
 import List from '@material-ui/core/List';
 import ChatAPIService from "../../services/ChatAPIService";
-
+import { animateScroll as scroll } from 'react-scroll'
 
 const socket = io(process.env.REACT_APP_CHAT_API);
 
@@ -30,7 +30,17 @@ const useStyles = makeStyles(theme => ({
     right: theme.spacing(10)
   },
   root: {
+    bottom: theme.spacing(8)
   },
+  divMessage: {
+    bottom: "57px",
+    height: "80px",
+    position: "fixed",
+    background: "white",
+    width: "100%",
+    borderTop: "0.5px solid",
+    borderColor: "grey"
+  }
 }));
 
 const Conversation = () => {
@@ -47,6 +57,7 @@ const Conversation = () => {
       .then(res => {
         setMessages(res.messages);
         setLoad(true);
+        scroll.scrollToBottom()
       })
       .catch(err => {
         setError(err.message);
@@ -64,6 +75,7 @@ const Conversation = () => {
       socket.emit('chat message', msg);
       setMessages([...messages, { message: input, sender: user.id }])
       setInput('');
+      scroll.scrollToBottom()
     }
   }
 
@@ -83,7 +95,7 @@ const Conversation = () => {
                   message.sender._id === user.id ?
                     "You"
                     :
-                    "Not You" //message.sender.name
+                    `${message.sender.firstName} ${message.sender.lastName}`
                 }
                 secondary={
                   <React.Fragment>
@@ -95,6 +107,8 @@ const Conversation = () => {
           ))
         }
       </List>
+
+      <div className={classes.divMessage}>
       <form onSubmit={e => handleSend(e)} id="chat">
           <Fab
           className={classes.fab}
@@ -113,14 +127,15 @@ const Conversation = () => {
           />
           
       </form>
+      </div>
     </>
   );
 
   if (load) {
     return (
-      <ul>
+      <div>
         {error ? <p>{error.message}</p> : renderConversation()}
-      </ul>
+      </div>
     );
   } else {
     return (
@@ -129,7 +144,8 @@ const Conversation = () => {
       </div>
     );
   }
-}
+};
+
 
 export default Conversation;
 
