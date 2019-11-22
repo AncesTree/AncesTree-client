@@ -56,14 +56,14 @@ function Root() {
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/login/:error_msg" component={Login} />
                 <Route exact path="/token/:token" component={Token}/>
-                <Route exact path="/register" component={App(withAuth(Register))}/>
+                <Route exact path="/register" component={withAuth(Register)}/>
                 
                 <Route exact path="/callback_linkedin_associate" component={CallbackAssociateLinkedIn}/>
                 <Route exact path="/callback_linkedin_login" component={CallbackLoginLinkedIn}/>
                 <Route exact path="/callback_linkedin_join" component={CallbackRegisterLinkedIn}/>
                 <Route exact path="/callback_mydash" component={CallbackMyDash}/>
                 <Route exact path="/me" component={App(withAuth(Profile))}/>
-                <Route exact path="/join/:id" component={App(JoinContainer)}/>
+                <Route exact path="/join/:id" component={JoinContainer}/>
                 <Route exact path="/home" component={App(withAuth(Home))}/>
                 <Route exact path="/tree" component={App(withAuth(TreeContainer))}/>
                 <Route exact path="/message" component={App(withAuth(Error404))}/>
