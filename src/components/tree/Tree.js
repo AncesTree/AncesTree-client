@@ -1,27 +1,45 @@
 import React, { Component } from 'react'
 import Graph from "react-graph-vis";
-import { GET_SEARCH_URL } from '../../conf/config';
 import history from '../common/history'
-import { Form, Button, Row, Col } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
+import ModalRelation from "./ModalRelation";
+import Neo4jAPIService from "../../services/Neo4jAPIService";
 
 class Tree extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            endYear: ''
-        }
+            showModalRelation: false,
+            search : false,
+            promo : false
+        };
         this.fetchData = this.fetchData.bind(this)
         this.handleChange = this.handleChange.bind(this)
+        this.handleChangePromo = this.handleChangePromo.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
-
     };
 
+    updateShowModal(value) {
+        this.setState({showModalRelation: value})
+    }
+
+    affectSenior(senior, junior) {
+        Neo4jAPIService.createSeniorRelation(senior, junior)
+            .then(() => console.log("relation created"))
+            .catch(err => console.error(err))
+    }
 
     handleChange(event) {
+        
         event.preventDefault();
-
         this.searchData(event.target.value);
+
+    }
+    handleChangePromo(event) {
+        event.preventDefault();
+        this.searchPromo(event.target.value)
+        
 
     }
 
@@ -30,24 +48,21 @@ class Tree extends Component {
         this.searchData();
 
     }
-
+    searchPromo = (search) => {
+        this.props.searchPromo(search);
+    }
     searchData = (search) => {
         this.props.searchUser(search);
-    }
-    goToInvitation() {
-        history.push('/invitation')
     };
 
     fetchData = (id) => {
         if (id) {
-
             this.props.fetchLineage(id);
         }
     };
 
 
     componentDidMount() {
-
         this.fetchData(this.props.user.id);
     }
 
@@ -64,19 +79,15 @@ class Tree extends Component {
             let iPlusOne = userArray.filter(x => x.distance === iDistance + 1)
             if (isJunior) {
                 for (let j = 0; j < iPlusOne.length; j++) {
-                    edges.push({ from: iPlusOne[j].node.id, to: userArray[i].node.id, value: 2, color: { color: "lightgray" } })
+                    edges.push({ from: iPlusOne[j].node.id, to: userArray[i].node.id, value: 2, color:  "#black"  })
                 }
             } else {
                 for (let j = 0; j < iPlusOne.length; j++) {
-                    edges.push({ from: userArray[i].node.id, to: iPlusOne[j].node.id, value: 2, color: { color: "lightgray" } })
+                    edges.push({ from: userArray[i].node.id, to: iPlusOne[j].node.id, value: 2, color: "#968D81" })
                 }
             }
         }
         return edges
-    };
-
-    goToInvitation() {
-        history.push('/invitation')
     };
 
     render() {
@@ -108,55 +119,36 @@ class Tree extends Component {
             edges: edgesFetched
         };
 
-
         if (this.props.userFocus.id !== undefined) {
             graph.nodes.push({ id: this.props.userFocus.id, shape: "circularImage", image: "/assets/images/404castelltort.png", label: this.props.userFocus.firstname })
-
         }
-
-
-
-
 
         const options = {
             nodes: {
                 borderWidth: 4,
-                size: 40,
+                size: 50,
                 color: {
-                    border: "#222222",
+                    border: "",
                     background: "#666666"
                 },
                 font: { color: "black" }
             },
             edges: {
-                color: "blue"
-            }
+                color: "brown"
+            },
+            autoResize: true,
+            
+            
         };
 
         const events = {
-
             click: (event) => this.fetchData(event.nodes[0])
+
         };
 
-
-
-
-        const { juniors, seniors, focusUser } = this.props;
-        let juniorsClean, seniorsClean;
-        if (juniors === undefined) {
-            juniorsClean = []
-        } else {
-            juniorsClean = juniors
-        }
-
-        if (seniors === undefined) {
-            seniorsClean = []
-        } else {
-            seniorsClean = seniors
-        }
         return (
             <React.Fragment>
-
+                <ModalRelation show={this.state.showModalRelation} updateShow={this.updateShowModal.bind(this)} affectSenior={this.affectSenior.bind(this)}/>
                 <div className=" container text-center tree-container">
 
                     <div className="row">
@@ -165,21 +157,23 @@ class Tree extends Component {
                                 <div className="input-group-prepend">
                                     <span className="input-group-text" id="basic-addon1">Nom</span>
                                 </div>
-                                <input type="text" className="form-control" placeholder="Rechercher une personne" aria-label="Username" aria-describedby="basic-addon1" value={this.state.firstname} onChange={this.handleChange}></input>
+                                <input type="text" className="form-control" placeholder="Rechercher une personne" aria-label="Username" aria-describedby="basic-addon1"  onChange={this.handleChange}></input>
                             </div>
                             <div className="input-group mb-3">
                                 <div className="input-group-prepend">
                                     <span className="input-group-text" id="basic-addon1">Promo</span>
                                 </div>
-                                <input type="text" className="form-control" placeholder="Année diplomante" aria-label="Username" aria-describedby="basic-addon1"></input>
+                                <input type="text" className="form-control" placeholder="Année diplomante" aria-label="Username" aria-describedby="basic-addon1"  onChange={this.handleChangePromo} ></input>
                             </div>
                         </div>
 
                     </div>
 
+                   
+                    <Graph graph={graph} options={options} events={events} style={{ height: "100%", display: "flex" }} className = "graph "/>
 
-                    <Graph graph={graph} options={options} events={events} style={{ height: "120%", display: "flex" }} />
-
+                    
+                    
                     <div className="row mt-2">
                         <div className=" col-6 col-sm-6 col-md-6">
                             <Button variant="success" onClick={() => history.push('/invitation')} >
@@ -190,7 +184,7 @@ class Tree extends Component {
                             </Button>
                         </div>
                         <div className="col-6 col-sm-6 col-md-6">
-                            <Button variant="success">
+                            <Button variant="success" onClick={this.updateShowModal.bind(this, true)}>
                                 <div className="inside-btn row">
                                     <div className="col-6 col-sm-6 col-md-6"><img src="/assets/images/add.svg" className="image-btn" alt="" /></div>
                                     <div className="col-6 col-sm-6 col-md-6"><img src="/assets/images/relationship.svg" className="image-btn" alt="" /></div>

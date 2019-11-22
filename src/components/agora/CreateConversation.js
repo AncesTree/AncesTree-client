@@ -53,29 +53,28 @@ const CreateConversation = ({ user, callParent }) => {
         setShowForm(!showForm)
     }
 
-    const fetchUsers = () => {
-        const query = GET_CHAT_API.url + "users";
-        get(query, { headers: GET_CHAT_API.header })
-            .then(res => {
-                const dico = {};
-                res.forEach(element => {
-                    if (element.id != user._id) {
-                        dico[element._id] = false
-                    }
-                });
-                setDico(dico);
-                setAllUsers(res.filter(user => user._id !== me.id));
-                setLoad(true);
-            })
-            .catch(err => {
-                setError(err.message);
-                setLoad(true)
-            })
-    }
-
     useEffect(() => {
+        const fetchUsers = () => {
+            const query = GET_CHAT_API.url + "users";
+            get(query, { headers: GET_CHAT_API.header })
+                .then(res => {
+                    const dico = {};
+                    res.forEach(element => {
+                        if (element.id !== user._id) {
+                            dico[element._id] = false
+                        }
+                    });
+                    setDico(dico);
+                    setAllUsers(res.filter(user => user._id !== me.id));
+                    setLoad(true);
+                })
+                .catch(err => {
+                    setError(err.message);
+                    setLoad(true)
+                })
+        }
         fetchUsers();
-    }, [load])
+    }, [load, me, user])
 
     const { handleSubmit } = useForm();
 
@@ -111,7 +110,7 @@ const CreateConversation = ({ user, callParent }) => {
     }
 
     const onSubmit = () => {
-        if (input != "") {
+        if (input !== "") {
             postRoom();
         } else {
             alert("Please insert a name for the conversation");

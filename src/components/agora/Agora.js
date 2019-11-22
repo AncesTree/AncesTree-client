@@ -51,7 +51,7 @@ const Agora = () => {
                 setError(err.message);
                 setLoad(true)
             })
-    }
+    };
 
     useEffect(() => {
         fetchUser();
@@ -59,14 +59,14 @@ const Agora = () => {
 
     const handleSearch = () => {
         setIsSearching(!isSearching);
-    }
+    };
 
     const onSubmit = data => {
         console.log(data)
-    }
+    };
 
     const renderAgora = () => (
-        <div className='container'>
+        <div className='container agoraStuff'>
             <CreateConversation endpoint={GET_CHAT_API.url} user={userDB} userRooms={userDB.rooms} callParent={fetchUser} className="fidex-bottom" />
             <Fab color="primary" aria-label="add" className={classes.fab} onClick={handleSearch}>
                 <SearchRoundedIcon />
@@ -97,7 +97,7 @@ const Agora = () => {
                     </div>
             }
         </div>
-    )
+    );
 
     if (load) {
         return (

@@ -1,3 +1,6 @@
+.App{
+  height: 100%;
+}
 .rotate {
   animation: rotation 3s infinite linear;
   width: 80%;
@@ -102,7 +105,12 @@ a .active>svg {
 .navbar-light .navbar-brand:hover, .navbar-light .navbar-brand{
   color: #f5f5f5;
 }
+canvas{
+  
+  border-radius: 10px;
+  border: 2px solid rgba(192, 218, 241, 0.2);
 
+}
 
 html {
   overflow-x: hidden;
@@ -308,4 +316,12 @@ body {
 .card-img{
   max-height: 250px;
   max-width: 250px;
+}
+
+.profilepicture{
+  -webkit-user-select: none
+}
+
+.agoraStuff{
+  padding: 0;
 }

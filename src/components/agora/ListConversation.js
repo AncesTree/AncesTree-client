@@ -25,17 +25,16 @@ function ListItemLink(props) {
 
 const ListConversation = ({ rooms, userId, callParent }) => {
     const classes = useStyles();
-    const [error, setError] = useState('');
 
     const deleteRoom = (id) => {
-        const roomsUpdated = rooms.map(r => r._id).filter(r => r != id);
+        const roomsUpdated = rooms.map(r => r._id).filter(r => r !== id);
         const query = GET_CHAT_API.url + "users/" + userId;
         patch(query, { "rooms": roomsUpdated }, { headers: GET_CHAT_API.header })
             .then(response => {
                 callParent();
             })
             .catch(err => {
-                setError(err.message)
+                console.log(err)
             })
 
     }
