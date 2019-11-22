@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import history from '../common/history'
 import authFetch from '../../services/authFetch'
+import {LINKEDIN_AUTHORIZATION_ASSOCIATE_URL} from '../../conf/config'
 
 class Profile extends Component {
     constructor(props) {
@@ -52,15 +53,6 @@ class Profile extends Component {
         }).catch((error) => console.log(error))
     }
 
-    displayPicture(user){
-        if(user.profileImageUrl){
-            return <img src={user.profileImageUrl} className="profilepicture" class="card-img " alt="profile picture"/>
-        }
-        else{
-            return <img src="/assets/user.png" className="profilepicture" class="card-img " alt="profile picture"/>
-        }
-    }
-
     render() {
         const user = this.props.user
         return (
@@ -71,7 +63,7 @@ class Profile extends Component {
                     </div>
                     <div class="col-md-6 col-sm-12 ">
                         <div class="col-8 offset-2">
-                            {this.displayPicture(user)}
+                            <img src="/assets/user.png" className="profilepicture" class="card-img " alt="profile picture"/>   
                         </div> 
                     </div>
                 </div>
@@ -117,6 +109,7 @@ class Profile extends Component {
                     <Form.Control type="date"  name="birthdate" placeholder="Date de naissance"  value={user.birthdate} disabled />
                 </Form.Group>
             </Form>
+            <a href={LINKEDIN_AUTHORIZATION_ASSOCIATE_URL.url} className="social-button" id="linkedin-connect"><span>Associate with LinkedIn</span></a>
         </div>
 
         );
