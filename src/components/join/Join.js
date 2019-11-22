@@ -25,12 +25,9 @@ class Join extends Component {
 
     onSubmit = (event) => {
         event.preventDefault();
-        this.setState({
-            id: history.location.pathname.split("/")[2]
-        })
         const { basicAccountCreation } = this.props;
         if(this.state.confirmation === this.state.password){
-            basicAccountCreation(this.state.id,this.state.email,this.state.password)
+            basicAccountCreation(history.location.pathname.split("/")[2],this.state.email,this.state.password)
         }
     }
 
