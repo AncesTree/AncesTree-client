@@ -64,7 +64,7 @@ const CreateConversation = ({ user, callParent }) => {
                     }
                 });
                 setDico(dico);
-                setAllUsers(res);
+                setAllUsers(res.filter(user => user._id !== me.id));
                 setLoad(true);
             })
             .catch(err => {
