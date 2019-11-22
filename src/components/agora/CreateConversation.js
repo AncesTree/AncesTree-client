@@ -46,7 +46,6 @@ const CreateConversation = ({ user, callParent }) => {
     const [dico, setDico] = useState({})
     const [load, setLoad] = useState(false);
     const [error, setError] = useState('');
-    const me = useSelector(state => state.user);
     const classes = useStyles();
 
     const handleClick = () => {
@@ -64,7 +63,7 @@ const CreateConversation = ({ user, callParent }) => {
                     }
                 });
                 setDico(dico);
-                setAllUsers(res.filter(user => user._id !== me.id));
+                setAllUsers(res.filter(x => x._id !== user._id));
                 setLoad(true);
             })
             .catch(err => {
@@ -80,7 +79,7 @@ const CreateConversation = ({ user, callParent }) => {
     const { handleSubmit } = useForm();
 
     const postRoom = () => {
-        const users = [user._id]
+        const users = []
         for (var key in dico) {
             if (dico[key]) {
                 users.push(key)
@@ -92,17 +91,9 @@ const CreateConversation = ({ user, callParent }) => {
         post(queryRoom, room, headers)
             .then(
                 res => {
-                    const queryUser = GET_CHAT_API.url + "users/" + user._id;
-                    const userUpdate = { "rooms": [...user.rooms, res._id] };
-                    patch(queryUser, userUpdate, headers)
-                        .then(response => {
-                            callParent();
-                            setInput('');
-                            setShowForm(!showForm);
-                        })
-                        .catch(err => {
-                            setError(err.message)
-                        })
+                    callParent();
+                    setInput('');
+                    setShowForm(!showForm);
                 }
             )
             .catch(err => {
