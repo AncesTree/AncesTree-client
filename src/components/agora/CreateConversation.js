@@ -57,7 +57,7 @@ const CreateConversation = ({ user, callParent }) => {
             .then(res => {
                 const dico = {};
                 res.forEach(element => {
-                    if (element._id != user._id) {
+                    if (element._id !== user._id) {
                         dico[element._id] = false
                     }
                 });
@@ -73,7 +73,7 @@ const CreateConversation = ({ user, callParent }) => {
 
     useEffect(() => {
         fetchUsers();
-    }, [load])
+    }, [load, fetchUsers])
 
     const { handleSubmit } = useForm();
 
@@ -109,7 +109,7 @@ const CreateConversation = ({ user, callParent }) => {
     }
 
     const onSubmit = () => {
-        if (input != "") {
+        if (input !== "") {
             postRoom();
         } else {
             alert("Please insert a name for the conversation");

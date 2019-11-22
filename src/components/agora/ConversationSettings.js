@@ -3,7 +3,6 @@ import history from "../../components/common/history";
 import ChatIcon from '@material-ui/icons/Chat';
 import Fab from '@material-ui/core/Fab';
 import { makeStyles } from '@material-ui/core/styles';
-import { useSelector } from "react-redux";
 
 const useStyles = makeStyles(theme => ({
     fab: {
@@ -11,8 +10,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const ConversationSettings = () => {
-    const user = useSelector(state => state.user);
-    const [roomId, setRoomId] = useState(history.location.pathname.split("/")[4])
+    const roomId = useState(history.location.pathname.split("/")[4])
     const classes = useStyles();
 
     useEffect(() => { });

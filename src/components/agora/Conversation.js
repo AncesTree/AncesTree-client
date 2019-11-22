@@ -4,8 +4,6 @@ import { GET_CHAT_API } from "../../conf/config";
 import { makeStyles } from '@material-ui/core/styles';
 import { TextField, Box } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
-import Button from "@material-ui/core/Button";
-import SettingsIcon from '@material-ui/icons/Settings';
 import Fab from '@material-ui/core/Fab';
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -85,7 +83,7 @@ const Conversation = () => {
             <ListItem key={key} alignItems="flex-start" >
               <ListItemText
                 primary={
-                  message.sender == user.id ?
+                  message.sender === user.id ?
                     "You"
                     :
                     "Not You" //message.sender.name
