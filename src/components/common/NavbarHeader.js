@@ -37,7 +37,7 @@ function NavbarHeader() {
         <CheeseburgerMenu isOpen={menuOpen} closeCallback={closeMenu} backgroundColor="#6c757d">
             <div className="my-menu-content">
                 <ul>
-                    <li><Link to="/me" onClick={closeMenu}>My profile</Link></li>
+                    <li><Link to="/me" onClick={closeMenu}>Mon profil</Link></li>
                     <li><GiExitDoor/><Link to="/login" onClick={disconnect}>Déconnexion</Link></li>
                 </ul>
             </div>
