@@ -57,7 +57,7 @@ function Root() {
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/login/:error_msg" component={Login} />
                 <Route exact path="/token/:token" component={Token}/>
-                <Route exact path="/register" component={App(withAuth(Register))}/>
+                <Route exact path="/register" component={withAuth(Register)}/>
                 <Route exact path="/updateProfile" component={App(withAuth(UpdateProfile))}/>
                 <Route exact path="/callback_linkedin_associate" component={CallbackAssociateLinkedIn}/>
                 <Route exact path="/callback_linkedin_login" component={CallbackLoginLinkedIn}/>
