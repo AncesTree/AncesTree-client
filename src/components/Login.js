@@ -41,24 +41,24 @@ export default class Login extends Component {
             <div className="loginBackground">
                 <Form className="loginForm" onSubmit={this.onSubmit}>
                     <Form.Group controlId="formBasicEmail">
-                        <Form.Label>Email address</Form.Label>
-                        <Form.Control type="email" name="email" placeholder="Enter email" value={this.state.email}
+                        <Form.Label>Adresse mail</Form.Label>
+                        <Form.Control type="email" name="email" placeholder="Adresse mail" value={this.state.email}
                                       onChange={this.handleInputChange} required/>
                     </Form.Group>
 
                     <Form.Group controlId="formBasicPassword">
                         <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" name="password" placeholder="Password" value={this.state.password}
+                        <Form.Control type="password" name="password" placeholder="Mot de passe" value={this.state.password}
                                       onChange={this.handleInputChange} required/>
                     </Form.Group>
 
                     <Button className="loginButton" variant="primary" type="submit">
-                        Submit
+                        Se connecter
                     </Button>
                 </Form>
                 <div className="login-box">
-			        <a href={LINKEDIN_AUTHORIZATION_LOGIN_URL.url} className="social-button" id="linkedin-connect"><span>Connect with LinkedIn</span></a>
-                    <a href={MYDASH_AUTHORIZATION_URL.url}  className="social-button2" id="mydash-connect"><span>Connect with MyDash</span></a>
+			        <a href={LINKEDIN_AUTHORIZATION_LOGIN_URL.url} className="social-button" id="linkedin-connect"><span>Se connecter avec LinkedIn</span></a>
+                    <a href={MYDASH_AUTHORIZATION_URL.url}  className="social-button2" id="mydash-connect"><span>Se connecter avec MyDash</span></a>
                 </div>
             </div>
         );
