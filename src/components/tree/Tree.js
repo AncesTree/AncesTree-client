@@ -9,19 +9,27 @@ class Tree extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            endYear: ''
+            search : false,
+            promo : false
         }
         this.fetchData = this.fetchData.bind(this)
         this.handleChange = this.handleChange.bind(this)
+        this.handleChangePromo = this.handleChangePromo.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
 
     };
 
 
     handleChange(event) {
+        
         event.preventDefault();
-
         this.searchData(event.target.value);
+
+    }
+    handleChangePromo(event) {
+        event.preventDefault();
+        this.searchPromo(event.target.value)
+        
 
     }
 
@@ -30,7 +38,9 @@ class Tree extends Component {
         this.searchData();
 
     }
-
+    searchPromo = (search) => {
+        this.props.searchPromo(search);
+    }
     searchData = (search) => {
         this.props.searchUser(search);
     }
@@ -64,11 +74,11 @@ class Tree extends Component {
             let iPlusOne = userArray.filter(x => x.distance === iDistance + 1)
             if (isJunior) {
                 for (let j = 0; j < iPlusOne.length; j++) {
-                    edges.push({ from: iPlusOne[j].node.id, to: userArray[i].node.id, value: 2, color: { color: "lightgray" } })
+                    edges.push({ from: iPlusOne[j].node.id, to: userArray[i].node.id, value: 2, color:  "#black"  })
                 }
             } else {
                 for (let j = 0; j < iPlusOne.length; j++) {
-                    edges.push({ from: userArray[i].node.id, to: iPlusOne[j].node.id, value: 2, color: { color: "lightgray" } })
+                    edges.push({ from: userArray[i].node.id, to: iPlusOne[j].node.id, value: 2, color: "#968D81" })
                 }
             }
         }
@@ -121,21 +131,25 @@ class Tree extends Component {
         const options = {
             nodes: {
                 borderWidth: 4,
-                size: 40,
+                size: 50,
                 color: {
-                    border: "#222222",
+                    border: "",
                     background: "#666666"
                 },
                 font: { color: "black" }
             },
             edges: {
-                color: "blue"
-            }
+                color: "brown"
+            },
+            autoResize: true,
+            
+            
         };
 
         const events = {
 
             click: (event) => this.fetchData(event.nodes[0])
+
         };
 
 
@@ -165,21 +179,23 @@ class Tree extends Component {
                                 <div className="input-group-prepend">
                                     <span className="input-group-text" id="basic-addon1">Nom</span>
                                 </div>
-                                <input type="text" className="form-control" placeholder="Rechercher une personne" aria-label="Username" aria-describedby="basic-addon1" value={this.state.firstname} onChange={this.handleChange}></input>
+                                <input type="text" className="form-control" placeholder="Rechercher une personne" aria-label="Username" aria-describedby="basic-addon1"  onChange={this.handleChange}></input>
                             </div>
                             <div className="input-group mb-3">
                                 <div className="input-group-prepend">
                                     <span className="input-group-text" id="basic-addon1">Promo</span>
                                 </div>
-                                <input type="text" className="form-control" placeholder="Année diplomante" aria-label="Username" aria-describedby="basic-addon1"></input>
+                                <input type="text" className="form-control" placeholder="Année diplomante" aria-label="Username" aria-describedby="basic-addon1"  onChange={this.handleChangePromo} ></input>
                             </div>
                         </div>
 
                     </div>
 
+                   
+                    <Graph graph={graph} options={options} events={events} style={{ height: "100%", display: "flex" }} className = "graph "/>
 
-                    <Graph graph={graph} options={options} events={events} style={{ height: "120%", display: "flex" }} />
-
+                    
+                    
                     <div className="row mt-2">
                         <div className=" col-6 col-sm-6 col-md-6">
                             <Button variant="success" onClick={() => history.push('/invitation')} >

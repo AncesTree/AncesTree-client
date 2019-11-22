@@ -1,10 +1,11 @@
 import {connect} from 'react-redux'
-import {fetchLineage, fetchResearch} from '../actions/Tree'
+import {fetchLineage, fetchResearch,fetchPromo} from '../actions/Tree'
 import Tree from "../components/tree/Tree";
 
 const mapDispatchToProps = dispatch => ({
   fetchLineage: (id) => dispatch(fetchLineage(id)),
-  searchUser: (search) => dispatch(fetchResearch(search))
+  searchUser: (search) => dispatch(fetchResearch(search)),
+  searchPromo : (search) => dispatch(fetchPromo(search))
   });
   
   const mapStateToProps = state => ({
