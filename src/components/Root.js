@@ -20,7 +20,6 @@ import Agora from "./agora/Agora";
 import Conversation from "./agora/Conversation";
 import ConversationSettings from "./agora/ConversationSettings";
 
-import { Alert } from "react-bootstrap";
 import { get } from 'http';
 import user from '../reducers/UserReducer';
 import Home from "./home/HomeScreen";
