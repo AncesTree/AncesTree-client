@@ -12,29 +12,26 @@ import ListItemText from "@material-ui/core/ListItemText";
 import { useSelector } from "react-redux";
 import io from 'socket.io-client';
 import { get } from './methods'
-
+import List from '@material-ui/core/List';
 const socket = io(GET_CHAT_API.url);
 
 const useStyles = makeStyles(theme => ({
   textField: {
-    left: theme.spacing(2),
-
   },
   button: {
-    color: "#08103b",
   },
   fab: {
-    left: theme.spacing(1),
+    position: "fixed",
+    bottom: theme.spacing(9),
+    right: theme.spacing(2)
   },
   input: {
     position: "fixed",
-    left: theme.spacing(50),
     bottom: theme.spacing(8),
-    width: "60%",
+    right: theme.spacing(10)
   },
-  div: {
-    bottom: theme.spacing(20),
-  }
+  root: {
+  },
 }));
 
 const Conversation = () => {
@@ -44,7 +41,6 @@ const Conversation = () => {
   const [input, setInput] = useState('');
   const [load, setLoad] = useState(false);
   const [error, setError] = useState('');
-  const [messageCount, setMessageCount] = useState(0);
   const classes = useStyles();
 
   const fetchMessages = () => {
@@ -63,9 +59,7 @@ const Conversation = () => {
   useEffect(() => {
     fetchMessages();
     socket.on(roomId, payload => {
-      console.log(payload);
       setMessages([...messages, payload])
-      setMessageCount(messageCount + 1);
     });
   }, [load]);
 
@@ -85,7 +79,7 @@ const Conversation = () => {
 
   const renderConversation = () => (
     <>
-      <div>
+      <List className={classes.root}>
         {
           messages.map((message, key) => (
             <ListItem key={key} alignItems="flex-start" >
@@ -105,11 +99,16 @@ const Conversation = () => {
             </ListItem>
           ))
         }
-      </div>
-      <form onSubmit={e => handleSend(e)} className={classes.input}>
-        <Box>
+      </List>
+      <form onSubmit={e => handleSend(e)} id="chat">
+          <Fab
+          className={classes.fab}
+            type="submit"
+          > <SendIcon> Send </SendIcon>
+          </Fab>
           <TextField
             value={input}
+            className={classes.input}
             onChange={e => setInput(e.target.value)}
             id="outlined-basic"
             label="Message"
@@ -117,12 +116,7 @@ const Conversation = () => {
             variant="outlined"
             type="text"
           />
-          <Button
-            variant="contained"
-            endIcon={<SendIcon> Send </SendIcon>}
-            type="submit"
-          > Send </Button>
-        </Box>
+          
       </form>
     </>
   );
