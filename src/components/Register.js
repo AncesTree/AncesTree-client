@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import history from './common/history'
 import authFetch from '../services/authFetch'
-import {connect} from 'react-redux'
 
-class Register extends Component {
+export default class Register extends Component {
     constructor(props) {
         super(props)
         this.state = {
