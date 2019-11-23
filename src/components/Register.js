@@ -7,9 +7,7 @@ import {connect} from 'react-redux'
 class Register extends Component {
     constructor(props) {
         super(props)
-        const user = this.props.user
         this.state = {
-            id: user.id,
             email : '',
             phone : '',
             firstname: '',
@@ -35,11 +33,10 @@ class Register extends Component {
     onSubmit = (event) => {
         console.log(this.state)
         event.preventDefault();
-        authFetch('https://ancestree-api-neo4j.igpolytech.fr/api/users/'+this.state.id, {
-            method: 'PUT',
+        authFetch('https://ancestree-api-neo4j.igpolytech.fr/api/users', {
+            method: 'POST',
             headers: {'Content-Type':'application/json'},
             body: JSON.stringify({
-                id: this.state.id,
                 email : this.state.email,
                 phone : this.state.phone,
                 firstname: this.state.firstname,
@@ -155,12 +152,3 @@ class Register extends Component {
         );
     }
 }
-
-const mapDispatchToProps = dispatch => ({
-});
-
-const mapStateToProps = state => ({
-    user: state.user
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Register);

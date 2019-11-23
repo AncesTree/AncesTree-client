@@ -23,7 +23,7 @@ export default class CallbackRegisterLinkedIn extends Component {
         .then((res) => {
             if(res.data.token){
                 localStorage.setItem("Authorization", res.data.token)
-                history.push('/register')
+                history.push('/')
             }
             else{
                 history.push('/join/'+localStorage.getItem("InvitationID")+'/unknown_error')
