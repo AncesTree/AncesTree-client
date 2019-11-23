@@ -75,7 +75,7 @@ function Root() {
                 <Route exact path="/agora/conversation/:id" component={App(withAuth(Conversation))} />
                 <Route exact path="/agora/conversation/settings/:id" component={App(withAuth(ConversationSettings))} />
                 <Route exact path="/" component={App(withAuth(Home))} />
-
+                <Error404/>
             </Switch>
         </Router>
     </Provider>

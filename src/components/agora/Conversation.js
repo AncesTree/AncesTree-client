@@ -10,24 +10,35 @@ import { useSelector } from "react-redux";
 import io from 'socket.io-client';
 import List from '@material-ui/core/List';
 import ChatAPIService from "../../services/ChatAPIService";
-import { animateScroll as scroll } from 'react-scroll'
+import { animateScroll as scroll } from 'react-scroll';
+import Grid from "@material-ui/core/Grid";
 
 const socket = io(process.env.REACT_APP_CHAT_API);
 
 const useStyles = makeStyles(theme => ({
-  textField: {
-  },
-  button: {
+  containerForm: {
+
   },
   fab: {
-    position: "fixed",
-    bottom: theme.spacing(9),
-    right: theme.spacing(2)
+  },
+  form: {
+    flexGrow: 1,
+  },
+  gridInput: {
+    height: "75px",
+    bottom: "57px",
+  },
+  gridFab: {
+    marginLeft: "-7px",
+    paddingLeft: "0px !important",
+    paddingTop: "18px !important",
+    right: theme.spacing(1)
   },
   input: {
-    position: "fixed",
-    bottom: theme.spacing(8),
-    right: theme.spacing(10)
+    marginTop: 9,
+    marginLeft: "0.25%",
+    marginRight: "0.25%",
+    width: "99.5%"
   },
   root: {
     top: "0px",
@@ -35,7 +46,7 @@ const useStyles = makeStyles(theme => ({
   },
   divMessage: {
     bottom: "57px",
-    height: "80px",
+    height: "75px",
     position: "fixed",
     background: "white",
     width: "100%",
@@ -110,12 +121,11 @@ const Conversation = () => {
       </List>
 
       <div className={classes.divMessage}>
-      <form onSubmit={e => handleSend(e)} id="chat">
-          <Fab
-          className={classes.fab}
-            type="submit"
-          > <SendIcon> Send </SendIcon>
-          </Fab>
+      <form className={classes.form} onSubmit={e => handleSend(e)} id="chat">
+        <Grid container className={classes.containerForm} spacing={3}>
+
+
+          <Grid item xs={10} className={classes.gridInput}>
           <TextField
             value={input}
             className={classes.input}
@@ -126,6 +136,16 @@ const Conversation = () => {
             variant="outlined"
             type="text"
           />
+        </Grid>
+
+          <Grid item xs={2} className={classes.gridFab}>
+            <Fab
+                className={classes.fab}
+                type="submit"
+            > <SendIcon> Send </SendIcon>
+            </Fab>
+          </Grid>
+        </Grid>
           
       </form>
       </div>
