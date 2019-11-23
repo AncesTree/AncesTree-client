@@ -26,7 +26,7 @@ const useStyles = makeStyles(theme => ({
   },
   gridInput: {
     height: "75px",
-    bottom: "57px",
+    bottom: "56px",
   },
   gridFab: {
     marginLeft: "-7px",
@@ -42,7 +42,7 @@ const useStyles = makeStyles(theme => ({
   },
   root: {
     top: "0px",
-    bottom: theme.spacing(8)
+    marginBottom: "130px"
   },
   divMessage: {
     bottom: "57px",
